@@ -1,0 +1,138 @@
+
+<!-- Latest jQuery --> 
+<script src="assets/js/jquery-3.7.1.min.js"></script> 
+<!-- popper min js -->
+
+		<script src="assets/js/jquery-ui.js"></script>
+<script src="assets/js/popper.min.js"></script>
+<!-- Latest compiled and minified Bootstrap --> 
+<script src="assets/bootstrap/js/bootstrap.min.js"></script> 
+<!-- owl-carousel min js  --> 
+<script src="assets/owlcarousel/js/owl.carousel.min.js"></script> 
+<!-- magnific-popup min js  --> 
+<script src="assets/js/magnific-popup.min.js"></script> 
+<!-- waypoints min js  --> 
+<script src="assets/js/waypoints.min.js"></script> 
+<!-- parallax js  --> 
+<script src="assets/js/parallax.js"></script> 
+<!-- countdown js  --> 
+<script src="assets/js/jquery.countdown.min.js"></script> 
+<!-- imagesloaded js --> 
+<script src="assets/js/imagesloaded.pkgd.min.js"></script>
+<!-- isotope min js --> 
+<script src="assets/js/isotope.min.js"></script>
+<!-- jquery.dd.min js -->
+<script src="assets/js/jquery.dd.min.js"></script>
+<!-- slick js -->
+<script src="assets/js/slick.min.js"></script>
+<!-- elevatezoom js -->
+<script src="assets/js/jquery.elevatezoom.js"></script>
+<!-- scripts js --> 
+<script src="assets/js/scripts.js"></script>
+<script>
+$('#owl-carousel').owlCarousel({
+    loop: true,
+    margin: 30,
+    dots: false,
+    nav: true,
+    items: 4,
+	navText: ['<i class="ion-ios-arrow-left"></i>', '<i class="ion-ios-arrow-right"></i>'],
+	 responsive : {
+      // breakpoint from 0 up
+      0 : {
+        stagePadding: 0,
+        loop: true,
+        responsiveClass: true,
+        dots: false,
+        nav: true,
+        autoHeight: true,
+        items: 2
+      },
+      // breakpoint from 768 up
+      768 : {
+        items: 3
+      }
+    }
+})
+$('#tp-sell-carousel').owlCarousel({
+    loop: true,
+    margin: 30,
+    dots: false,
+    nav: true,
+    items: 4,
+	navText: ['<i class="ion-ios-arrow-left"></i>', '<i class="ion-ios-arrow-right"></i>'],
+	 responsive : {
+      // breakpoint from 0 up
+      0 : {
+        stagePadding: 0,
+        loop: true,
+        responsiveClass: true,
+        dots: false,
+        nav: true,
+        autoHeight: true,
+        items: 1
+      },
+      // breakpoint from 768 up
+      768 : {
+        items: 3
+      }
+    }
+})
+$('#related-prod-carousel').owlCarousel({
+    loop: true,
+    margin: 30,
+    dots: false,
+    nav: true,
+	navText: ['<i class="ion-ios-arrow-left"></i>', '<i class="ion-ios-arrow-right"></i>'],
+	 responsive : {
+      // breakpoint from 0 up
+      0 : {
+        stagePadding: 0,
+        loop: true,
+        responsiveClass: true,
+        dots: false,
+        nav: true,
+        autoHeight: true,
+        items: 1
+      },
+      600 : {
+        items: 3
+      },
+	  1000 : {
+		 items: 4 
+	  }
+    }
+})
+$('#new-arrivals').owlCarousel({
+    loop: true,
+    margin: 30,
+    dots: false,
+    nav: true,
+    items: 4,
+	navText: ['<i class="ion-ios-arrow-left"></i>', '<i class="ion-ios-arrow-right"></i>'],
+	 responsive : {
+      // breakpoint from 0 up
+      0 : {
+        stagePadding: 0,
+        loop: true,
+        responsiveClass: true,
+        dots: false,
+        nav: true,
+        autoHeight: true,
+        items: 1
+      },
+      // breakpoint from 768 up
+      768 : {
+        items: 3
+      }
+    }
+})
+
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+</script>

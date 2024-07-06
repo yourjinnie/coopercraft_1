@@ -1,0 +1,182 @@
+
+            
+
+        
+       
+<!-- START FOOTER -->
+<footer class="footer_dark">
+	<div class="footer_top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                	<div class="widget">
+                        <p>M.P. State Co-operative Union Limited Bhopal (Union) is a state level apex co-operative organization registered under M.P. Co-operative Societies Act dated 25-3-1958 and its registration number is 4. Its registered head office is located at E-8/77, Shahpura, Trilanga, Bhopal. The entire state of Madhya Pradesh is covered in the operational area of the Union.</p>
+                    </div>
+                    <div class="widget">
+                        <ul class="social_icons social_white">
+                            <li><a href="#"><i class="ion-social-facebook"></i></a></li>
+                            <li><a href="#"><i class="ion-social-twitter"></i></a></li>
+                            <li><a href="#"><i class="ion-social-googleplus"></i></a></li>
+                            <li><a href="#"><i class="ion-social-youtube-outline"></i></a></li>
+                            <li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>
+                        </ul>
+                    </div>
+        		</div>
+                <div class="col-lg-2 col-md-3 col-sm-6">
+                	<div class="widget">
+                        <h6 class="widget_title">Need Help?</h6>
+                        <ul class="widget_links">
+                            <li><a href="contact.php">Contact Us</a></li>
+                            <li><a href="policy.php">Refund Policy</a></li>
+                            <li><a href="policy.php">Shipping Policy</a></li>
+                            <li><a href="policy.php">FAQs</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-3 col-sm-6">
+                	<div class="widget">
+                        <h6 class="widget_title">Quick Links</h6>
+                        <ul class="widget_links">
+                            <li><a href="index.php">Home</a></li>
+                            <li><a href="about.php">About Us</a></li>
+                            <li><a href="blog.php">Blog</a></li>                            <li><a href="forum.php">Forum</a></li>
+                            <li><a href="policy.php">Terms Of Services</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 col-sm-6">
+                	<div class="widget">
+                        <h6 class="widget_title">Handy Craft</h6>
+                        <ul class="widget_links">
+                            <li><a href="#">Artifacts</a></li>
+                            <li><a href="#">Bathware</a></li>
+                            <li><a href="#">Kitchenware</a></li>
+                            <li><a href="#">Figures</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                	<div class="widget">
+                        <h6 class="widget_title">Contact Info</h6>
+                        <ul class="contact_info contact_info_light">
+                            <li>
+                                <i class="ti-location-pin"></i>
+                                <p>Bhopal Madhya Pradesh</p>
+                            </li>
+                            <li>
+                                <i class="ti-email"></i>
+                                <a href="mailto:info@handycraft.org">info@handycraft.org</a>
+                            </li>
+                            <li>
+                                <i class="ti-mobile"></i>
+                                <p>+91 987 654 3210</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom_footer border-top-tran">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="mb-md-0 text-center ">© 2024 Coopcraft. All rights reserved.</p>
+					<>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- END FOOTER -->
+<style>
+.mchatbtn {
+  background-color: transparent;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    opacity: 1;
+    position: fixed;
+    bottom: 0px;
+    right: -15px;
+    width: 140px;
+    z-index: 9999;
+}
+
+/* The popup chat - hidden by default */
+.chat-popup {
+  display: none;
+  position: fixed;
+  bottom: 0px;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.mform-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width textarea */
+.mform-container textarea {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+  resize: none;
+  min-height: 200px;
+}
+
+/* When the textarea gets focus, do something */
+.mform-container textarea:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/send button */
+.mform-container .mbtn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.mform-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.mform-container .mbtn:hover, .mchatbtn:hover {
+  opacity: 1;
+}
+</style>
+<button class="open-button mchatbtn" onclick="openForm()" ><img src="aichat.png"/></button>
+<!--
+<div class="chat-popup" id="myForm">
+  <form action="/action_page.php" class="mform-container">
+    <h6>Chat</h6>
+
+    <label for="msg"><b>Message</b></label>
+    <textarea placeholder="Type message.." name="msg" required></textarea>
+
+    <button type="submit" class="mbtn">Send</button>
+    <button type="button" class="mbtn cancel" onclick="closeForm()">Close</button>
+  </form>
+</div>
+-->
+<a href="#" class="scrollup" style="display: none;"><i class="ion-ios-arrow-up"></i></a>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="path/to/your/scripts.js"></script>
+    
+        

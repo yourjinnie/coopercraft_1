@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div id="owl-carousel" class="owl-carousel nav_style1 owl-theme">
+            {% for collection in collections %}
+            <div class="item">
+                <a href="/?collection={{collection.id}}">
+                    <div class="collection_banner">
+                        <img src={{collection.collection_image.url}} alt="collection images">
+                        <h3 class="collection_title">{{collection}}</h3>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!--                            <div class="item">-->
+<!--								<a href="/bamboo-craft">-->
+<!--									<div class="collection_banner">-->
+<!--										<img src="/static/assets/images/01-Bamboo-Craft.jpg" alt="shop_banner_img1" />-->
+<!--										<h3 class="collection_title">Bamboo Craft</h3>-->
+<!--									</div>-->
+<!--								</a>-->
+<!--							</div>-->
+<!--                            <div class="item">-->
+<!--								<a href="/block-printed-bag">-->
+<!--									<div class="collection_banner">-->
+<!--										<img src="/static/assets/images/02-Block-Printed-Bag.jpg" alt="shop_banner_img1" />-->
+<!--										<h3 class="collection_title">Block Printed Bag</h3>-->
+<!--									</div>-->
+<!--								</a>-->
+<!--							</div>-->
+<!--							<div class="item">-->
+<!--								<a href="/jute-crafts">-->
+<!--									<div class="collection_banner">-->
+<!--										<img src="/static/assets/images/03-Jute-Crafts.jpg" alt="shop_banner_img1" />-->
+<!--										<h3 class="collection_title">Jute Crafts</h3>-->
+<!--									</div>-->
+<!--								</a>-->
+<!--							</div>-->
+<!--							<div class="item">-->
+<!--								<a href="/stone-carving">-->
+<!--									<div class="collection_banner">-->
+<!--										<img src="/static/assets/images/04-Stone-Carving.jpg" alt="shop_banner_img1" />-->
+<!--										<h3 class="collection_title">Stone Carving</h3>-->
+<!--									</div>-->
+<!--								</a>-->
+<!--							</div>-->
+<!--							<div class="item">-->
+<!--								<a href="/terracotta">-->
+<!--									<div class="collection_banner">-->
+<!--										<img src="/static/assets/images/05-Terracotta.jpg" alt="shop_banner_img1" />-->
+<!--										<h3 class="collection_title">Terracotta</h3>-->
+<!--									</div>-->
+<!--								</a>-->
+<!--							</div>-->

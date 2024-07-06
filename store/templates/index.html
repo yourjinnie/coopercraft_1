@@ -1,0 +1,863 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- START SECTION BANNER -->
+<div class="banner_section slide_medium shop_banner_slider staggered-animation-wrap">
+    <div id="carouselExampleControls" class="carousel slide carousel-fade light_arrow" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active background_bg" data-img-src="/static/assets/images/banner1.jpg">
+                <div class="banner_slide_content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-7 col-9"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item background_bg" data-img-src="/static/assets/images/banner6.jpg">
+                <div class="banner_slide_content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-7 col-9"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item background_bg" data-img-src="/static/assets/images/banner3.jpg">
+                <div class="banner_slide_content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item background_bg" data-img-src="/static/assets/images/banner4.jpg">
+                <div class="banner_slide_content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev"><i
+                class="ion-chevron-left"></i></a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next"><i
+                class="ion-chevron-right"></i></a>
+    </div>
+</div>
+<!-- END SECTION BANNER -->
+
+<!-- END MAIN CONTENT -->
+<div class="main_content">
+
+    <!-- START SECTION BANNER -->
+    <div class="section pb_20">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="heading_s1 text-center">
+                        <h2>Our Collections</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div id="owl-carousel" class="owl-carousel nav_style1 owl-theme">
+                            {% for collection in collections %}
+                            <div class="item">
+                                <a href="{% url 'collection' collection.id %}">
+                                    <div class="collection_banner">
+                                        <img src={{collection.collection_image.url}} alt="collection images">
+                                        <h3 class="collection_title">{{collection.collection}}</h3>
+                                    </div>
+                                </a>
+                            </div>
+                            {% endfor %}
+                            <!--                            aaaa-->
+                            <!--								<a href="/bamboo-craft">-->
+                            <!--									<div class="collection_banner">-->
+                            <!--										<img src="/static/assets/images/01-Bamboo-Craft.jpg" alt="shop_banner_img1" />-->
+                            <!--										<h3 class="collection_title">Bamboo Craft</h3>-->
+                            <!--									</div>-->
+                            <!--								</a>-->
+                            <!--							</div>-->
+                            <!--                            <div class="item">-->
+                            <!--								<a href="/block-printed-bag">-->
+                            <!--									<div class="collection_banner">-->
+                            <!--										<img src="/static/assets/images/02-Block-Printed-Bag.jpg" alt="shop_banner_img1" />-->
+                            <!--										<h3 class="collection_title">Block Printed Bag</h3>-->
+                            <!--									</div>-->
+                            <!--								</a>-->
+                            <!--							</div>-->
+                            <!--							<div class="item">-->
+                            <!--								<a href="/jute-crafts">-->
+                            <!--									<div class="collection_banner">-->
+                            <!--										<img src="/static/assets/images/03-Jute-Crafts.jpg" alt="shop_banner_img1" />-->
+                            <!--										<h3 class="collection_title">Jute Crafts</h3>-->
+                            <!--									</div>-->
+                            <!--								</a>-->
+                            <!--							</div>-->
+                            <!--							<div class="item">-->
+                            <!--								<a href="/stone-carving">-->
+                            <!--									<div class="collection_banner">-->
+                            <!--										<img src="/static/assets/images/04-Stone-Carving.jpg" alt="shop_banner_img1" />-->
+                            <!--										<h3 class="collection_title">Stone Carving</h3>-->
+                            <!--									</div>-->
+                            <!--								</a>-->
+                            <!--							</div>-->
+                            <!--							<div class="item">-->
+                            <!--								<a href="/terracotta">-->
+                            <!--									<div class="collection_banner">-->
+                            <!--										<img src="/static/assets/images/05-Terracotta.jpg" alt="shop_banner_img1" />-->
+                            <!--										<h3 class="collection_title">Terracotta</h3>-->
+                            <!--									</div>-->
+                            <!--								</a>-->
+                            <!--							</div>-->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END SECTION BANNER -->
+        <div class="section bg_redon small_pt pb_70 myaboutbg">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <div class="heading_s1">
+                            <h2>About Us</h2>
+                        </div>
+                        <p>M.P. State Co-operative Union Limited Bhopal (Union) is a state level apex co-operative
+                            organization registered under M.P. Co-operative Societies Act dated 25-3-1958 and its
+                            registration number is 4. Its registered head office is located at E-8/77, Shahpura,
+                            Trilanga, Bhopal. The entire state of Madhya Pradesh is covered in the operational area of
+                            the Union.</p>
+                        <p>M.P. State Co-operative Union Limited ,Bhopal is a representative Institution of Co-operative
+                            movement in the state. It has total of 167 different types of co-operative societies of the
+                            state as its members, details of which are as follows:-</p>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="about_img scene mb-4 mb-lg-0">
+                            <img src="/static/assets/images/about-US.jpg" alt="about_img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section small_pt pb_20">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="heading_tab_header">
+                            <div class="heading_s2">
+                                <h2>New Arrivals</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="new-arrivals"
+                             class="product_slider  owl-carousel owl-theme nav_style3 owl-loaded owl-drag">
+                            <div class="item">
+                                <div class="product">
+                                    <div class="product_img">
+                                        <a href="product-detail.html">
+                                            <img src="/static/assets/images/product/Bamboo-Basket-1.jpg"
+                                                 alt="product_img1">
+                                        </a>
+                                        <div class="product_action_box">
+                                            <ul class="list_none pr_action_btn">
+                                                <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i>
+                                                    Add To Cart</a></li>
+                                                <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                                        class="icon-shuffle"></i></a></li>
+                                                <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                                        class="icon-magnifier-add"></i></a></li>
+                                                <li><a href="#"><i class="icon-heart"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="product_info">
+                                        <h6 class="product_title"><a href="product-detail.html">Bamboo Basket</a></h6>
+                                        <div class="product_price">
+                                            <span class="price">₹45.00</span>
+                                            <del>₹55.25</del>
+                                            <div class="on_sale">
+                                                <span>35% Off</span>
+                                            </div>
+                                        </div>
+                                        <div class="rating_wrap">
+                                            <div class="rating">
+                                                <div class="product_rate" style="width:80%"></div>
+                                            </div>
+                                            <span class="rating_num">(21)</span>
+                                        </div>
+                                        <div class="pr_desc">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+                                                blandit massa enim. Nullam id varius nunc id varius nunc.</p>
+                                        </div>
+                                        <div class="pr_switch_wrap">
+                                            <div class="product_color_switch">
+                                                <span class="active" data-color="#87554B"></span>
+                                                <span data-color="#333333"></span>
+                                                <span data-color="#DA323F"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="product">
+                                    <div class="product_img">
+                                        <a href="product-detail.html">
+                                            <img src="/static/assets/images/product/Bamboo-Basket-color.jpeg"
+                                                 alt="product_img1">
+                                        </a>
+                                        <div class="product_action_box">
+                                            <ul class="list_none pr_action_btn">
+                                                <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i>
+                                                    Add To Cart</a></li>
+                                                <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                                        class="icon-shuffle"></i></a></li>
+                                                <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                                        class="icon-magnifier-add"></i></a></li>
+                                                <li><a href="#"><i class="icon-heart"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="product_info">
+                                        <h6 class="product_title"><a href="product-detail.html">Bamboo Basket –
+                                            Color</a>
+                                        </h6>
+                                        <div class="product_price">
+                                            <span class="price">₹45.00</span>
+                                            <del>₹55.25</del>
+                                            <div class="on_sale">
+                                                <span>35% Off</span>
+                                            </div>
+                                        </div>
+                                        <div class="rating_wrap">
+                                            <div class="rating">
+                                                <div class="product_rate" style="width:80%"></div>
+                                            </div>
+                                            <span class="rating_num">(21)</span>
+                                        </div>
+                                        <div class="pr_desc">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+                                                blandit massa enim. Nullam id varius nunc id varius nunc.</p>
+                                        </div>
+                                        <div class="pr_switch_wrap">
+                                            <div class="product_color_switch">
+                                                <span class="active" data-color="#87554B"></span>
+                                                <span data-color="#333333"></span>
+                                                <span data-color="#DA323F"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="product">
+                                    <div class="product_img">
+                                        <a href="product-detail.html">
+                                            <img src="/static/assets/images/product/Bamboo-Basket.jpg"
+                                                 alt="product_img1">
+                                        </a>
+                                        <div class="product_action_box">
+                                            <ul class="list_none pr_action_btn">
+                                                <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i>
+                                                    Add To Cart</a></li>
+                                                <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                                        class="icon-shuffle"></i></a></li>
+                                                <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                                        class="icon-magnifier-add"></i></a></li>
+                                                <li><a href="#"><i class="icon-heart"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="product_info">
+                                        <h6 class="product_title"><a href="product-detail.html">Bamboo Basket</a></h6>
+                                        <div class="product_price">
+                                            <span class="price">₹45.00</span>
+                                            <del>₹55.25</del>
+                                            <div class="on_sale">
+                                                <span>35% Off</span>
+                                            </div>
+                                        </div>
+                                        <div class="rating_wrap">
+                                            <div class="rating">
+                                                <div class="product_rate" style="width:80%"></div>
+                                            </div>
+                                            <span class="rating_num">(21)</span>
+                                        </div>
+                                        <div class="pr_desc">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+                                                blandit massa enim. Nullam id varius nunc id varius nunc.</p>
+                                        </div>
+                                        <div class="pr_switch_wrap">
+                                            <div class="product_color_switch">
+                                                <span class="active" data-color="#87554B"></span>
+                                                <span data-color="#333333"></span>
+                                                <span data-color="#DA323F"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="product">
+                                    <div class="product_img">
+                                        <a href="product-detail.html">
+                                            <img src="/static/assets/images/product/Bamboo-Hanging.jpg"
+                                                 alt="product_img1">
+                                        </a>
+                                        <div class="product_action_box">
+                                            <ul class="list_none pr_action_btn">
+                                                <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i>
+                                                    Add To Cart</a></li>
+                                                <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                                        class="icon-shuffle"></i></a></li>
+                                                <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                                        class="icon-magnifier-add"></i></a></li>
+                                                <li><a href="#"><i class="icon-heart"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="product_info">
+                                        <h6 class="product_title"><a href="/product-detail">Bamboo Hanging Lampshade
+                                            – 4 corner</a></h6>
+                                        <div class="product_price">
+                                            <span class="price">₹45.00</span>
+                                            <del>₹55.25</del>
+                                            <div class="on_sale">
+                                                <span>35% Off</span>
+                                            </div>
+                                        </div>
+                                        <div class="rating_wrap">
+                                            <div class="rating">
+                                                <div class="product_rate" style="width:80%"></div>
+                                            </div>
+                                            <span class="rating_num">(21)</span>
+                                        </div>
+                                        <div class="pr_desc">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+                                                blandit massa enim. Nullam id varius nunc id varius nunc.</p>
+                                        </div>
+                                        <div class="pr_switch_wrap">
+                                            <div class="product_color_switch">
+                                                <span class="active" data-color="#87554B"></span>
+                                                <span data-color="#333333"></span>
+                                                <span data-color="#DA323F"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="product">
+                                    <div class="product_img">
+                                        <a href="/product-detail">
+                                            <img src="/static/assets/images/product/Marble-Urli-Shell.webp"
+                                                 alt="product_img1">
+                                        </a>
+                                        <div class="product_action_box">
+                                            <ul class="list_none pr_action_btn">
+                                                <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i>
+                                                    Add To Cart</a></li>
+                                                <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                                        class="icon-shuffle"></i></a></li>
+                                                <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                                        class="icon-magnifier-add"></i></a></li>
+                                                <li><a href="#"><i class="icon-heart"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="product_info">
+                                        <h6 class="product_title"><a href="/product-detail">Marble Urli (Shell)</a>
+                                        </h6>
+                                        <div class="product_price">
+                                            <span class="price">₹45.00</span>
+                                            <del>₹55.25</del>
+                                            <div class="on_sale">
+                                                <span>35% Off</span>
+                                            </div>
+                                        </div>
+                                        <div class="rating_wrap">
+                                            <div class="rating">
+                                                <div class="product_rate" style="width:80%"></div>
+                                            </div>
+                                            <span class="rating_num">(21)</span>
+                                        </div>
+                                        <div class="pr_desc">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+                                                blandit massa enim. Nullam id varius nunc id varius nunc.</p>
+                                        </div>
+                                        <div class="pr_switch_wrap">
+                                            <div class="product_color_switch">
+                                                <span class="active" data-color="#87554B"></span>
+                                                <span data-color="#333333"></span>
+                                                <span data-color="#DA323F"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section bg_light_blue2 pt-0 pb-0">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <div class="about_img scene mb-4 mb-lg-0">
+                            <img src="/static/assets/images/0123.webp" alt="about_img">
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="about_img scene mb-4 mb-lg-0">
+                            <img src="/static/assets/images/01234.webp" alt="about_img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section bg_light_blue2 small_pt pb_70"
+             style="background:url('/static/assets/images/left-img.webp');background-position:bottom right;background-size:content;">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="heading_s1 text-center">
+                            <h2>Top Selling Products</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="tp-sell-carousel" class="owl-carousel nav_style1 owl-theme">
+                            <div class="item">
+                                <div class="product">
+                                    <div class="product_img">
+                                        <a href="/product-detail">
+                                            <img src="/static/assets/images/product/BLOCK-PRINTED-HAND-BAG.png"
+                                                 alt="product_img1">
+                                        </a>
+                                        <div class="product_action_box">
+                                            <ul class="list_none pr_action_btn">
+                                                <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i>
+                                                    Add To Cart</a></li>
+                                                <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                                        class="icon-shuffle"></i></a></li>
+                                                <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                                        class="icon-magnifier-add"></i></a></li>
+                                                <li><a href="#"><i class="icon-heart"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="product_info">
+                                        <h6 class="product_title"><a href="/product-detail">BLOCK PRINTED HAND
+                                            BAG</a></h6>
+                                        <div class="product_price">
+                                            <span class="price">₹45.00</span>
+                                            <del>₹55.25</del>
+                                            <div class="on_sale">
+                                                <span>35% Off</span>
+                                            </div>
+                                        </div>
+                                        <div class="rating_wrap">
+                                            <div class="rating">
+                                                <div class="product_rate" style="width:80%"></div>
+                                            </div>
+                                            <span class="rating_num">(21)</span>
+                                        </div>
+                                        <div class="pr_desc">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+                                                blandit massa enim. Nullam id varius nunc id varius nunc.</p>
+                                        </div>
+                                        <div class="pr_switch_wrap">
+                                            <div class="product_color_switch">
+                                                <span class="active" data-color="#87554B"></span>
+                                                <span data-color="#333333"></span>
+                                                <span data-color="#DA323F"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="product">
+                                    <div class="product_img">
+                                        <a href="/product-detail">
+                                            <img src="/static/assets/images/product/Hancrafted-Jute-Box-Round.jpg"
+                                                 alt="product_img1">
+                                        </a>
+                                        <div class="product_action_box">
+                                            <ul class="list_none pr_action_btn">
+                                                <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i>
+                                                    Add To Cart</a></li>
+                                                <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                                        class="icon-shuffle"></i></a></li>
+                                                <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                                        class="icon-magnifier-add"></i></a></li>
+                                                <li><a href="#"><i class="icon-heart"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="product_info">
+                                        <h6 class="product_title"><a href="/product-detail">Hancrafted Jute Box
+                                            (Round)</a></h6>
+                                        <div class="product_price">
+                                            <span class="price">₹45.00</span>
+                                            <del>₹55.25</del>
+                                            <div class="on_sale">
+                                                <span>35% Off</span>
+                                            </div>
+                                        </div>
+                                        <div class="rating_wrap">
+                                            <div class="rating">
+                                                <div class="product_rate" style="width:80%"></div>
+                                            </div>
+                                            <span class="rating_num">(21)</span>
+                                        </div>
+                                        <div class="pr_desc">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+                                                blandit massa enim. Nullam id varius nunc id varius nunc.</p>
+                                        </div>
+                                        <div class="pr_switch_wrap">
+                                            <div class="product_color_switch">
+                                                <span class="active" data-color="#87554B"></span>
+                                                <span data-color="#333333"></span>
+                                                <span data-color="#DA323F"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="product">
+                                    <div class="product_img">
+                                        <a href="/product-detail">
+                                            <img src="/static/assets/images/product/Hancrafted-Jute-Ganesha-Hanging.jpg"
+                                                 alt="product_img1">
+                                        </a>
+                                        <div class="product_action_box">
+                                            <ul class="list_none pr_action_btn">
+                                                <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i>
+                                                    Add To Cart</a></li>
+                                                <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                                        class="icon-shuffle"></i></a></li>
+                                                <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                                        class="icon-magnifier-add"></i></a></li>
+                                                <li><a href="#"><i class="icon-heart"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="product_info">
+                                        <h6 class="product_title"><a href="/product-detail">Hancrafted Jute Ganesha
+                                            (Hanging)</a></h6>
+                                        <div class="product_price">
+                                            <span class="price">₹45.00</span>
+                                            <del>₹55.25</del>
+                                            <div class="on_sale">
+                                                <span>35% Off</span>
+                                            </div>
+                                        </div>
+                                        <div class="rating_wrap">
+                                            <div class="rating">
+                                                <div class="product_rate" style="width:80%"></div>
+                                            </div>
+                                            <span class="rating_num">(21)</span>
+                                        </div>
+                                        <div class="pr_desc">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+                                                blandit massa enim. Nullam id varius nunc id varius nunc.</p>
+                                        </div>
+                                        <div class="pr_switch_wrap">
+                                            <div class="product_color_switch">
+                                                <span class="active" data-color="#87554B"></span>
+                                                <span data-color="#333333"></span>
+                                                <span data-color="#DA323F"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="product">
+                                    <div class="product_img">
+                                        <a href="/product-detail">
+                                            <img src="/static/assets/images/product/Terracotta-Palki.jpg"
+                                                 alt="product_img1">
+                                        </a>
+                                        <div class="product_action_box">
+                                            <ul class="list_none pr_action_btn">
+                                                <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i>
+                                                    Add To Cart</a></li>
+                                                <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                                        class="icon-shuffle"></i></a></li>
+                                                <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                                        class="icon-magnifier-add"></i></a></li>
+                                                <li><a href="#"><i class="icon-heart"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="product_info">
+                                        <h6 class="product_title"><a href="/product-detail">Terracotta Palki</a></h6>
+                                        <div class="product_price">
+                                            <span class="price">₹45.00</span>
+                                            <del>₹55.25</del>
+                                            <div class="on_sale">
+                                                <span>35% Off</span>
+                                            </div>
+                                        </div>
+                                        <div class="rating_wrap">
+                                            <div class="rating">
+                                                <div class="product_rate" style="width:80%"></div>
+                                            </div>
+                                            <span class="rating_num">(21)</span>
+                                        </div>
+                                        <div class="pr_desc">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+                                                blandit massa enim. Nullam id varius nunc id varius nunc.</p>
+                                        </div>
+                                        <div class="pr_switch_wrap">
+                                            <div class="product_color_switch">
+                                                <span class="active" data-color="#87554B"></span>
+                                                <span data-color="#333333"></span>
+                                                <span data-color="#DA323F"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="product">
+                                    <div class="product_img">
+                                        <a href="/product-detail">
+                                            <img src="/static/assets/images/product/Notungrams-Wooden-Owl.jpg"
+                                                 alt="product_img1">
+                                        </a>
+                                        <div class="product_action_box">
+                                            <ul class="list_none pr_action_btn">
+                                                <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i>
+                                                    Add To Cart</a></li>
+                                                <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                                        class="icon-shuffle"></i></a></li>
+                                                <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                                        class="icon-magnifier-add"></i></a></li>
+                                                <li><a href="#"><i class="icon-heart"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="product_info">
+                                        <h6 class="product_title"><a href="/product-detail">MNotungram’s Wooden
+                                            Owl</a></h6>
+                                        <div class="product_price">
+                                            <span class="price">₹45.00</span>
+                                            <del>₹55.25</del>
+                                            <div class="on_sale">
+                                                <span>35% Off</span>
+                                            </div>
+                                        </div>
+                                        <div class="rating_wrap">
+                                            <div class="rating">
+                                                <div class="product_rate" style="width:80%"></div>
+                                            </div>
+                                            <span class="rating_num">(21)</span>
+                                        </div>
+                                        <div class="pr_desc">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
+                                                blandit massa enim. Nullam id varius nunc id varius nunc.</p>
+                                        </div>
+                                        <div class="pr_switch_wrap">
+                                            <div class="product_color_switch">
+                                                <span class="active" data-color="#87554B"></span>
+                                                <span data-color="#333333"></span>
+                                                <span data-color="#DA323F"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- START SECTION SHOP -->
+        <div class="section small_pt pb_70">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="heading_s1 text-center">
+                            <h2>Our Blog</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="blog_post blog_style2 box_shadow1">
+                            <div class="blog_img">
+                                <a href="/blog-detail">
+                                    <img src="/static/assets/images/Blog03.jpg" alt="blog_small_img1">
+                                </a>
+                            </div>
+                            <div class="blog_content bg-white">
+                                <div class="blog_text">
+                                    <h5 class="blog_title"><a href="/blog-detail">Deciphering Symbolism in
+                                        Traditional Product Designs</a></h5>
+                                    <ul class="list_none blog_meta">
+                                        <li><a href="#"><i class="ti-calendar"></i> April 14, 2024</a></li>
+                                        <li><a href="#"><i class="ti-comments"></i> 10</a></li>
+                                    </ul>
+                                    <p>Traditional products transcend mere functionality; they are repositories of
+                                        cultural and historical narratives, encapsulating...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="blog_post blog_style2 box_shadow1">
+                            <div class="blog_img">
+                                <a href="/blog-detail">
+                                    <img src="/static/assets/images/blog02.jpg" alt="blog_small_img2">
+                                </a>
+                            </div>
+                            <div class="blog_content bg-white">
+                                <div class="blog_text">
+                                    <h5 class="blog_title"><a href="/blog-detail"> Unveiling the Impact of Fairs on
+                                        Handmade Creations</a></h5>
+                                    <ul class="list_none blog_meta">
+                                        <li><a href="#"><i class="ti-calendar"></i> April 14, 2024</a></li>
+                                        <li><a href="#"><i class="ti-comments"></i> 12</a></li>
+                                    </ul>
+                                    <p>In an era dominated by mass production and global markets, the intrinsic value of
+                                        craftsmanship can be easily overlooked. Nonetheless...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="blog_post blog_style2 box_shadow1">
+                            <div class="blog_img">
+                                <a href="/blog-detail">
+                                    <img src="/static/assets/images/blog01.jpg" alt="blog_small_img3">
+                                </a>
+                            </div>
+                            <div class="blog_content bg-white">
+                                <div class="blog_text">
+                                    <h5 class="blog_title"><a href="/blog-detail">In-depth Knowledge on Various
+                                        Techniques for Unique Clay Crafts</a></h5>
+                                    <ul class="list_none blog_meta">
+                                        <li><a href="#"><i class="ti-calendar"></i> April 14, 2024</a></li>
+                                        <li><a href="#"><i class="ti-comments"></i> 14</a></li>
+                                    </ul>
+                                    <p>For centuries, clay, an ancient and versatile material, has served as a canvas
+                                        for artistic expression. Today, the craft of shaping... </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <a href="/blog" class="btn btn-fill-out rounded-0">View All</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END SECTION SHOP -->
+
+        <!-- START SECTION SINGLE BANNER -->
+        <!--
+    <div class="section bg_light_blue2 pb-0 pt-md-0">
+    <div class="container">
+        <div class="row align-items-center flex-row-reverse">
+            <div class="col-md-6 offset-md-1">
+                <div class="medium_divider d-none d-md-block clearfix"></div>
+                <div class="trand_banner_text text-center text-md-start">
+                    <div class="heading_s1 mb-3">
+                        <span class="sub_heading">New season trends!</span>
+                        <h2>Best Summer Collection</h2>
+                    </div>
+                    <h5 class="mb-4">Sale Get up to 50% Off</h5>
+                    <a href="shop-left-sidebar.html" class="btn btn-fill-out rounded-0">Shop Now</a>
+                </div>
+                <div class="medium_divider clearfix"></div>
+            </div>
+            <div class="col-md-5">
+                <div class="text-center trading_img">
+                    <img src="assets//images/tranding_img.png" alt="tranding_img"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    -->
+        <!-- END SECTION SINGLE BANNER -->
+
+
+        <!-- START SECTION SHOP INFO -->
+        <!--
+    <div class="section pb_70">
+        <div class="container">
+            <div class="row g-0">
+                <div class="col-lg-4">
+                    <div class="icon_box icon_box_style1">
+                        <div class="icon">
+                            <i class="flaticon-shipped"></i>
+                        </div>
+                        <div class="icon_box_content">
+                            <h5>Free Delivery</h5>
+                            <p>If you are going to use of Lorem, you need to be sure there anything</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="icon_box icon_box_style1">
+                        <div class="icon">
+                            <i class="flaticon-money-back"></i>
+                        </div>
+                        <div class="icon_box_content">
+                            <h5>30 Day Return</h5>
+                            <p>If you are going to use of Lorem, you need to be sure there anything</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="icon_box icon_box_style1">
+                        <div class="icon">
+                            <i class="flaticon-support"></i>
+                        </div>
+                        <div class="icon_box_content">
+                            <h5>27/4 Support</h5>
+                            <p>If you are going to use of Lorem, you need to be sure there anything</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    -->
+        <!-- END SECTION SHOP INFO -->
+
+
+    </div>
+    <!-- END MAIN CONTENT -->
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
