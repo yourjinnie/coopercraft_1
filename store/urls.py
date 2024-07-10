@@ -1,5 +1,3 @@
-from django.contrib import admin
-# from store import views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path
@@ -28,16 +26,24 @@ from store.views.terracotta import Terracotta
 from store.views.wishlist import Wishlist
 from store.views.wooden_craft import WoodenCraft
 from store.views.zari_zardozi import ZariZardozi
+from store.views.signup import Sign_Up
 from store.views.home import Home
+from store.views.login import Login
+from store.views.logout import Logout
 from store.views.collectionview import CollectionDetailView
 from store.views.collection import Collection
+from store.views.category import CategoryView
 
 urlpatterns = [
     path('', Index.as_view(),name='homepage'),
     path('collection/<int:pk>', CollectionDetailView.as_view(), name='collection-detail'),
     path('collection/<int:collection_id>',Collection.as_view(),name='collection'),
+    path('category/<int:category_id>',CategoryView.as_view(),name='category'),
     path('about/',About.as_view(),name='about'),
-    path('home/', Home.as_view(),name='home'),
+    path('signup/',Sign_Up.as_view(),name='signup'),
+    path('home/',Home.as_view(),name='home'),
+    path('login/',Login.as_view(),name='login'),
+    path('logout/',Logout.as_view(),name='logout'),
     path('account/', Account.as_view(),name='account'),
     path('bamboo-craft/', BambooCraft.as_view(),name='bamboo-craft'),
     path('blank/', Blank.as_view(),name='blank'),

@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load cart %}
+{% load custom_filter %}
 {% block content %}
 
 <div class="breadcrumb_section bg_gray page-title-mini">
@@ -25,7 +27,8 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th class="product-thumbnail">&nbsp;</th>
+                                <th class="product-thumbnail">SNo.</th>
+                                <th class="product-image">Image</th>
                                 <th class="product-name">Product</th>
                                 <th class="product-price">Price</th>
                                 <th class="product-quantity">Quantity</th>
@@ -37,73 +40,16 @@
                             {% for product in products %}
                             <tr>
                                 <td>{{forloop.counter}}</td>
-                                <td class="product-thumbnail"><a href="#"><img
-                                        src="{{product.image.url}}"
-                                        alt="product1"></a></td>
-                                <td class="product-name" data-title="Product"><a href="#">{{product.product}}</a>
+                                <td class="product-thumbnail"><a href="#"><img src="{{product.image.url}}" alt="product1"></a></td>
+                                <td class="product-name" data-title="Product"><a href="#">{{product.product_title}}</a>
                                 </td>
-                                <td class="product-price" data-title="Price"></td>
+                                <td class="product-price" data-title="Price">{{product.product_price|currency}}</td>
                                 <td class="product-quantity" data-title="Quantity">
-                                    <div class="quantity"><input type="button" value="-" class="minus"> <input
-                                            type="text" name="quantity" value="2" title="Qty" class="qty"
-                                            size="4"> <input type="button" value="+" class="plus"></div>
-                                </td>
-                                <td class="product-subtotal" data-title="Total">
-
-                                </td>
-                                <td class="product-remove" data-title="Remove"><a href="#"><i
-                                        class="ti-close"></i></a></td>
+                                    {{product|cart_quantity:request.session.cart}}</td>
+                                <td class="product-subtotal" data-title="Total">{{product|total_price:request.session.cart|currency}}</td>
+                                <td class="product-remove" data-title="Remove"><a href="#"><i class="ti-close"></i></a></td>
                             </tr>
                             {% endfor %}
-
-                            <!--                                <tr>-->
-                            <!--                                     <td class="product-thumbnail"><a href="#"><img-->
-                            <!--                                                    src="/static/assets/images/product/Hancrafted-Jute-Box-Round.jpg"-->
-                            <!--                                                    alt="product1"></a></td>-->
-                            <!--                                        <td class="product-name" data-title="Product"><a href="#">Hancrafted Jute</a>-->
-                            <!--                                        </td>-->
-                            <!--                                        <td class="product-price" data-title="Price">₹45.00</td>-->
-                            <!--                                        <td class="product-quantity" data-title="Quantity">-->
-                            <!--                                            <div class="quantity"> <input type="button" value="-" class="minus"> <input-->
-                            <!--                                                    type="text" name="quantity" value="2" title="Qty" class="qty"-->
-                            <!--                                                    size="4"> <input type="button" value="+" class="plus"> </div>-->
-                            <!--                                        </td>-->
-                            <!--                                        <td class="product-subtotal" data-title="Total">₹90.00</td>-->
-                            <!--                                        <td class="product-remove" data-title="Remove"><a href="#"><i-->
-                            <!--                                                    class="ti-close"></i></a></td>-->
-                            <!--                                    </tr>   -->
-                            <!--                                    <tr>-->
-                            <!--                                        <td class="product-thumbnail"><a href="#"><img-->
-                            <!--                                                    src="/static/assets/images/product/Hancrafted-Jute-Ganesha-Hanging.jpg"-->
-                            <!--                                                    alt="product2"></a></td>-->
-                            <!--                                        <td class="product-name" data-title="Product"><a href="#">Hancrafted Jute</a>-->
-                            <!--                                        </td>-->
-                            <!--                                        <td class="product-price" data-title="Price">₹55.00</td>-->
-                            <!--                                        <td class="product-quantity" data-title="Quantity">-->
-                            <!--                                            <div class="quantity"> <input type="button" value="-" class="minus"> <input-->
-                            <!--                                                    type="text" name="quantity" value="1" title="Qty" class="qty"-->
-                            <!--                                                    size="4"> <input type="button" value="+" class="plus"> </div>-->
-                            <!--                                        </td>-->
-                            <!--                                        <td class="product-subtotal" data-title="Total">₹55.00</td>-->
-                            <!--                                        <td class="product-remove" data-title="Remove"><a href="#"><i-->
-                            <!--                                                    class="ti-close"></i></a></td>-->
-                            <!--                                    </tr>-->
-                            <!--                                    <tr>-->
-                            <!--                                        <td class="product-thumbnail"><a href="#"><img-->
-                            <!--                                                    src="/static/assets/images/product/Hancrafted-Jute-Owl-Set-of-2.jpg"-->
-                            <!--                                                    alt="product3"></a></td>-->
-                            <!--                                        <td class="product-name" data-title="Product"><a href="#">Hancrafted Jute</a>-->
-                            <!--                                        </td>-->
-                            <!--                                        <td class="product-price" data-title="Price">₹68.00</td>-->
-                            <!--                                        <td class="product-quantity" data-title="Quantity">-->
-                            <!--                                            <div class="quantity"> <input type="button" value="-" class="minus"> <input-->
-                            <!--                                                    type="text" name="quantity" value="3" title="Qty" class="qty"-->
-                            <!--                                                    size="4"> <input type="button" value="+" class="plus"> </div>-->
-                            <!--                                        </td>-->
-                            <!--                                        <td class="product-subtotal" data-title="Total">₹204.00</td>-->
-                            <!--                                        <td class="product-remove" data-title="Remove"><a href="#"><i-->
-                            <!--                                                    class="ti-close"></i></a></td>-->
-                            <!--                                    </tr>-->
                             </tbody>
                             <tfoot>
                             <tr>
@@ -430,7 +376,7 @@
                                 <tbody>
                                 <tr>
                                     <td class="cart_total_label">Cart Subtotal</td>
-                                    <td class="cart_total_amount">₹349.00</td>
+                                    <td class="cart_total_amount">{{products|total_cart_price:request.session.cart|currency}}</td>
                                 </tr>
                                 <tr>
                                     <td class="cart_total_label">Shipping</td>
@@ -438,7 +384,7 @@
                                 </tr>
                                 <tr>
                                     <td class="cart_total_label">Total</td>
-                                    <td class="cart_total_amount"><strong>₹349.00</strong></td>
+                                    <td class="cart_total_amount"><strong>{{products|total_cart_price:request.session.cart|currency}}</strong></td>
                                 </tr>
                                 </tbody>
                             </table>

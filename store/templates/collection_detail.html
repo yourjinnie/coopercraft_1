@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load cart %}
 {% block content %}
 <div class="breadcrumb_section bg_gray page-title-mini">
     <div class="container"><!-- STRART CONTAINER -->
@@ -57,13 +58,13 @@
                         {% if collection %}
                         {% for product in products %}
                         <div class="col-md-4 col-6">
-                            <div class="product">
+                            <div class="product" id="{{collection.id}}">
                                 <div class="product_img"><a href="#"> <img
                                         src="{{product.image.url}}" alt="product_img1"> </a>
                                     <div class="product_action_box">
                                         <ul class="list_none pr_action_btn">
                                             <li class="add-to-cart"><a href="/cart"><i class="icon-basket-loaded"></i>
-                                                Add To Cart</a></li>
+                                                Cart Quick View</a></li>
                                             <li><a href="javascript:void(0);" class="popup-ajax"><i
                                                     class="icon-shuffle"></i></a></li>
                                             <li><a href="javascript:void(0);" class="popup-ajax"><i
@@ -72,8 +73,39 @@
                                         </ul>
                                     </div>
                                 </div>
+                                <!--                                Add-Remove to cart-->
+                                <div class="card-footer p-0">
+                                    {% if product|is_in_cart:request.session.cart %}
+                                    <div class="row no-gutters">
+                                        <form action="{{request.path}}" class="col-2" method="POST">
+                                            {% csrf_token %}
+                                            <input hidden type="text" name="product" value="{{product.id}}">
+                                            <input hidden type="text" name="remove" value="True">
+                                            <input type="submit" value="-" class="btn btn-block btn-secondary">
+                                        </form>
+                                        <div class="text-center col">{{product|cart_quantity:request.session.cart}}
+                                            in cart
+                                        </div>
+                                        <form action="{{request.path}}" class="col-2" method="POST">
+                                            {% csrf_token %}
+                                            <input hidden type="text" name="product" value="{{product.id}}">
+                                            <input type="submit" value="+" class="btn btn-block btn-secondary">
+                                        </form>
+                                    </div>
+                                    {% else %}
+                                    <form action="{{request.path}}" method="POST">
+                                        {% csrf_token %}
+                                        <input hidden type="text" name="product" value="{{product.id}}">
+                                        <input type="submit" class="float-right btn btn-block btn-outline-info"
+                                               value="Add To Cart">
+                                    </form>
+                                    {% endif %}
+
+                                </div>
+                                <!--                                Add-Remove Cart End-->
                                 <div class="product_info">
-                                    <h6 class="product_title"><a href="product-detail.php">{{product.product_title}}</a></h6>
+                                    <h6 class="product_title"><a href="product-detail.php">{{product.product_title}}</a>
+                                    </h6>
                                     <div class="product_price"><span class="price">₹{{product.price}}</span>
                                         <del>₹55.25</del>
                                         <div class="on_sale"><span>{{product.offer}}</span></div>
@@ -147,18 +179,10 @@
                         <div class="widget">
                             <h5 class="widget_title">Categories</h5>
                             <ul class="widget_categories">
-                                <li><a href="/jute-crafts"><span class="categories_name">Jute Crafts</span><span
+                                {% for category in categories %}
+                                <li><a href="{% url 'category' category.id %}"><span class="categories_name">{{category.category}}</span><span
                                         class="categories_num">(9)</span></a></li>
-                                <li><a href="/wooden-craft"><span class="categories_name">Wooden
-                    Craft</span><span class="categories_num">(6)</span></a></li>
-                                <li><a href="/terracotta"><span class="categories_name">Terracotta</span><span
-                                        class="categories_num">(4)</span></a></li>
-                                <li><a href="/zari-zardozi"><span class="categories_name">Zari
-                    Zardozi</span><span class="categories_num">(7)</span></a></li>
-                                <li><a href="/stone-carving"><span class="categories_name">Stone
-                    Carving</span><span class="categories_num">(12)</span></a></li>
-                                <li><a href="/bamboo-craft"><span class="categories_name">Bamboo
-                    Craft</span><span class="categories_num">(12)</span></a></li>
+                                {% endfor %}
                             </ul>
                         </div>
                         <div class="widget">
