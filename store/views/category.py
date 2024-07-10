@@ -31,7 +31,7 @@ class CategoryView(View):
     def get(self, request,*args, **kwargs):
         cart = request.session.get('cart')
         if not cart:
-            request.session['cart'] = {}git status
+            request.session['cart'] = {}
         products = Product.get_all_products()
         categories = Category.objects.all()
         category_id = request.GET.get('category')
