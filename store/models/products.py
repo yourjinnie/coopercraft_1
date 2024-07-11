@@ -21,12 +21,12 @@ class Product(models.Model):
     def get_all_products():
         return Product.objects.all()
 
-    @staticmethod
-    def get_product_by_collection_id(collection_id):
-        if collection_id:
-            return Product.objects.filter(collection=collection_id)
-        else:
-            return Product.objects.all()
+    # @staticmethod
+    # def get_product_by_collection_id(collection_id):
+    #     if collection_id:
+    #         return Product.objects.filter(collection=collection_id)
+    #     else:
+    #         return Product.objects.all()
 
     @staticmethod
     def get_product_by_category_id(category_id):

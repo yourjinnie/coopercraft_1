@@ -301,19 +301,9 @@
                             <a class="dropdown-toggle nav-link" href="#" data-bs-toggle="dropdown">Handy Craft</a>
                             <div class="dropdown-menu">
                                 <ul>
-                                    <li><a class="dropdown-item nav-link nav_item" href="/jute-crafts">Jute
-                                        Crafts</a></li>
-                                    <li><a class="dropdown-item nav-link nav_item" href="/wooden-craft">Wooden
-                                        Craft</a></li>
-                                    <li><a class="dropdown-item nav-link nav_item"
-                                           href="/terracotta">Terracotta</a>
-                                    </li>
-                                    <li><a class="dropdown-item nav-link nav_item" href="/zari-zardozi">Zari
-                                        Zardozi</a></li>
-                                    <li><a class="dropdown-item nav-link nav_item" href="/stone-carving">Stone
-                                        Carving</a></li>
-                                    <li><a class="dropdown-item nav-link nav_item" href="/bamboo-craft">Bamboo
-                                        Craft</a></li>
+                                    {% for category in categories %}
+                                    <li><a class="dropdown-item nav-link nav_item" href="{% url 'category' category.id %}">{{category.category}}</a></li>
+                                     {% endfor %}
                                 </ul>
                             </div>
                         </li>
@@ -358,7 +348,7 @@
                     <li class="dropdown cart_dropdown"><a class="nav-link cart_trigger" href="#"
                                                           data-bs-toggle="dropdown"><i
                             class="linearicons-cart"></i>
-                        <span class="cart_count">2</span></a>
+                        <span class="cart_count">{{request.session.cart.keys|length}}</span></a>
                         <div class="cart_box dropdown-menu dropdown-menu-right">
                             <ul class="cart_list">
 <!--                                {% for product in prducts %}-->
