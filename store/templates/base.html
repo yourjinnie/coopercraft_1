@@ -302,8 +302,9 @@
                             <div class="dropdown-menu">
                                 <ul>
                                     {% for category in categories %}
-                                    <li><a class="dropdown-item nav-link nav_item" href="{% url 'category' category.id %}">{{category.category}}</a></li>
-                                     {% endfor %}
+                                    <li><a class="dropdown-item nav-link nav_item"
+                                           href="{% url 'category' category.id %}">{{category.category}}</a></li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                         </li>
@@ -314,15 +315,6 @@
                                     <li><a class="dropdown-item nav-link nav_item"
                                            href="/block-printed-bag">Block
                                         Printed Bag</a></li>
-                                    <li class="dropdown-item nav-link nav_item">
-                                        <a class="nav-link" href="/signup">Signup</a>
-                                    </li>
-                                    <li class="dropdown-item nav-link nav_item">
-                                        <a class="nav-link" href="/login">Login</a>
-                                    </li>
-                                    <li class="dropdown-item nav-link nav_item">
-                                        <a class="nav-link" href="/logout">Logout</a>
-                                    </li>
                                 </ul>
                             </div>
                         </li>
@@ -351,15 +343,15 @@
                         <span class="cart_count">{{request.session.cart.keys|length}}</span></a>
                         <div class="cart_box dropdown-menu dropdown-menu-right">
                             <ul class="cart_list">
-<!--                                {% for product in prducts %}-->
+                                <!--                                {% for product in prducts %}-->
                                 <a href="#" class="item_remove"><i class="ion-close"></i></a> <a href="#">
                                 <li><img src="{{product.image.url}}" alt="cart_thumb1">
                                     <span class="cart_quantity">{{product|cart_quantity:request.session.cart}}</span>
                                     <span class="cart_amount">{{product|total_price:request.session.cart|currency}}</span>
                                     <span> class="price_symbole">₹</span>
                                 </li>
-                                </a>
-<!--                                {% endfor %}-->
+                            </a>
+                                <!--                                {% endfor %}-->
                             </ul>
                             <div class="cart_footer">
                                 <p class="cart_total"><strong>Subtotal:</strong> <span class="cart_price">
@@ -463,7 +455,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <p class="mb-md-0 text-center ">© 2024 Coopcraft. All rights reserved.</p>
+                    <p class="mb-md-0 text-center ">© 2024 Coopcraft. Developed by Yourjinnie Techsolutions.</p>
                     <>
                 </div>
             </div>

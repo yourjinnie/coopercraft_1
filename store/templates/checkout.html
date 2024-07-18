@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load cart %}
+{% load custom_filter %}
 {% block content %}
 
 <div class="breadcrumb_section bg_gray page-title-mini">
@@ -29,6 +31,7 @@
 								<p>If you have shopped with us before, please enter your details below. If you are a new
 									customer, please proceed to the Billing &amp; Shipping section.</p>
 								<form method="post">
+									{% csrf_token %}
 									<div class="form-group mb-3"> <input type="text" required="" class="form-control"
 											name="email" placeholder="Username Or Email"> </div>
 									<div class="form-group mb-3"> <input class="form-control" required=""
@@ -76,6 +79,7 @@
 							<h4>Billing Details</h4>
 						</div>
 						<form method="post">
+							{% csrf_token %}
 							<div class="form-group mb-3"> <input type="text" required="" class="form-control"
 									name="fname" placeholder="First name *"> </div>
 							<div class="form-group mb-3"> <input type="text" required="" class="form-control"
@@ -654,23 +658,17 @@
 										</tr>
 									</thead>
 									<tbody>
+									{% for product in products %}
 										<tr>
-											<td>Hancrafted Jute <span class="product-qty">x 2</span></td>
-											<td>₹90.00</td>
+											<td>{{product.product_title}} <span class="product-qty">{{product|cart_quantity:request.session.cart}}</span></td>
+											<td>{{product.product_price|currency}}</td>
 										</tr>
-										<tr>
-											<td>Hancrafted Jute <span class="product-qty">x 1</span></td>
-											<td>₹55.00</td>
-										</tr>
-										<tr>
-											<td>Hancrafted Jute <span class="product-qty">x 3</span></td>
-											<td>₹204.00</td>
-										</tr>
+									{% endfor %}
 									</tbody>
 									<tfoot>
 										<tr>
 											<th>SubTotal</th>
-											<td class="product-subtotal">₹349.00</td>
+											<td class="product-subtotal">{{products|total_cart_price:request.session.cart|currency}}</td>
 										</tr>
 										<tr>
 											<th>Shipping</th>
@@ -678,7 +676,7 @@
 										</tr>
 										<tr>
 											<th>Total</th>
-											<td class="product-subtotal">₹349.00</td>
+											<td class="product-subtotal">{{products|total_cart_price:request.session.cart|currency}}</td>
 										</tr>
 									</tfoot>
 								</table>

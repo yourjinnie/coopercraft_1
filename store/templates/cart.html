@@ -47,7 +47,7 @@
                                 <td class="product-quantity" data-title="Quantity">
                                     {{product|cart_quantity:request.session.cart}}</td>
                                 <td class="product-subtotal" data-title="Total">{{product|total_price:request.session.cart|currency}}</td>
-                                <td class="product-remove" data-title="Remove"><a href="#"><i class="ti-close"></i></a></td>
+                                <td class="product-remove" data-title="Remove"><a href="{% url 'remove' item_id=product.id %}"><i class="ti-close"></i></a></td>
                             </tr>
                             {% endfor %}
                             </tbody>

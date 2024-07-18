@@ -2,7 +2,8 @@ from django.contrib import admin
 from store.models.products import Product
 from store.models.collections import Collection
 from store.models.categories import Category
-from store.models.sign_up import SignUp
+from store.models.registrer import Register
+
 
 
 
@@ -14,4 +15,6 @@ class AdminProduct(admin.ModelAdmin):
 
 admin.site.register(Collection)
 admin.site.register(Category)
-admin.site.register(SignUp)
+admin.site.register(Register)
+
+

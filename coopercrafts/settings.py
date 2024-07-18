@@ -41,6 +41,10 @@ INSTALLED_APPS = [
     'store',
 ]
 
+# AUTHENTICATION_BACKENDS=[
+#     'django.contrib.auth.backends.ModelBackend'
+# ]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -66,6 +70,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'store.context_processors.category_context_processors',#Added Manually
+                'store.context_processors.product_context_processors',#Added Manually
             ],
         },
     },

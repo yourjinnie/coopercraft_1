@@ -1,16 +1,17 @@
 from django.db import models
-# from store.models.products import Product
-# from store.models.sign_up import SignUp
-
+from store.models.products import Product
+from store.models.registrer import Register
+from django.utils import timezone
 
 
 class Order(models.Model):
-    # customer=models.ForeignKey(SignUp,on_delete=models.CASCADE)
-    # product=models.ForeignKey(Product,on_delete=models.CASCADE)
+    customer=models.ForeignKey(Register,on_delete=models.CASCADE,default=1)
+    product=models.ForeignKey(Product,on_delete=models.CASCADE,default=1)
     address = models.CharField(max_length=100)
     price = models.IntegerField(default=0)
     quantity = models.IntegerField(default=1)
     phone_no = models.IntegerField()
+    date = models.DateTimeField(default=timezone.now)
     status = models.BooleanField(default=False)
 
     def place_order(self):

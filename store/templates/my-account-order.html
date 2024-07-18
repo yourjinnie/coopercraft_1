@@ -41,7 +41,7 @@
                                         details</a>
                                 </li>
                                 <li class="nav-item" role="presentation">
-                                    <a class="nav-link" href="account.php" aria-selected="false" tabindex="-1"
+                                    <a class="nav-link" href="/logout" aria-selected="false" tabindex="-1"
                                         role="tab"><i class="ti-lock"></i>Logout</a>
                                 </li>
                             </ul>
@@ -145,6 +145,7 @@
                                     <div class="card-body">
                                         <p>Already have an account? <a href="#">Log in instead!</a></p>
                                         <form method="post" name="enq">
+                                            {% csrf_token %}
                                             <div class="row">
                                                 <div class="form-group col-md-6 mb-3">
                                                     <label>First Name <span class="required">*</span></label>

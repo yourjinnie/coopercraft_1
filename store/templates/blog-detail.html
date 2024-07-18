@@ -192,6 +192,7 @@
                                 <h5>Write a comment</h5>
                             </div>
                             <form class="field_form" name="enq" method="post">
+                                {% csrf_token %}
                                 <div class="row">
                                     <div class="form-group col-md-4 mb-3"> <input name="name" class="form-control"
                                             placeholder="Your Name" required="required" type="text"> </div>

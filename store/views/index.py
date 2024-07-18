@@ -10,9 +10,11 @@ class Index(View):
             request.session['cart'] = {}
         products = Product.get_all_products()
         collections = Collection.objects.all()
+
         context = {
             'products': products,
-            'collections': collections
+            'collections': collections,
+
         }
         return render(request, 'index.html',context)
 

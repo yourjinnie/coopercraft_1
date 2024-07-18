@@ -2,6 +2,7 @@ from django.db import models
 from store.models.collections import Collection
 from store.models.categories import Category
 
+
 class Product(models.Model):
     product_title = models.CharField(max_length=200)
     url = models.URLField(default="https://example.com")

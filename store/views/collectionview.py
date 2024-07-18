@@ -10,11 +10,11 @@ class CollectionDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        categories = Category.objects.all()
+        # categories = Category.objects.all()
         collection = self. get_object()
         context['products'] = collection.product_set.all() # Add products to the context
         context['collection'] = collection
-        context['categories'] = categories
+        # context['categories'] = categories
         return context
 
     def get(self, request, *args, **kwargs):
