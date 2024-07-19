@@ -93,10 +93,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'coopcraft',
-        'HOST': 'localhost',
+        'HOST': 'database-1.cvs0ww6emd7f.ap-south-1.rds.amazonaws.com',
         'PORT':3306,
-        'USER':'root',
-        'PASSWORD':'Ashim@1987'
+        'USER':'admin',
+        'PASSWORD':'yourjinnie'
     }
 }
 
