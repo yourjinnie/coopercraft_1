@@ -152,3 +152,10 @@ STATICFILES_DIRS=[
 
 MEDIA_ROOT=BASE_DIR/'static'
 MEDIA_URL='/media/'
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://coopcraft.in',
+    'http://coopcraft.in',
+    # include other domains as needed
+]
+
