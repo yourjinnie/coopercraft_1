@@ -3,6 +3,7 @@
 {% load custom_filter %}
 {% block content %}
 
+
 <div class="breadcrumb_section bg_gray page-title-mini">
     <div class="container"><!-- STRART CONTAINER -->
         <div class="row align-items-center">
@@ -45,8 +46,22 @@
                                 <td class="product-name" data-title="Product"><a href="#">{{product.product_title}}</a>
                                 </td>
                                 <td class="product-price" data-title="Price">{{product.product_price|currency}}</td>
-                                <td class="product-quantity" data-title="Quantity">
-                                    {{product|cart_quantity:request.session.cart}}
+                                <td>
+                                    <div class="quantity-controls">
+                                        <form method="post" action="{% url 'cart' %}" style="display:inline;">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="product_id" value="{{ product.id }}">
+                                            <input type="hidden" name="action" value="decrease">
+                                            <button type="submit">-</button>
+                                        </form>
+                                        {{ product|cart_quantity:request.session.cart }}
+                                        <form method="post" action="{% url 'cart' %}" style="display:inline;">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="product_id" value="{{ product.id }}">
+                                            <input type="hidden" name="action" value="increase">
+                                            <button type="submit">+</button>
+                                        </form>
+                                    </div>
                                 </td>
                                 <td class="product-subtotal" data-title="Total">
                                     {{product|total_price:request.session.cart|currency}}

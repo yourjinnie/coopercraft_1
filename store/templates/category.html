@@ -78,8 +78,11 @@
                                                       action="{% url 'cart' %}" style="display:none;">
                                                     {% csrf_token %}
                                                     <input type="hidden" name="product_id" value="{{ product.id }}">
+                                                    <input type="hidden" name="action" value="increase">
+                                                    <!-- Add this hidden input -->
                                                 </form>
                                             </li>
+
                                             <li><a href="javascript:void(0);" class="popup-ajax"><i
                                                     class="icon-shuffle"></i></a></li>
                                             <li><a href="javascript:void(0);" class="popup-ajax"><i
