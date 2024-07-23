@@ -64,8 +64,17 @@
                                         src="{{product.image.url}}" alt="product_img1"> </a>
                                     <div class="product_action_box">
                                         <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="/cart"><i class="icon-basket-loaded"></i>
-                                                Cart Quick View</a></li>
+                                            <li class="add-to-cart">
+                                                <a href="#"
+                                                   onclick="document.getElementById('add-to-cart-form-{{ product.id }}').submit(); return false;">
+                                                    <i class="icon-basket-loaded"></i>
+                                                </a>
+                                                <form id="add-to-cart-form-{{ product.id }}" method="POST"
+                                                      action="{% url 'cart' %}" style="display:none;">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                                                </form>
+                                            </li>
                                             <li><a href="javascript:void(0);" class="popup-ajax"><i
                                                     class="icon-shuffle"></i></a></li>
                                             <li><a href="javascript:void(0);" class="popup-ajax"><i
@@ -74,36 +83,36 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <!--                                Add-Remove to cart-->
-                                <div class="card-footer p-0">
-                                    {% if product|is_in_cart:request.session.cart %}
-                                    <div class="row no-gutters">
-                                        <form action="{{request.path}}" class="col-2" method="POST">
-                                            {% csrf_token %}
-                                            <input hidden type="text" name="product" value="{{product.id}}">
-                                            <input hidden type="text" name="remove" value="True">
-                                            <input type="submit" value="-" class="btn btn-block btn-secondary">
-                                        </form>
-                                        <div class="text-center col">{{product|cart_quantity:request.session.cart}}
-                                            in cart
-                                        </div>
-                                        <form action="{{request.path}}" class="col-2" method="POST">
-                                            {% csrf_token %}
-                                            <input hidden type="text" name="product" value="{{product.id}}">
-                                            <input type="submit" value="+" class="btn btn-block btn-secondary">
-                                        </form>
-                                    </div>
-                                    {% else %}
-                                    <form action="{{request.path}}" method="POST">
-                                        {% csrf_token %}
-                                        <input hidden type="text" name="product" value="{{product.id}}">
-                                        <input type="submit" class="float-right btn btn-block btn-outline-info"
-                                               value="Add To Cart">
-                                    </form>
-                                    {% endif %}
+                                <!--                                &lt;!&ndash;                                Add-Remove to cart&ndash;&gt;-->
+                                <!--                                <div class="card-footer p-0">-->
+                                <!--                                    {% if product|is_in_cart:request.session.cart %}-->
+                                <!--                                    <div class="row no-gutters">-->
+                                <!--                                        <form action="{{request.path}}" class="col-2" method="POST">-->
+                                <!--                                            {% csrf_token %}-->
+                                <!--                                            <input hidden type="text" name="product" value="{{product.id}}">-->
+                                <!--                                            <input hidden type="text" name="remove" value="True">-->
+                                <!--                                            <input type="submit" value="-" class="btn btn-block btn-secondary">-->
+                                <!--                                        </form>-->
+                                <!--                                        <div class="text-center col">{{product|cart_quantity:request.session.cart}}-->
+                                <!--                                            in cart-->
+                                <!--                                        </div>-->
+                                <!--                                        <form action="{{request.path}}" class="col-2" method="POST">-->
+                                <!--                                            {% csrf_token %}-->
+                                <!--                                            <input hidden type="text" name="product" value="{{product.id}}">-->
+                                <!--                                            <input type="submit" value="+" class="btn btn-block btn-secondary">-->
+                                <!--                                        </form>-->
+                                <!--                                    </div>-->
+                                <!--                                    {% else %}-->
+                                <!--                                    <form action="{{request.path}}" method="POST">-->
+                                <!--                                        {% csrf_token %}-->
+                                <!--                                        <input hidden type="text" name="product" value="{{product.id}}">-->
+                                <!--                                        <input type="submit" class="float-right btn btn-block btn-outline-info"-->
+                                <!--                                               value="Add To Cart">-->
+                                <!--                                    </form>-->
+                                <!--                                    {% endif %}-->
 
-                                </div>
-                                <!--                                Add-Remove Cart End-->
+                                <!--                                </div>-->
+                                <!--                                &lt;!&ndash;                                Add-Remove Cart End&ndash;&gt;-->
                                 <div class="product_info">
                                     <h6 class="product_title"><a href="product-detail.php">{{product.product_title}}</a>
                                     </h6>
@@ -467,3 +476,5 @@
 
 </div>
 {% endblock %}
+
+

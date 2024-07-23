@@ -40,14 +40,19 @@
                             {% for product in products %}
                             <tr>
                                 <td>{{forloop.counter}}</td>
-                                <td class="product-thumbnail"><a href="#"><img src="{{product.image.url}}" alt="product1"></a></td>
+                                <td class="product-thumbnail"><a href="#"><img src="{{product.image.url}}"
+                                                                               alt="product1"></a></td>
                                 <td class="product-name" data-title="Product"><a href="#">{{product.product_title}}</a>
                                 </td>
                                 <td class="product-price" data-title="Price">{{product.product_price|currency}}</td>
                                 <td class="product-quantity" data-title="Quantity">
-                                    {{product|cart_quantity:request.session.cart}}</td>
-                                <td class="product-subtotal" data-title="Total">{{product|total_price:request.session.cart|currency}}</td>
-                                <td class="product-remove" data-title="Remove"><a href="{% url 'remove' item_id=product.id %}"><i class="ti-close"></i></a></td>
+                                    {{product|cart_quantity:request.session.cart}}
+                                </td>
+                                <td class="product-subtotal" data-title="Total">
+                                    {{product|total_price:request.session.cart|currency}}
+                                </td>
+                                <td class="product-remove" data-title="Remove"><a
+                                        href="{% url 'remove' item_id=product.id %}"><i class="ti-close"></i></a></td>
                             </tr>
                             {% endfor %}
                             </tbody>
@@ -376,7 +381,9 @@
                                 <tbody>
                                 <tr>
                                     <td class="cart_total_label">Cart Subtotal</td>
-                                    <td class="cart_total_amount">{{products|total_cart_price:request.session.cart|currency}}</td>
+                                    <td class="cart_total_amount">
+                                        {{products|total_cart_price:request.session.cart|currency}}
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td class="cart_total_label">Shipping</td>
@@ -384,7 +391,8 @@
                                 </tr>
                                 <tr>
                                     <td class="cart_total_label">Total</td>
-                                    <td class="cart_total_amount"><strong>{{products|total_cart_price:request.session.cart|currency}}</strong></td>
+                                    <td class="cart_total_amount"><strong>{{products|total_cart_price:request.session.cart|currency}}</strong>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>

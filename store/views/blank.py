@@ -1,92 +1,49 @@
 from django.views import View
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 
 
 class Blank(View):
-    def get(self, request):
-        return render(request, 'blank.html')
+    def get(self,request):
+        return render(request,'blank.html')
 
 
 
-# from django.shortcuts import redirect, render
-# # from django.shortcuts import get_object_or_404
-# # from django.views.generic import ListView
 # from django.views import View
-# from store.models.categories import Category
+# from django.shortcuts import render, redirect
 # from store.models.products import Product
-# # from store.models.collections import Collection
 #
-#
-# class CategoryView(View):
-#     # class CategoryView(ListView):
-#     #     model = Product
-#     #     template_name = 'category.html'
-#     #     context_object_name = 'products'
-#     #
-#     #     def get_queryset(self):
-#     #         category_id = self.kwargs['category_id']
-#     #         self.category = get_object_or_404(Category, id=category_id)
-#     #         return Product.objects.filter(category=self.category)
-#     #
-#     #     def get_context_data(self, **kwargs):
-#     #         context = super().get_context_data(**kwargs)
-#     #         context['category'] = self.category
-#     #         return context
-#     #
-#     #     def get(self, request, *args, **kwargs):
-#     #         cart = request.session.get('cart')
-#     #         if not cart:
-#     #             request.session['cart'] = {}
-#     #         return super().get(request, *args, **kwargs)
-#     def get(self, request,*args, **kwargs):
-#         cart = request.session.get('cart')
-#         if not cart:
-#             request.session['cart'] = {}
-#         products = Product.get_all_products()
-#         categories = Category.objects.all()
-#         category_id = request.GET.get('category')
-#         if category_id:
-#            products = Product.get_product_by_category_id(category_id)
-#         else:
-#            products = Product.get_all_products()
+# class Cart(View):
+#     def get(self, request):
+#         cart = request.session.get('cart', {})
+#         ids = list(cart.keys())
+#         products = Product.get_products_by_id(ids)
 #         context = {
-#            'products': products,
-#            'categories': categories
+#             'products': products,
+#             'cart': cart,
 #         }
+#         return render(request, 'cart.html', context)
 #
-#         return render(request, 'category.html', context)
+#     def post(self, request):
+#         product_id = request.POST.get('product_id')
+#         action = request.POST.get('action')
+#         cart = request.session.get('cart', {})
 #
-# def post(self, request,*args, **kwargs):
-#     product = request.POST.get('product')
-#     remove = request.POST.get('remove')
-#     cart = request.session.get('cart')
-#
-#     if cart:
-#         quantity = cart.get(product)
-#         if quantity:
-#             if remove:
-#                 if quantity <= 1:
-#                     cart.pop(product)
-#                 else:
-#                     cart[product] = quantity - 1
+#         if action == 'increment':
+#             if product_id in cart:
+#                 cart[product_id] += 1
 #             else:
-#                 cart[product] = quantity + 1
-#         else:
-#             cart[product] = 1
-#     else:
-#         cart = {}
-#         cart[product] = 1
-#     request.session['cart'] = cart
-#     return redirect(request.path)
+#                 cart[product_id] = 1
+#         elif action == 'decrement':
+#             if product_id in cart:
+#                 if cart[product_id] > 1:
+#                     cart[product_id] -= 1
+#                 else:
+#                     del cart[product_id]
 #
-#     # return render(request, 'category.html')
-#
-#
-# # category = get_object_or_404(Category, pk=category_id)
-# # collection = get_object_or_404(Collection, pk=collection_id)
-# # products = Product.objects.filter(category=category)
-# # context = {
-# #     'collection': collection,
-# #     'category': category,
-# #     'products': products,
-# # }
+#         request.session['cart'] = cart
+#         return redirect('cart')  # Assuming 'cart' is the name of your cart URL pattern
+
+
+
+
+

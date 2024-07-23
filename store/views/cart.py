@@ -11,5 +11,14 @@ class Cart(View):
             'products':products,
         }
         return render(request,'cart.html',context)
-    def post(self,request):
-        return render(request, 'cart.html')
+    def post(self, request):
+        product_id = request.POST.get('product_id')
+        cart = request.session.get('cart', {})
+
+        if product_id in cart:
+            cart[product_id] += 1
+        else:
+            cart[product_id] = 1
+
+        request.session['cart'] = cart
+        return redirect('cart')  # Assuming 'cart' is the name of your cart URL pattern

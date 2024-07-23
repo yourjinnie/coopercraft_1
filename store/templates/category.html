@@ -69,8 +69,17 @@
                                         src="{{product.image.url}}" alt="product_img1"> </a>
                                     <div class="product_action_box">
                                         <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="/cart"><i class="icon-basket-loaded"></i>
-                                                Cart Quick View</a></li>
+                                            <li class="add-to-cart">
+                                                <a href="#"
+                                                   onclick="document.getElementById('add-to-cart-form-{{ product.id }}').submit(); return false;">
+                                                    <i class="icon-basket-loaded"></i>
+                                                </a>
+                                                <form id="add-to-cart-form-{{ product.id }}" method="POST"
+                                                      action="{% url 'cart' %}" style="display:none;">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                                                </form>
+                                            </li>
                                             <li><a href="javascript:void(0);" class="popup-ajax"><i
                                                     class="icon-shuffle"></i></a></li>
                                             <li><a href="javascript:void(0);" class="popup-ajax"><i
@@ -79,36 +88,6 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <!--                                Add-Remove to cart-->
-                                <div class="card-footer p-0">
-                                    {% if product|is_in_cart:request.session.cart %}
-                                    <div class="row no-gutters">
-                                        <form action="{{request.path}}" class="col-2" method="POST">
-                                            {% csrf_token %}
-                                            <input hidden type="text" name="product" value="{{product.id}}">
-                                            <input hidden type="text" name="remove" value="True">
-                                            <input type="submit" value="-" class="btn btn-block btn-secondary">
-                                        </form>
-                                        <div class="text-center col my-auto">{{product|cart_quantity:request.session.cart}}
-                                            in cart
-                                        </div>
-                                        <form action="{{request.path}}" class="col-2" method="POST">
-                                            {% csrf_token %}
-                                            <input hidden type="text" name="product" value="{{product.id}}">
-                                            <input type="submit" value="+" class="btn btn-block btn-secondary">
-                                        </form>
-                                    </div>
-                                    {% else %}
-                                    <form action="{{request.path}}" method="POST">
-                                        {% csrf_token %}
-                                        <input hidden type="text" name="product" value="{{product.id}}">
-                                        <input type="submit" class="float-right btn btn-block btn-outline-info"
-                                               value="Add To Cart">
-                                    </form>
-                                    {% endif %}
-
-                                </div>
-                                <!--                                Add-Remove Cart End-->
                                 <div class="product_info">
                                     <h6 class="product_title"><a href="product-detail.php">{{product.product_title}}</a>
                                     </h6>
@@ -147,375 +126,329 @@
                         {% endif %}
                         <!--                        aaaa-->
                     </div>
-                <div class="row">
-                    <div class="col-12">
-                        <ul class="pagination mt-3 justify-content-center pagination_style1">
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#"><i
-                                    class="linearicons-arrow-right"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 order-lg-first mt-4 pt-2 mt-lg-0 pt-lg-0">
-                <div class="sidebar">
-                    <div class="widget">
-                        <h5 class="widget_title">Filter</h5>
-                        <div class="filter_price">
-                            <div id="price_filter" data-min="0" data-max="500" data-min-value="50"
-                                 data-max-value="300" data-price-sign="$"
-                                 class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
-                                <div class="ui-slider-range ui-corner-all ui-widget-header"
-                                     style="left: 10%; width: 50%;"></div>
-                                <span tabindex="0"
-                                      class="ui-slider-handle ui-corner-all ui-state-default"
-                                      style="left: 10%;"></span><span tabindex="0"
-                                                                      class="ui-slider-handle ui-corner-all ui-state-default"
-                                                                      style="left: 60%;"></span>
-                            </div>
-                            <div class="price_range">
-                                <span>Price: <span id="flt_price">$50 - $300</span></span>
-                                <input type="hidden" id="price_first">
-                                <input type="hidden" id="price_second">
-                            </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <ul class="pagination mt-3 justify-content-center pagination_style1">
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#"><i
+                                        class="linearicons-arrow-right"></i></a></li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="widget">
-                        <h5 class="widget_title">Categories</h5>
-                        <ul class="widget_categories">
-                             {% for category in categories %}
+                </div>
+                <div class="col-lg-3 order-lg-first mt-4 pt-2 mt-lg-0 pt-lg-0">
+                    <div class="sidebar">
+                        <div class="widget">
+                            <h5 class="widget_title">Filter</h5>
+                            <div class="filter_price">
+                                <div id="price_filter" data-min="0" data-max="500" data-min-value="50"
+                                     data-max-value="300" data-price-sign="$"
+                                     class="ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
+                                    <div class="ui-slider-range ui-corner-all ui-widget-header"
+                                         style="left: 10%; width: 50%;"></div>
+                                    <span tabindex="0"
+                                          class="ui-slider-handle ui-corner-all ui-state-default"
+                                          style="left: 10%;"></span><span tabindex="0"
+                                                                          class="ui-slider-handle ui-corner-all ui-state-default"
+                                                                          style="left: 60%;"></span>
+                                </div>
+                                <div class="price_range">
+                                    <span>Price: <span id="flt_price">$50 - $300</span></span>
+                                    <input type="hidden" id="price_first">
+                                    <input type="hidden" id="price_second">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="widget">
+                            <h5 class="widget_title">Categories</h5>
+                            <ul class="widget_categories">
+                                {% for category in categories %}
                                 <li><a href="{% url 'category' category.id %}"><span class="categories_name">{{category.category}}</span><span
                                         class="categories_num">(9)</span></a></li>
                                 {% endfor %}
-                        </ul>
-                    </div>
-                    <div class="widget">
-                        <h5 class="widget_title">Avg. Customer Review</h5>
-                        <ul class="list_brand">
-                            <li><a href="#"> <img src="/static/images/4star.png"> & Up </a></li>
-                            <li><a href="#"> <img src="/static/images/3star.png"> & Up </a></li>
-                            <li><a href="#"> <img src="/static/images/2star.png"> & Up </a></li>
-                            <li><a href="#"> <img src="/static/images/1star.png"> & Up </a></li>
-                        </ul>
-                    </div>
-                    <div class="widget">
-                        <h5 class="widget_title">New Arrivals</h5>
-                        <ul class="list_brand">
-                            <li>
-                                <div class="custome-checkbox"><input class="form-check-input" type="checkbox"
-                                                                     name="checkbox" id="Arrivals1" value=""> <label
-                                        class="form-check-label"
-                                        for="Arrivals"><span>Last 30 days</span></label></div>
-                            </li>
-                            <li>
-                                <div class="custome-checkbox"><input class="form-check-input" type="checkbox"
-                                                                     name="checkbox" id="Lighting" value=""> <label
-                                        class="form-check-label"
-                                        for="Lighting"><span>Last 90 days</span></label></div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="widget">
-                        <h5 class="widget_title">Deals & Discounts</h5>
-                        <ul class="list_brand">
-                            <li><a href="#">10% Off or more</a></li>
-                            <li><a href="#">25% Off or more</a></li>
-                            <li><a href="#">35% Off or more</a></li>
-                            <li><a href="#">50% Off or more</a></li>
-                            <li><a href="#">60% Off or more</a></li>
-                            <li><a href="#">70% Off or more</a></li>
-                        </ul>
-                    </div>
-                    <div class="widget">
-                        <h5 class="widget_title">Availability</h5>
-                        <ul class="list_brand">
-                            <li>
-                                <div class="custome-checkbox"><input class="form-check-input" type="checkbox"
-                                                                     name="checkbox" id="Arrivals" value=""> <label
-                                        class="form-check-label"
-                                        for="Arrivals"><span>Include Out of Stock</span></label>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="widget">
-                        <div class="shop_banner">
-                            <div class="banner_img overlay_bg_20">
-                                <img src="/static/assets/images/jouit.gif" alt="sidebar_banner_img">
-                            </div>
-                            <div class="shop_bn_content2 text_white">
-                                <!--<h5 class="text-uppercase shop_subtitle">New Collection</h5>-->
-                                <h4 class="text-uppercase shop_title">Sale 30% Off</h4>
-                                <a href="#" class="btn btn-white rounded-0 btn-sm text-uppercase">Shop Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- END SECTION SHOP -->
-
-<div class="section sugsted-pro pt-5 pb-5" style="background:#fff;">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="heading_s1 text-left">
-                    <h2>Inspired by your browsing history</h2>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <div class="product">
-                    <div class="product_img"><a href="product-detail.html"> <img
-                            src="/static/assets/images/product/BLOCK-PRINTED-HAND-BAG.png" alt="product_img1"> </a>
-                        <div class="product_action_box">
-                            <ul class="list_none pr_action_btn">
-                                <li class="add-to-cart"><a href="/cart"><i class="icon-basket-loaded"></i> Add To
-                                    Cart</a></li>
-                                <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                        class="icon-shuffle"></i></a></li>
-                                <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                        class="icon-magnifier-add"></i></a></li>
-                                <li><a href="/wishlist"><i class="icon-heart"></i></a></li>
                             </ul>
                         </div>
-                    </div>
-                    <div class="product_info">
-                        <h6 class="product_title"><a href="product-detail.html">BLOCK PRINTED HAND BAG</a></h6>
-                        <div class="product_price"><span class="price">₹45.00</span>
-                            <del>₹55.25</del>
-                            <div class="on_sale"><span>35% Off</span></div>
+                        <div class="widget">
+                            <h5 class="widget_title">Avg. Customer Review</h5>
+                            <ul class="list_brand">
+                                <li><a href="#"> <img src="/static/images/4star.png"> & Up </a></li>
+                                <li><a href="#"> <img src="/static/images/3star.png"> & Up </a></li>
+                                <li><a href="#"> <img src="/static/images/2star.png"> & Up </a></li>
+                                <li><a href="#"> <img src="/static/images/1star.png"> & Up </a></li>
+                            </ul>
                         </div>
-                        <div class="rating_wrap">
-                            <div class="rating">
-                                <div class="product_rate" style="width:80%"></div>
-                            </div>
-                            <div class="thing">
-                                <div class="thing__content">
-                                    <div class="thing__text"><i class="fa fa-share-square"></i>&nbsp;</div>
-                                    <a
-                                            class="thing__social thing__social--first thing__social--facebook"
-                                            href="#"><i class="ion-social-facebook"></i></a> <a
-                                        class="thing__social thing__social--twitter" href="#"><i
-                                        class="ion-social-twitter"></i></a> <a
-                                        class="thing__social thing__social--linkedin" href="#"><i
-                                        class="ion-social-linkedin"></i></a> <a
-                                        class="thing__social thing__social--last thing__social--google"
-                                        href="#"><i class="ion-social-google"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pr_desc">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa
-                                enim. Nullam id varius nunc id varius nunc.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="product">
-                    <div class="product_img"><a href="product-detail.html"> <img
-                            src="/static/assets/images/product/Hancrafted-Jute-Box-Round.jpg" alt="product_img1">
-                    </a>
-                        <div class="product_action_box">
-                            <ul class="list_none pr_action_btn">
-                                <li class="add-to-cart">
-                                    <a href="/cart"><i class="icon-basket-loaded"></i>
-                                        Add To Cart</a>
+                        <div class="widget">
+                            <h5 class="widget_title">New Arrivals</h5>
+                            <ul class="list_brand">
+                                <li>
+                                    <div class="custome-checkbox"><input class="form-check-input" type="checkbox"
+                                                                         name="checkbox" id="Arrivals1" value=""> <label
+                                            class="form-check-label"
+                                            for="Arrivals"><span>Last 30 days</span></label></div>
                                 </li>
-                                <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                        class="icon-shuffle"></i></a></li>
-                                <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                        class="icon-magnifier-add"></i></a></li>
-                                <li><a href="/wishlist"><i class="icon-heart"></i></a></li>
+                                <li>
+                                    <div class="custome-checkbox"><input class="form-check-input" type="checkbox"
+                                                                         name="checkbox" id="Lighting" value=""> <label
+                                            class="form-check-label"
+                                            for="Lighting"><span>Last 90 days</span></label></div>
+                                </li>
                             </ul>
                         </div>
-                    </div>
-                    <div class="product_info">
-                        <h6 class="product_title"><a href="product-detail.html">Hancrafted Jute Box (Round)</a>
-                        </h6>
-                        <div class="product_price"><span class="price">₹45.00</span>
-                            <del>₹55.25</del>
-                            <div class="on_sale"><span>35% Off</span></div>
-                        </div>
-                        <div class="rating_wrap">
-                            <div class="rating">
-                                <div class="product_rate" style="width:80%"></div>
-                            </div>
-                            <div class="thing">
-                                <div class="thing__content">
-                                    <div class="thing__text"><i class="fa fa-share-square"></i>&nbsp;</div>
-                                    <a
-                                            class="thing__social thing__social--first thing__social--facebook"
-                                            href="#"><i class="ion-social-facebook"></i></a> <a
-                                        class="thing__social thing__social--twitter" href="#"><i
-                                        class="ion-social-twitter"></i></a> <a
-                                        class="thing__social thing__social--linkedin" href="#"><i
-                                        class="ion-social-linkedin"></i></a> <a
-                                        class="thing__social thing__social--last thing__social--google"
-                                        href="#"><i class="ion-social-google"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pr_desc">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa
-                                enim. Nullam id varius nunc id varius nunc.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="product">
-                    <div class="product_img"><a href="product-detail.html"> <img
-                            src="/static/assets/images/product/Hancrafted-Jute-Ganesha-Hanging.jpg"
-                            alt="product_img1"> </a>
-                        <div class="product_action_box">
-                            <ul class="list_none pr_action_btn">
-                                <li class="add-to-cart"><a href="/cart"><i class="icon-basket-loaded"></i> Add To
-                                    Cart</a></li>
-                                <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                        class="icon-shuffle"></i></a></li>
-                                <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                        class="icon-magnifier-add"></i></a></li>
-                                <li><a href="/wishlist"><i class="icon-heart"></i></a></li>
+                        <div class="widget">
+                            <h5 class="widget_title">Deals & Discounts</h5>
+                            <ul class="list_brand">
+                                <li><a href="#">10% Off or more</a></li>
+                                <li><a href="#">25% Off or more</a></li>
+                                <li><a href="#">35% Off or more</a></li>
+                                <li><a href="#">50% Off or more</a></li>
+                                <li><a href="#">60% Off or more</a></li>
+                                <li><a href="#">70% Off or more</a></li>
                             </ul>
                         </div>
-                    </div>
-                    <div class="product_info">
-                        <h6 class="product_title"><a href="product-detail.html">Hancrafted Jute Ganesha
-                            (Hanging)</a></h6>
-                        <div class="product_price"><span class="price">₹45.00</span>
-                            <del>₹55.25</del>
-                            <div class="on_sale"><span>35% Off</span></div>
-                        </div>
-                        <div class="rating_wrap">
-                            <div class="rating">
-                                <div class="product_rate" style="width:80%"></div>
-                            </div>
-                            <div class="thing">
-                                <div class="thing__content">
-                                    <div class="thing__text"><i class="fa fa-share-square"></i>&nbsp;</div>
-                                    <a
-                                            class="thing__social thing__social--first thing__social--facebook"
-                                            href="#"><i class="ion-social-facebook"></i></a> <a
-                                        class="thing__social thing__social--twitter" href="#"><i
-                                        class="ion-social-twitter"></i></a> <a
-                                        class="thing__social thing__social--linkedin" href="#"><i
-                                        class="ion-social-linkedin"></i></a> <a
-                                        class="thing__social thing__social--last thing__social--google"
-                                        href="#"><i class="ion-social-google"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pr_desc">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa
-                                enim. Nullam id varius nunc id varius nunc.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="product">
-                    <div class="product_img"><a href="product-detail.html"> <img
-                            src="/static/assets/images/product/Terracotta-Palki.jpg" alt="product_img1"> </a>
-                        <div class="product_action_box">
-                            <ul class="list_none pr_action_btn">
-                                <li class="add-to-cart"><a href="/cart"><i class="icon-basket-loaded"></i> Add To
-                                    Cart</a></li>
-                                <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                        class="icon-shuffle"></i></a></li>
-                                <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                        class="icon-magnifier-add"></i></a></li>
-                                <li><a href="/wishlist"><i class="icon-heart"></i></a></li>
+                        <div class="widget">
+                            <h5 class="widget_title">Availability</h5>
+                            <ul class="list_brand">
+                                <li>
+                                    <div class="custome-checkbox"><input class="form-check-input" type="checkbox"
+                                                                         name="checkbox" id="Arrivals" value=""> <label
+                                            class="form-check-label"
+                                            for="Arrivals"><span>Include Out of Stock</span></label>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
-                    </div>
-                    <div class="product_info">
-                        <h6 class="product_title"><a href="product-detail.html">Terracotta Palki</a></h6>
-                        <div class="product_price"><span class="price">₹45.00</span>
-                            <del>₹55.25</del>
-                            <div class="on_sale"><span>35% Off</span></div>
-                        </div>
-                        <div class="rating_wrap">
-                            <div class="rating">
-                                <div class="product_rate" style="width:80%"></div>
-                            </div>
-                            <div class="thing">
-                                <div class="thing__content">
-                                    <div class="thing__text"><i class="fa fa-share-square"></i>&nbsp;</div>
-                                    <a
-                                            class="thing__social thing__social--first thing__social--facebook"
-                                            href="#"><i class="ion-social-facebook"></i></a> <a
-                                        class="thing__social thing__social--twitter" href="#"><i
-                                        class="ion-social-twitter"></i></a> <a
-                                        class="thing__social thing__social--linkedin" href="#"><i
-                                        class="ion-social-linkedin"></i></a> <a
-                                        class="thing__social thing__social--last thing__social--google"
-                                        href="#"><i class="ion-social-google"></i></a>
+                        <div class="widget">
+                            <div class="shop_banner">
+                                <div class="banner_img overlay_bg_20">
+                                    <img src="/static/assets/images/jouit.gif" alt="sidebar_banner_img">
+                                </div>
+                                <div class="shop_bn_content2 text_white">
+                                    <!--<h5 class="text-uppercase shop_subtitle">New Collection</h5>-->
+                                    <h4 class="text-uppercase shop_title">Sale 30% Off</h4>
+                                    <a href="#" class="btn btn-white rounded-0 btn-sm text-uppercase">Shop Now</a>
                                 </div>
                             </div>
-                        </div>
-                        <div class="pr_desc">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa
-                                enim. Nullam id varius nunc id varius nunc.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <!-- END SECTION SHOP -->
+
+    <div class="section sugsted-pro pt-5 pb-5" style="background:#fff;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="heading_s1 text-left">
+                        <h2>Inspired by your browsing history</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="product">
+                        <div class="product_img"><a href="product-detail.html"> <img
+                                src="/static/assets/images/product/BLOCK-PRINTED-HAND-BAG.png" alt="product_img1"> </a>
+                            <div class="product_action_box">
+                                <ul class="list_none pr_action_btn">
+                                    <li class="add-to-cart"><a href="/cart"><i class="icon-basket-loaded"></i> Add To
+                                        Cart</a></li>
+                                    <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                            class="icon-shuffle"></i></a></li>
+                                    <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                            class="icon-magnifier-add"></i></a></li>
+                                    <li><a href="/wishlist"><i class="icon-heart"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="product_info">
+                            <h6 class="product_title"><a href="product-detail.html">BLOCK PRINTED HAND BAG</a></h6>
+                            <div class="product_price"><span class="price">₹45.00</span>
+                                <del>₹55.25</del>
+                                <div class="on_sale"><span>35% Off</span></div>
+                            </div>
+                            <div class="rating_wrap">
+                                <div class="rating">
+                                    <div class="product_rate" style="width:80%"></div>
+                                </div>
+                                <div class="thing">
+                                    <div class="thing__content">
+                                        <div class="thing__text"><i class="fa fa-share-square"></i>&nbsp;</div>
+                                        <a
+                                                class="thing__social thing__social--first thing__social--facebook"
+                                                href="#"><i class="ion-social-facebook"></i></a> <a
+                                            class="thing__social thing__social--twitter" href="#"><i
+                                            class="ion-social-twitter"></i></a> <a
+                                            class="thing__social thing__social--linkedin" href="#"><i
+                                            class="ion-social-linkedin"></i></a> <a
+                                            class="thing__social thing__social--last thing__social--google"
+                                            href="#"><i class="ion-social-google"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pr_desc">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa
+                                    enim. Nullam id varius nunc id varius nunc.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="product">
+                        <div class="product_img"><a href="product-detail.html"> <img
+                                src="/static/assets/images/product/Hancrafted-Jute-Box-Round.jpg" alt="product_img1">
+                        </a>
+                            <div class="product_action_box">
+                                <ul class="list_none pr_action_btn">
+                                    <li class="add-to-cart">
+                                        <a href="/cart"><i class="icon-basket-loaded"></i>
+                                            Add To Cart</a>
+                                    </li>
+                                    <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                            class="icon-shuffle"></i></a></li>
+                                    <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                            class="icon-magnifier-add"></i></a></li>
+                                    <li><a href="/wishlist"><i class="icon-heart"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="product_info">
+                            <h6 class="product_title"><a href="product-detail.html">Hancrafted Jute Box (Round)</a>
+                            </h6>
+                            <div class="product_price"><span class="price">₹45.00</span>
+                                <del>₹55.25</del>
+                                <div class="on_sale"><span>35% Off</span></div>
+                            </div>
+                            <div class="rating_wrap">
+                                <div class="rating">
+                                    <div class="product_rate" style="width:80%"></div>
+                                </div>
+                                <div class="thing">
+                                    <div class="thing__content">
+                                        <div class="thing__text"><i class="fa fa-share-square"></i>&nbsp;</div>
+                                        <a
+                                                class="thing__social thing__social--first thing__social--facebook"
+                                                href="#"><i class="ion-social-facebook"></i></a> <a
+                                            class="thing__social thing__social--twitter" href="#"><i
+                                            class="ion-social-twitter"></i></a> <a
+                                            class="thing__social thing__social--linkedin" href="#"><i
+                                            class="ion-social-linkedin"></i></a> <a
+                                            class="thing__social thing__social--last thing__social--google"
+                                            href="#"><i class="ion-social-google"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pr_desc">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa
+                                    enim. Nullam id varius nunc id varius nunc.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="product">
+                        <div class="product_img"><a href="product-detail.html"> <img
+                                src="/static/assets/images/product/Hancrafted-Jute-Ganesha-Hanging.jpg"
+                                alt="product_img1"> </a>
+                            <div class="product_action_box">
+                                <ul class="list_none pr_action_btn">
+                                    <li class="add-to-cart"><a href="/cart"><i class="icon-basket-loaded"></i> Add To
+                                        Cart</a></li>
+                                    <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                            class="icon-shuffle"></i></a></li>
+                                    <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                            class="icon-magnifier-add"></i></a></li>
+                                    <li><a href="/wishlist"><i class="icon-heart"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="product_info">
+                            <h6 class="product_title"><a href="product-detail.html">Hancrafted Jute Ganesha
+                                (Hanging)</a></h6>
+                            <div class="product_price"><span class="price">₹45.00</span>
+                                <del>₹55.25</del>
+                                <div class="on_sale"><span>35% Off</span></div>
+                            </div>
+                            <div class="rating_wrap">
+                                <div class="rating">
+                                    <div class="product_rate" style="width:80%"></div>
+                                </div>
+                                <div class="thing">
+                                    <div class="thing__content">
+                                        <div class="thing__text"><i class="fa fa-share-square"></i>&nbsp;</div>
+                                        <a
+                                                class="thing__social thing__social--first thing__social--facebook"
+                                                href="#"><i class="ion-social-facebook"></i></a> <a
+                                            class="thing__social thing__social--twitter" href="#"><i
+                                            class="ion-social-twitter"></i></a> <a
+                                            class="thing__social thing__social--linkedin" href="#"><i
+                                            class="ion-social-linkedin"></i></a> <a
+                                            class="thing__social thing__social--last thing__social--google"
+                                            href="#"><i class="ion-social-google"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pr_desc">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa
+                                    enim. Nullam id varius nunc id varius nunc.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="product">
+                        <div class="product_img"><a href="product-detail.html"> <img
+                                src="/static/assets/images/product/Terracotta-Palki.jpg" alt="product_img1"> </a>
+                            <div class="product_action_box">
+                                <ul class="list_none pr_action_btn">
+                                    <li class="add-to-cart"><a href="/cart"><i class="icon-basket-loaded"></i> Add To
+                                        Cart</a></li>
+                                    <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                            class="icon-shuffle"></i></a></li>
+                                    <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                            class="icon-magnifier-add"></i></a></li>
+                                    <li><a href="/wishlist"><i class="icon-heart"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="product_info">
+                            <h6 class="product_title"><a href="product-detail.html">Terracotta Palki</a></h6>
+                            <div class="product_price"><span class="price">₹45.00</span>
+                                <del>₹55.25</del>
+                                <div class="on_sale"><span>35% Off</span></div>
+                            </div>
+                            <div class="rating_wrap">
+                                <div class="rating">
+                                    <div class="product_rate" style="width:80%"></div>
+                                </div>
+                                <div class="thing">
+                                    <div class="thing__content">
+                                        <div class="thing__text"><i class="fa fa-share-square"></i>&nbsp;</div>
+                                        <a
+                                                class="thing__social thing__social--first thing__social--facebook"
+                                                href="#"><i class="ion-social-facebook"></i></a> <a
+                                            class="thing__social thing__social--twitter" href="#"><i
+                                            class="ion-social-twitter"></i></a> <a
+                                            class="thing__social thing__social--linkedin" href="#"><i
+                                            class="ion-social-linkedin"></i></a> <a
+                                            class="thing__social thing__social--last thing__social--google"
+                                            href="#"><i class="ion-social-google"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="pr_desc">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa
+                                    enim. Nullam id varius nunc id varius nunc.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 {% endblock %}
-<!--{% block js %}-->
-<!--&lt;!&ndash;Add-Remove Property&ndash;&gt;-->
-<!--if(localStorage.getItem('cart')==null){-->
-<!--var cart={};-->
-<!--}-->
-<!--else-->
-<!--{cart=JSON.parse(localStorage.getItem('cart'));-->
-<!--document.getElementById('cart').innerHTML = Object.keys(cart).length;-->
-<!--&lt;!&ndash;updateCart(cart);&ndash;&gt;-->
-<!--}-->
-<!--$('.cart').click(function(){-->
-<!--var idstr=this.id.toString();-->
-<!--if(cart[idstr]!=undefined){-->
-<!--cart[idstr]=cart[idstr]+1;-->
-<!--}else-->
-<!--{-->
-<!--cart[idstr]=1;-->
-<!--}-->
-<!--updateCart(cart);-->
-<!--localStorage.setItem('cart',JSON.stringify(cart));-->
-<!--});-->
-<!--function updateCart(cart) {-->
-<!--for (var item in cart) {-->
-<!--document.getElementById('div' + item).innerHTML = "-->
-<!--<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span-->
-<!--        id='val" + item + "'>" + cart[item] + "</span>-->
-<!--<button id='plus" + item + "' class='btn btn-primary plus'> +</button>";-->
-<!--}-->
-<!--localStorage.setItem('cart', JSON.stringify(cart));-->
-<!--document.getElementById('cart').innerHTML = Object.keys(cart).length;-->
-<!--}-->
-<!--&lt;!&ndash;// If plus or minus button is clicked, change the cart as well as the display value&ndash;&gt;-->
-<!--$('.divpr').on("click", "button.minus", function() {-->
-<!--a = this.id.slice(7, );-->
-<!--cart['pr' + a] = cart['pr' + a] - 1;-->
-<!--cart['pr' + a] = Math.max(0, cart['pr' + a]);-->
-<!--document.getElementById('valpr' + a).innerHTML = cart['pr' + a];-->
-<!--updateCart(cart);-->
-<!--});-->
-<!--$('.divpr').on("click", "button.plus", function() {-->
-<!--a = this.id.slice(6, );-->
-<!--cart['pr' + a] = cart['pr' + a] + 1;-->
-<!--document.getElementById('valpr' + a).innerHTML = cart['pr' + a];-->
-<!--updateCart(cart);-->
-<!--});-->
-<!--{% endblock %}-->
