@@ -1,7 +1,18 @@
+from django.shortcuts import render
 from django.views import View
-from django.shortcuts import render, redirect
-
+from store.models import Product, Wishlist
 
 class Wishlist(View):
-    def get(self, request):
-        return render(request, 'wishlist.html')
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            # Fetch wishlist items for authenticated users
+            wishlist_items = Wishlist.objects.filter(user=request.user).select_related('product')
+        else:
+            # Fetch wishlist items from session for unauthenticated users
+            wishlist_ids = request.session.get('wishlist', [])
+            wishlist_items = Product.objects.filter(id__in=wishlist_ids)
+
+        context = {
+            'wishlist_items': wishlist_items
+        }
+        return render(request, 'wishlist.html', context)

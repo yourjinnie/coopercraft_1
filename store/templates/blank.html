@@ -18,16 +18,35 @@
                                 <!--                                    </div>-->
                                 <!--                                </td>-->
 
+ <!--                            {% if request.user.is_authenticated %}-->
 
 
 
-<!-- <title>Cart</title>-->
-<!--    <style>-->
-<!--        .quantity-controls {-->
-<!--            display: flex;-->
-<!--            align-items: center;-->
-<!--        }-->
-<!--        .quantity-controls button {-->
-<!--            margin: 0 5px;-->
-<!--        }-->
-<!--    </style>-->
+ <!--                            {% for item in wishlist %}-->
+                            <!--                            <tr>-->
+                            <!--                                <td class="product-thumbnail"><a href="#"><img-->
+                            <!--                                        src="{{item.product.image.url}}"-->
+                            <!--                                        alt="product"></a></td>-->
+                            <!--                                <td class="product-name" data-title="Product"><a-->
+                            <!--                                        href="#">{{item.product.product_title}}</a>-->
+                            <!--                                </td>-->
+                            <!--                                <td class="product-price" data-title="Price">₹{{item.product.product_price}}</td>-->
+                            <!--                                <td class="product-stock-status" data-title="Stock Status"><span-->
+                            <!--                                        class="badge rounded-pill text-bg-success">In Stock</span></td>-->
+                            <!--                                <td class="product-add-to-cart">-->
+                            <!--                                    <a href="#" class="btn btn-fill-out"-->
+                            <!--                                       onclick="document.getElementById('add-to-cart-form-{{ product.id }}').submit(); return false;">-->
+                            <!--                                        <i class="icon-basket-loaded"></i> Add to Cart-->
+                            <!--                                    </a>-->
+                            <!--                                    <form id="add-to-cart-form-{{ product.id }}" method="POST" action="{% url 'cart' %}"-->
+                            <!--                                          style="display:none;">-->
+                            <!--                                        {% csrf_token %}-->
+                            <!--                                        <input type="hidden" name="product_id" value="{{ product.id }}">-->
+                            <!--                                        <input type="hidden" name="action" value="increase">-->
+                            <!--                                    </form>-->
+                            <!--                                </td>-->
+                            <!--                                <td class="product-remove" data-title="Remove"><a-->
+                            <!--                                        href="{% url 'remove' item_id=item.id %}"><i class="ti-close"></i></a>-->
+                            <!--                                </td>-->
+                            <!--                            </tr>-->
+                            <!--                            {% endfor %}-->

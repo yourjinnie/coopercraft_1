@@ -77,45 +77,16 @@
                                                     <!-- Add this hidden input -->
                                                 </form>
                                             </li>
-
-                                            <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                            <li><a href="{% url 'add_to_compare' product.pk %}" class="popup-ajax"><i
                                                     class="icon-shuffle"></i></a></li>
-                                            <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                            <li><a href="{% url 'zoom_product' product.id %}" class="popup-ajax"><i
                                                     class="icon-magnifier-add"></i></a></li>
-                                            <li><a href="/wishlist"><i class="icon-heart"></i></a></li>
+                                            <li><a href="{% url 'add_to_wishlist' product.pk %}">
+                                                <i class="icon-heart"></i>
+                                            </a></li>
                                         </ul>
                                     </div>
                                 </div>
-                                <!--                                &lt;!&ndash;                                Add-Remove to cart&ndash;&gt;-->
-                                <!--                                <div class="card-footer p-0">-->
-                                <!--                                    {% if product|is_in_cart:request.session.cart %}-->
-                                <!--                                    <div class="row no-gutters">-->
-                                <!--                                        <form action="{{request.path}}" class="col-2" method="POST">-->
-                                <!--                                            {% csrf_token %}-->
-                                <!--                                            <input hidden type="text" name="product" value="{{product.id}}">-->
-                                <!--                                            <input hidden type="text" name="remove" value="True">-->
-                                <!--                                            <input type="submit" value="-" class="btn btn-block btn-secondary">-->
-                                <!--                                        </form>-->
-                                <!--                                        <div class="text-center col">{{product|cart_quantity:request.session.cart}}-->
-                                <!--                                            in cart-->
-                                <!--                                        </div>-->
-                                <!--                                        <form action="{{request.path}}" class="col-2" method="POST">-->
-                                <!--                                            {% csrf_token %}-->
-                                <!--                                            <input hidden type="text" name="product" value="{{product.id}}">-->
-                                <!--                                            <input type="submit" value="+" class="btn btn-block btn-secondary">-->
-                                <!--                                        </form>-->
-                                <!--                                    </div>-->
-                                <!--                                    {% else %}-->
-                                <!--                                    <form action="{{request.path}}" method="POST">-->
-                                <!--                                        {% csrf_token %}-->
-                                <!--                                        <input hidden type="text" name="product" value="{{product.id}}">-->
-                                <!--                                        <input type="submit" class="float-right btn btn-block btn-outline-info"-->
-                                <!--                                               value="Add To Cart">-->
-                                <!--                                    </form>-->
-                                <!--                                    {% endif %}-->
-
-                                <!--                                </div>-->
-                                <!--                                &lt;!&ndash;                                Add-Remove Cart End&ndash;&gt;-->
                                 <div class="product_info">
                                     <h6 class="product_title"><a href="product-detail.php">{{product.product_title}}</a>
                                     </h6>
