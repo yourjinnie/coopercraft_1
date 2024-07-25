@@ -51,13 +51,13 @@
                                         class="badge rounded-pill text-bg-success">In Stock</span></td>
                                 <td class="product-add-to-cart">
                                     <a href="#" class="btn btn-fill-out"
-                                       onclick="document.getElementById('add-to-cart-form-{{ item.product.id }}').submit(); return false;">
+                                       onclick="document.getElementById('add-to-cart-form-{{ item.id }}').submit(); return false;">
                                         <i class="icon-basket-loaded"></i> Add to Cart
                                     </a>
-                                    <form id="add-to-cart-form-{{ item.product.id }}" method="POST"
-                                          action="{% url 'cart' %}" style="display:none;">
+                                    <form id="add-to-cart-form-{{ item.id }}" method="POST" action="{% url 'cart' %}"
+                                          style="display:none;">
                                         {% csrf_token %}
-                                        <input type="hidden" name="product_id" value="{{ item.product.id }}">
+                                        <input type="hidden" name="product_id" value="{{ item.id }}">
                                         <input type="hidden" name="action" value="increase">
                                     </form>
                                 </td>
