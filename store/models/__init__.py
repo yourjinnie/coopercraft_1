@@ -7,8 +7,6 @@ from store.models.cart import Cart
 from store.models.cart_item import CartItem
 from store.models.wishlist import Wishlist
 from store.models.compare import Compare
-from store.models.new_arrival import NewArrival
-from store.models.top_selling_product import TopSellingProduct
 
 
 

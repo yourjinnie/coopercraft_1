@@ -1,8 +1,6 @@
 from django.db import models
 from store.models.collections import Collection
 from store.models.categories import Category
-from store.models.new_arrival import NewArrival
-from store.models.top_selling_product import TopSellingProduct
 
 
 class Product(models.Model):
@@ -14,8 +12,6 @@ class Product(models.Model):
     product_price=models.DecimalField(max_digits=10,decimal_places=2)
     collection = models.ForeignKey(Collection, on_delete=models.CASCADE, blank=True, null=True, default=1)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True, default=1)
-    top_selling_product = models.ForeignKey(TopSellingProduct, on_delete=models.CASCADE, blank=True, null=True)
-    new_arrivals = models.ForeignKey(NewArrival, on_delete=models.CASCADE, blank=True, null=True)
     rating = models.DecimalField(max_digits=3, decimal_places=2)
     image=models.ImageField(upload_to='images/')
 
