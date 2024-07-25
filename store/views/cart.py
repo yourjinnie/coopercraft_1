@@ -29,5 +29,10 @@ class Cart(View):
                 cart.pop(product_id, None)
 
         request.session['cart'] = cart
-        return redirect('cart')
-
+        # return redirect('cart')
+        # Redirect to the same page
+        referer = request.META.get('HTTP_REFERER')
+        if referer:
+            return redirect(referer)
+        else:
+            return redirect('fallback-url')  # Use a fallback URL in case HTTP_REFERER is not available

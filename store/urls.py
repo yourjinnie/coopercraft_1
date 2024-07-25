@@ -26,7 +26,7 @@ from store.views.category import Category
 from store.views.wishlist import Wishlist
 from store.views.add_to_wishlist import AddToWishlistView
 from store.views.compare import CompareView
-from store.views.add_to_compare import AddToCompareView
+# from store.views.add_to_compare import AddToCompareView
 from store.views.zoom import ZoomProductView
 from store.views.remove import Remove
 from store.views.logout import Logout
@@ -65,7 +65,7 @@ urlpatterns = [
     path('wishlist/', Wishlist.as_view(), name='wishlist'),
     path('wishlist/add/<int:pk>/', AddToWishlistView.as_view(), name='add_to_wishlist'),
     path('compare/', CompareView.as_view(), name='compare'),
-    path('compare/add/<int:pk>/', AddToCompareView.as_view(), name='add_to_compare'),
+    # path('compare/add/<int:pk>/', AddToCompareView.as_view(), name='add_to_compare'),
     path('zoom-product/<int:product_id>/', ZoomProductView.as_view(), name='zoom_product'),
     path('wishlist/remove/<int:item_id>/', RemoveFromWishlistView.as_view(), name='remove_from_wishlist'),
 ]
