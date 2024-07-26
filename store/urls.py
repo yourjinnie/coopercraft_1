@@ -10,7 +10,8 @@ from store.views.block_printed_bag import BlockPrintedBag
 from store.views.blog import Blog
 from store.views.blog_detail import BlogDetail
 from store.views.cart import Cart
-from store.views.checkout import Checkout
+from store.views.order import OrderConfirmationView
+from store.views.checkout import CheckoutView
 from store.views.contact import Contact
 from store.views.forgot_password import ForgotPassword
 from store.views.forum import Forum
@@ -50,9 +51,10 @@ urlpatterns = [
     path('blog/', Blog.as_view(),name='blog'),
     path('blog-detail/', BlogDetail.as_view(),name='blog-detail'),
     path('cart/', Cart.as_view(),name='cart'),
+    path('order-confirmation/<int:pk>/', OrderConfirmationView.as_view(), name='order_confirmation'),
     path('remove/<int:item_id>', Remove.as_view(),name='remove'),
     path('logout', Logout.as_view(),name='logout'),
-    path('checkout/', Checkout.as_view(),name='checkout'),
+    path('checkout/', CheckoutView.as_view(),name='checkout'),
     path('contact/', Contact.as_view(),name='contact'),
     path('forgot-password/', ForgotPassword.as_view(),name='forgot-password'),
     path('forum/', Forum.as_view(),name='forum'),

@@ -75,38 +75,7 @@
                                 <div class="card-header">
                                     <h3>Orders</h3>
                                 </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                            <tr>
-                                                <th>SNo.</th>
-                                                <th>Order</th>
-                                                <th>Date</th>
-                                                <th>Total</th>
-                                                <th>Status</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            {% for order in orders %}
-                                            <tr>
-                                                <td>{{forloop.counter}}</td>
-                                                <td>{{order.product.product}}</td>
-                                                <td>{{order.date}}</td>
-                                                <td>{{order.quantity|multiply:order.product.price|currency}}</td>
-                                                {% if order.status %}
-                                                <td><small class="badge badge-success">Completed</small></td>
-                                                {% else %}
-                                                <td><small class="badge badge-warning">Pending</small></td>
-                                                {% endif %}
-                                                <td><a href="#" class="btn btn-fill-out btn-sm">View</a></td>
-                                            </tr>
-                                            {% endfor %}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                                {% include 'order.html' %}
                             </div>
                         </div>
                         <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">

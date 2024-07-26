@@ -1,7 +1,11 @@
 from django.views import View
-from django.shortcuts import render, redirect
+from django.shortcuts import render
+from store.models.orders import Order
 
 
 class MyAccount(View):
     def get(self, request):
-        return render(request, 'my-accounts.html')
+        customer = request.session.get('id')
+        orders = Order.get_order_by_customer(customer)
+        orders = orders.reverse()
+        return render(request, 'my-accounts.html', {'orders': orders})

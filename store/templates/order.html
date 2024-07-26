@@ -1,32 +1,30 @@
-{% extends 'base.html' %}
-
 {% load cart %}
 {% load custom_filter %}
-{% block content %}
- <div class="container mt-4">
-     <div class="border rounded p-4 m-4">
-         <p class="display-4" align="center">Your Orders</p>
-         <hr width="25%">
-         <table class="table">
+
+
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Image</th>
+                <th>Product Name</th>
+                <th>Date</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for order in orders %}
              <tr>
-                 <th>SNo.</th>
-                 <th>Image</th>
-                 <th>Name</th>
-                 <th>Date</th>
-                 <th>Price</th>
-                 <th>Quantity</th>
-                 <th>Total Price</th>
-                 <th>Status</th>
-             </tr>
-             {% for order in orders %}
-             <tr>
-                 <td>{{forloop.counter}}</td>
                  <td><img style="height:80px" class="rounded-circle" src="{{order.product.image.url}}"></td>
-                 <td>{{order.product.product}}</td>
+                 <td>{{order.product.product_title}}</td>
                  <td>{{order.date}}</td>
-                 <td>{{order.product.price|currency}}</td>
+                 <td>{{order.product.product_price|currency}}</td>
                  <td>{{order.quantity}}</td>
-                 <td>{{order.quantity|multiply:order.product.price|currency}}</td>
+                 <td>{{order.quantity|multiply:order.product.product_price|currency}}</td>
                  {% if order.status %}
                  <td><small class="badge badge-success">Completed</small></td>
                  {% else %}
@@ -34,8 +32,8 @@
                  {% endif %}
              </tr>
              {% endfor %}
-         </table>
-     </div>
- </div>
+            </tbody>
+        </table>
+    </div>
+</div>
 
-{% endblock %}

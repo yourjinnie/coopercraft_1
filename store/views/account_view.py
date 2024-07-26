@@ -29,8 +29,9 @@ class AccountView(View):
                 return render(request, 'accounts.html', {'error': 'User does not exist'})
 
             user = users.first()
-            if user.password == password:
+            if (user.password == password):
                 request.session['user'] = user.name
+                request.session['id'] = user.id
                 return redirect('my-account')  # Redirect to the my-account page
             else:
                 return render(request, 'accounts.html', {'error': 'Invalid login credentials'})

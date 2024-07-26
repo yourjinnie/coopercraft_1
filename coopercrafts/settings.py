@@ -160,7 +160,7 @@ CSRF_TRUSTED_ORIGINS = [
     'http://coopcraft.in',
     # include other domains as needed
 ]
-
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Using database-backed sessions
 
 
 
