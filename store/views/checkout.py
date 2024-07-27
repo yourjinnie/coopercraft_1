@@ -3,8 +3,9 @@ from django.shortcuts import render,redirect
 from store.models.products import Product
 from store.models.orders import Order
 from store.models.registrer import Register
+# from django.contrib.auth.decorators import login_required
 
-
+# @login_required(login_url='/account/')
 class CheckoutView(View):
     def get(self, request, *args, **kwargs):
         # Fetch products from the cart session or database
