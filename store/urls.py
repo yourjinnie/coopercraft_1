@@ -32,7 +32,7 @@ from store.views.remove import Remove
 from store.views.logout import Logout
 from store.views.remove_wishlist import RemoveFromWishlistView
 # from django.contrib.auth import views as auth_views
-# from store.middlewares.auth import auth_middleware
+from store.middleware.auth import auth_middleware
 
 
 
@@ -54,7 +54,7 @@ urlpatterns = [
     path('order-confirmation/<int:pk>/', OrderConfirmationView.as_view(), name='order_confirmation'),
     path('remove/<int:item_id>', Remove.as_view(),name='remove'),
     path('logout', Logout.as_view(),name='logout'),
-    path('checkout/', CheckoutView.as_view(),name='checkout'),
+    path('checkout/', auth_middleware(CheckoutView.as_view()),name='checkout'),
     path('contact/', Contact.as_view(),name='contact'),
     path('forgot-password/', ForgotPassword.as_view(),name='forgot-password'),
     path('forum/', Forum.as_view(),name='forum'),
