@@ -50,6 +50,7 @@
                                             {% endif %}
                                             <form action="{% url 'account' %}" method="post">
                                                 {% csrf_token %}
+                                                <input type="hidden" name="return_Url" value="{{ return_Url }}">
                                                 <div class="form-group mb-3">
                                                     <input type="text" required class="form-control" name="email" placeholder="Your Email">
                                                 </div>
@@ -92,6 +93,7 @@
                                             {% endif %}
                                             <form action="{% url 'account' %}" method="post">
                                                 {% csrf_token %}
+                                                <input type="hidden" name="return_Url" value="{{ return_Url }}">
                                                 <div class="form-group mb-3">
                                                     <input type="text" required class="form-control" name="name" placeholder="Enter Your Name">
                                                 </div>

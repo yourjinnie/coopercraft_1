@@ -9,6 +9,59 @@ class Blank(View):
 
 
 # from django.views import View
+# from django.shortcuts import render,redirect,HttpResponseRedirect
+# from store.models.registrer import Register
+#
+# class AccountView(View):
+#     return_Url = None
+#     def get(self, request):
+#         AccountView.return_Url = request.GET.get('return_Url')
+#         return render(request, 'accounts.html')
+#
+#     def post(self, request):
+#         if 'register' in request.POST:
+#             name = request.POST.get('name')
+#             email = request.POST.get('email')
+#             password = request.POST.get('password')
+#             confirm_password = request.POST.get('confirm_password')
+#
+#             if password != confirm_password:
+#                 return render(request, 'accounts.html', {'error': 'Passwords do not match'})
+#
+#             registration = Register(name=name, email=email, password=password)
+#             registration.save()
+#             return redirect('account')  # Redirect to the account page
+#
+#         elif 'login' in request.POST:
+#             email = request.POST.get('email')
+#             password = request.POST.get('password')
+#
+#             users = Register.objects.filter(email=email)
+#             if not users.exists():
+#                 return render(request, 'accounts.html', {'error': 'User does not exist'})
+#
+#             user = users.first()
+#             if (user.password == password):
+#                 request.session['user'] = user.name
+#                 request.session['id'] = user.id
+#                 # return redirect('homepage')  # Redirect to the homepage page
+#             if AccountView.return_Url:
+#                 return HttpResponseRedirect(AccountView.return_Url)
+#             else:
+#                 AccountView.return_Url = None
+#                 return redirect('my-account')
+#
+#             # else:
+#             #     return render(request, 'accounts.html', {'error': 'Invalid login credentials'})
+#
+#         return render(request, 'accounts.html')
+
+
+
+
+
+
+# from django.views import View
 # from django.shortcuts import render, redirect
 # from store.models.products import Product
 #
