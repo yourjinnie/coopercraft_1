@@ -21,11 +21,9 @@ class CheckoutView(View):
         zipcode = request.POST.get('zipcode')
         country = request.POST.get('country')
         customer = request.session.get('id')
-        print(customer)
+
         cart = request.session.get('cart')
-        print(cart)
         products = Product.get_products_by_id(list(cart.keys()))
-        print(products)
 
         for product in products:
             order = Order(

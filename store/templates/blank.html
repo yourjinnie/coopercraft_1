@@ -1,126 +1,213 @@
 {% extends 'base.html' %}
+{% load cart %}
+{% load custom_filter %}
 {% block content %}
+
+
 
 <div class="breadcrumb_section bg_gray page-title-mini">
     <div class="container"><!-- STRART CONTAINER -->
         <div class="row align-items-center">
             <div class="col-md-6">
                 <div class="page-title">
-                    <h1>Compare</h1>
+                    <h1 class="text-white">Checkout</h1>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <ol class="breadcrumb justify-content-md-end">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Collection</a></li>
-                    <li class="breadcrumb-item active">Compare</li>
-                </ol>
             </div>
         </div>
     </div><!-- END CONTAINER-->
 </div>
+
+
 <div class="main_content position-relative" id="bambocraft">
 
     <!-- START SECTION SHOP -->
     <div class="section">
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="compare_box">
-                        <div class="table-responsive">
-                            <table class="table table-bordered text-center">
+                <div class="col-lg-6">
+                    <div class="toggle_info"> <span><i class="fas fa-user"></i>Returning customer? <a
+                            href="#loginform" data-bs-toggle="collapse" class="collapsed"
+                            aria-expanded="false">Click here to login</a></span></div>
+                    <div class="panel-collapse collapse login_form" id="loginform">
+                        <div class="panel-body">
+                            <p>If you have shopped with us before, please enter your details below. If you are a new
+                                customer, please proceed to the Billing &amp; Shipping section.</p>
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="form-group mb-3"><input type="text" required="" class="form-control"
+                                                                    name="email" placeholder="Username Or Email"></div>
+                                <div class="form-group mb-3"><input class="form-control" required=""
+                                                                    type="password" name="password"
+                                                                    placeholder="Password"></div>
+                                <div class="login_footer form-group mb-3">
+                                    <div class="chek-form">
+                                        <div class="custome-checkbox"><input class="form-check-input"
+                                                                             type="checkbox" name="checkbox"
+                                                                             id="remember" value=""> <label
+                                                class="form-check-label" for="remember"><span>Remember
+														me</span></label></div>
+                                    </div>
+                                    <a href="#">Forgot password?</a>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <button type="submit"
+                                            class="btn btn-fill-out btn-block" name="login">Log in
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="toggle_info"> <span><i class="fas fa-tag"></i>Have a coupon? <a href="#coupon"
+                                                                                                data-bs-toggle="collapse"
+                                                                                                class="collapsed"
+                                                                                                aria-expanded="false">Click here to
+									enter your code</a></span></div>
+                    <div class="panel-collapse collapse coupon_form" id="coupon">
+                        <div class="panel-body">
+                            <p>If you have a coupon code, please apply it below.</p>
+                            <div class="coupon field_form input-group"><input type="text" value=""
+                                                                              class="form-control"
+                                                                              placeholder="Enter Coupon Code..">
+                                <div class="input-group-append">
+                                    <button class="btn btn-fill-out btn-sm"
+                                            type="submit">Apply Coupon
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="medium_divider"></div>
+                    <div class="divider center_icon"><i class="linearicons-credit-card"></i></div>
+                    <div class="medium_divider"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="heading_s1">
+                        <h4>Billing Details</h4>
+                    </div>
+                    <form method="post" action="{% url 'checkout' %}">
+                        {% csrf_token %}
+                        <div class="form-group mb-3"><input type="text" required="" class="form-control"
+                                                            name="fname" placeholder="First name *"></div>
+                        <div class="form-group mb-3"><input type="text" required="" class="form-control"
+                                                            name="lname" placeholder="Last name *"></div>
+<!--                        <div class="form-group mb-3"><input class="form-control" required="" type="text"-->
+<!--                                                            name="cname" placeholder="Company Name"></div>-->
+                        <div class="form-group mb-3"><input type="text" class="form-control"
+                                                            name="billing_address" required=""
+                                                            placeholder="Address line"></div>
+                        <div class="form-group mb-3"><input class="form-control" required="" type="text"
+                                                            name="city" placeholder="City / Town *"></div>
+                        <div class="form-group mb-3"><input class="form-control" required="" type="text"
+                                                            name="country" placeholder="State / County *"></div>
+                        <div class="form-group mb-3"><input class="form-control" required="" type="text"
+                                                            name="zipcode" placeholder="Postcode / ZIP *"></div>
+                        <div class="form-group mb-3"><input class="form-control" required="" type="text"
+                                                            name="phone_no" placeholder="Phone *"></div>
+                        <div class="form-group mb-3"><input class="form-control" required="" type="text"
+                                                            name="email" placeholder="Email address *"></div>
+                        <div class="form-group mb-3">
+                            <div class="chek-form">
+                                <div class="custome-checkbox"><input class="form-check-input" type="checkbox"
+                                                                     name="checkbox" id="createaccount"> <label
+                                        class="form-check-label label_info" for="createaccount"><span>Create an
+												account?</span></label></div>
+                            </div>
+                        </div>
+                        <div class="heading_s1">
+                            <h4>Additional information</h4>
+                        </div>
+                        <div class="form-group mb-0">
+                            <textarea rows="5" class="form-control" placeholder="Order notes"
+                                      name="order_notes"></textarea>
+                        </div>
+<!--                        <div class="form-group mb-3">-->
+<!--                            <button type="submit" class="btn btn-fill-out btn-block">Place Order</button>-->
+<!--                        </div>-->
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <div class="order_review">
+                        <div class="heading_s1">
+                            <h4>Your Orders</h4>
+                        </div>
+                        <div class="table-responsive order_table">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Total</th>
+                                </tr>
+                                </thead>
                                 <tbody>
                                 {% for product in products %}
-                                <tr class="pr_image">
-                                    <td class="row_title">Product Image</td>
-                                    <td class="row_img"><img
-                                            src="{{product.image.url}}"
-                                            alt="compare-img">
+                                <tr>
+                                    <td>{{product.product_title}} <span class="product-qty">{{product|cart_quantity:request.session.cart}}</span>
                                     </td>
-                                </tr>
-                                <tr class="pr_title">
-                                    <td class="row_title">Product Name</td>
-                                    <td class="product_name"><a
-                                            href="product-detail.html">{{product.product_detail}}</a>
-                                    </td>
-                                </tr>
-                                <tr class="pr_price">
-                                    <td class="row_title">Price</td>
-                                    <td class="product_price"><span class="price">₹{{product.product_price}}</span></td>
-                                </tr>
-                                <tr class="pr_rating">
-                                    <td class="row_title">Rating</td>
-                                    <td>
-                                        <div class="rating_wrap">
-                                            <div class="rating">
-                                                <div class="product_rate" style="width:80%"></div>
-                                            </div>
-                                            <span class="rating_num">{{product.rating}}</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="pr_add_to_cart">
-                                    <td class="row_title">Add To Cart</td>
-                                    <td class="row_btn">
-                                        <a href="#" class="btn btn-fill-out"
-                                           onclick="document.getElementById('add-to-cart-form-{{ item.product.id }}').submit(); return false;">
-                                            <i class="icon-basket-loaded"></i> Add to Cart
-                                        </a>
-                                        <form id="add-to-cart-form-{{ item.product.id }}" method="POST"
-                                              action="{% url 'cart' %}" style="display:none;">
-                                            {% csrf_token %}
-                                            <input type="hidden" name="product_id" value="{{ item.product.id }}">
-                                            <input type="hidden" name="action" value="increase">
-                                        </form>
-                                    </td>
-                                </tr>
-                                <tr class="description">
-                                    <td class="row_title">Description</td>
-                                    <td class="row_text">
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting
-                                            industry. Lorem Ipsum has been the industry's standard dummy text
-                                            ever since the 1500s, when an unknown printer took a galley of type
-                                            and </p>
-                                    </td>
-                                </tr>
-                                <tr class="pr_color">
-                                    <td class="row_title">Color</td>
-                                    <td class="row_color">
-                                        <div class="product_color_switch"> <span data-color="#87554B"
-                                                                                 style="background-color: rgb(135, 85, 75);"></span>
-                                            <span
-                                                    data-color="#333333"
-                                                    style="background-color: rgb(51, 51, 51);"></span> <span
-                                                    data-color="#DA323F"
-                                                    style="background-color: rgb(218, 50, 63);"></span></div>
-                                    </td>
-                                </tr>
-                                <tr class="pr_size">
-                                    <td class="row_title">Sizes Available</td>
-                                    <td class="row_size"><span>S, M, L, XL</span></td>
-                                </tr>
-                                <tr class="pr_stock">
-                                    <td class="row_title">Item Availability</td>
-                                    <td class="row_stock"><span class="in-stock">In Stock</span></td>
-<!--                                    <td class="row_stock"><span class="out-stock">Out Of Stock</span></td>-->
-                                </tr>
-                                <tr class="pr_weight">
-                                    <td class="row_title">Weight</td>
-                                    <td class="row_weight"></td>
-                                </tr>
-                                <tr class="pr_dimensions">
-                                    <td class="row_title">Dimensions</td>
-                                    <td class="row_dimensions">N/A</td>
-                                </tr>
-                                <tr class="pr_remove">
-                                    <td class="row_title"></td>
-                                    <td class="row_remove"><a href="#"><span>Remove</span> <i
-                                            class="fa fa-times"></i></a></td>
+                                    <td>{{product.product_price|currency}}</td>
                                 </tr>
                                 {% endfor %}
                                 </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>SubTotal</th>
+                                    <td class="product-subtotal">
+                                        {{products|total_cart_price:request.session.cart|currency}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Shipping</th>
+                                    <td>Free Shipping</td>
+                                </tr>
+                                <tr>
+                                    <th>Total</th>
+                                    <td class="product-subtotal">
+                                        {{products|total_cart_price:request.session.cart|currency}}
+                                    </td>
+                                </tr>
+                                </tfoot>
                             </table>
                         </div>
+                        <div class="payment_method">
+                            <div class="heading_s1">
+                                <h4>Payment</h4>
+                            </div>
+                            <div class="payment_option">
+                                <div class="custome-radio"><input class="form-check-input" required="" type="radio"
+                                                                  name="payment_option" id="exampleRadios3"
+                                                                  value="option3" checked=""> <label
+                                        class="form-check-label" for="exampleRadios3">Direct Bank Transfer</label>
+                                    <p data-method="option3" class="payment-text">There are many variations of
+                                        passages of Lorem Ipsum available, but the majority have suffered
+                                        alteration. </p>
+                                </div>
+                                <div class="custome-radio"><input class="form-check-input" type="radio"
+                                                                  name="payment_option" id="exampleRadios4"
+                                                                  value="option4"> <label
+                                        class="form-check-label" for="exampleRadios4">Check Payment</label>
+                                    <p data-method="option4" class="payment-text">Please send your cheque to Store
+                                        Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
+                                </div>
+                                <div class="custome-radio"><input class="form-check-input" type="radio"
+                                                                  name="payment_option" id="exampleRadios5"
+                                                                  value="option5"> <label
+                                        class="form-check-label" for="exampleRadios5">Paypal</label>
+                                    <p data-method="option5" class="payment-text">Pay via PayPal; you can pay with
+                                        your credit card if you don't have a PayPal account.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <form method="post" action="{% url 'checkout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-fill-out btn-block">Place Order</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -130,5 +217,6 @@
 
 
 </div>
+
 
 {% endblock %}
