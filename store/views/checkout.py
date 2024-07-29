@@ -3,6 +3,7 @@ from django.shortcuts import render,redirect
 from store.models.products import Product
 from store.models.orders import Order
 from store.models.registrer import Register
+from django.contrib import messages
 # from django.contrib.auth.decorators import login_required
 
 # @login_required(login_url='/account/')
@@ -42,6 +43,7 @@ class CheckoutView(View):
 
             )
             saved_order = order.place_order()
-            print(saved_order)
         request.session['cart']={}
-        return redirect('cart')
+        messages.success(request, 'Order successfully placed')
+        # return render(request, 'index.html')
+        return redirect('homepage')

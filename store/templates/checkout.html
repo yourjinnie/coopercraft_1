@@ -4,7 +4,13 @@
 {% block content %}
 
 
-
+<!--{% if messages %}-->
+<!--<div>-->
+<!--    {% for message in messages %}-->
+<!--    <div class="alert alert-{{ message.tags }}">{{ message }}</div>-->
+<!--    {% endfor %}-->
+<!--</div>-->
+<!--{% endif %}-->
 <div class="breadcrumb_section bg_gray page-title-mini">
     <div class="container"><!-- STRART CONTAINER -->
         <div class="row align-items-center">
@@ -98,8 +104,8 @@
                                                             name="fname" placeholder="First name *"></div>
                         <div class="form-group mb-3"><input type="text" required="" class="form-control"
                                                             name="lname" placeholder="Last name *"></div>
-<!--                        <div class="form-group mb-3"><input class="form-control" required="" type="text"-->
-<!--                                                            name="cname" placeholder="Company Name"></div>-->
+                        <!--                        <div class="form-group mb-3"><input class="form-control" required="" type="text"-->
+                        <!--                                                            name="cname" placeholder="Company Name"></div>-->
                         <div class="form-group mb-3"><input type="text" class="form-control"
                                                             name="billing_address" required=""
                                                             placeholder="Address line"></div>
@@ -204,10 +210,10 @@
                                 </div>
                             </div>
                         </div>
-<!--                        <form method="post" action="{% url 'checkout' %}">-->
-<!--                        {% csrf_token %}-->
-<!--                        <button type="submit" class="btn btn-fill-out btn-block">Place Order</button>-->
-<!--                        </form>-->
+                        <!--                        <form method="post" action="{% url 'checkout' %}">-->
+                        <!--                        {% csrf_token %}-->
+                        <!--                        <button type="submit" class="btn btn-fill-out btn-block">Place Order</button>-->
+                        <!--                        </form>-->
                     </div>
                 </div>
             </div>

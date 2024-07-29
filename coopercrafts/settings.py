@@ -162,5 +162,15 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Using database-backed sessions
 
+# # Optional: Customize message tags for Bootstrap 4+ or other frameworks
+# from django.contrib.messages import constants as messages
+# MESSAGE_TAGS = {
+#     messages.DEBUG: 'debug',
+#     messages.INFO: 'info',
+#     messages.SUCCESS: 'success',
+#     messages.WARNING: 'warning',
+#     messages.ERROR: 'danger',
+# }
+
 
 

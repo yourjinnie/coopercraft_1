@@ -114,8 +114,11 @@
                                 </tr>
                                 <tr class="pr_remove">
                                     <td class="row_title"></td>
-                                    <td class="row_remove"><a href="#"><span>Remove</span> <i
-                                            class="fa fa-times"></i></a></td>
+                                    <td class="row_remove">
+<!--                                        <a href="#"><span>Remove</span> <i class="fa fa-times"></i></a>-->
+                                        <a href="#" class="remove-compare-item" data-product-id="{{ product.id }}"><span>Remove</span> <i class="fa fa-times"></i></a>
+                                        </td>
+                                    </td>
                                 </tr>
                                 {% endfor %}
                                 </tbody>

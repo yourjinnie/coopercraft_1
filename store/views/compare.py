@@ -20,17 +20,17 @@ class PriceComparisonView(TemplateView):
         categories = Category.objects.filter(id__in=category_ids)
         collections = Collection.objects.filter(id__in=collection_ids)
 
-        products = Product.objects.filter(category__in=categories, collection__in=collections).order_by('product_price')
+        prods = Product.objects.filter(category__in=categories, collection__in=collections).order_by('product_price')
 
         context['categories'] = categories
         context['collections'] = collections
-        context['products'] = products
+        context['products'] = prods
         return context
 
 # from django.shortcuts import render
 # from django.views import View
 # from store.models import Product, Compare
-
+#
 # class CompareView(View):
 #     def get(self, request, *args, **kwargs):
 #

@@ -25,14 +25,13 @@ from store.views.categoryview import CategoryDetailView
 from store.views.collection import Collection
 from store.views.category import Category
 from store.views.wishlist import Wishlist
-from store.views.add_to_wishlist import AddToWishlistView
-# from store.views.compare import CompareView
 from store.views.compare import PriceComparisonView
 from store.views.zoom import ZoomProductView
 from store.views.remove import Remove
 from store.views.logout import Logout
 from store.views.remove_wishlist import RemoveFromWishlistView
-# from django.contrib.auth import views as auth_views
+from store.views.add_to_wishlist import AddToWishlistView
+from store.views.remove_compare import RemoveCompareView
 from store.middleware.auth import auth_middleware
 
 
@@ -65,11 +64,12 @@ urlpatterns = [
     path('policy/', Policy.as_view(),name='policy'),
     path('product-detail/', ProductDetail.as_view(),name='product-detail'),
     path('wishlist/', Wishlist.as_view(), name='wishlist'),
-    path('wishlist/add/<int:pk>/', AddToWishlistView.as_view(), name='add_to_wishlist'),
-    # path('compare/', CompareView.as_view(), name='compare'),
     path('zoom-product/<int:product_id>/', ZoomProductView.as_view(), name='zoom_product'),
     path('wishlist/remove/<int:item_id>/', RemoveFromWishlistView.as_view(), name='remove_from_wishlist'),
     path('compare/', PriceComparisonView.as_view(), name='compare_prices'),
+    path('wishlist/add/<int:pk>/', AddToWishlistView.as_view(), name='add_to_wishlist'),
+    path('remove_compare/<int:product_id>/', RemoveCompareView.as_view(), name='remove_compare'),
+    # path('compare/', CompareView.as_view(), name='compare'),
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
