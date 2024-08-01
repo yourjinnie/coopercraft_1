@@ -28,6 +28,7 @@ from store.views.wishlist import Wishlist
 from store.views.compare import Compare
 from store.views.zoom import ZoomProductView
 from store.views.remove import Remove
+from store.views.popup_ajax import AjaxPopupView
 from store.views.logout import Logout
 from store.views.remove_wishlist import RemoveFromWishlistView
 from store.views.add_to_wishlist import AddToWishlistView
@@ -67,6 +68,7 @@ urlpatterns = [
     path('wishlist/remove/<int:item_id>/', RemoveFromWishlistView.as_view(), name='remove_from_wishlist'),
     path('compare/', Compare.as_view(), name='compare'),
     path('wishlist/add/<int:pk>/', AddToWishlistView.as_view(), name='add_to_wishlist'),
+    path('ajax-popup/', AjaxPopupView.as_view(), name='ajax_popup'),
 
 
 ]

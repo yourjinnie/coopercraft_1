@@ -51,9 +51,10 @@
     <!-- Style CSS -->
     <link rel="stylesheet" href="/static/assets/css/style.css">
     <link rel="stylesheet" href="/static/assets/css/responsive.css">
-<!--    My Added-->
-<!-- magnificPopup CSS -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" />
+    <!--    My Added-->
+    <!-- magnificPopup CSS -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css"/>
     <style>
         .thing {
             -webkit-font-smoothing: antialiased;
@@ -253,9 +254,9 @@
 
 <body>
 <!-- LOADER -->
-<div class="preloader">
-    <div class="lds-ellipsis"><span></span> <span></span> <span></span></div>
-</div>
+<!--<div class="preloader">-->
+<!--    <div class="lds-ellipsis"><span></span> <span></span> <span></span></div>-->
+<!--</div>-->
 <!-- END LOADER -->
 
 <!-- START HEADER -->
@@ -350,7 +351,8 @@
                                 {% with product_id=product.id|stringformat:"d" %}
                                 {% if product_id in request.session.cart %}
                                 <li>
-                                    <a href="{% url 'remove' item_id=product.id %}" class="item_remove"><i class="ion-close"></i></a>
+                                    <a href="{% url 'remove' item_id=product.id %}" class="item_remove"><i
+                                            class="ion-close"></i></a>
                                     <a href="#">
                                         <img src="{{ product.image.url }}" alt="cart_thumb1">{{ product.product_title }}
                                     </a>
@@ -367,12 +369,12 @@
                                 <p class="cart_buttons"><a href="/cart"
                                                            class="btn btn-fill-line rounded-0 view-cart">View Cart</a><a
                                         href="/checkout" class="btn btn-fill-out rounded-0 checkout">Checkout</a>
-<!--                                    {% url 'account' %}?next={% url 'checkout' %}-->
+                                    <!--                                    {% url 'account' %}?next={% url 'checkout' %}-->
                                 </p>
                             </div>
                         </div>
                     </li>
-<!--                   aaaa-->
+                    <!--                   aaaa-->
                 </ul>
             </nav>
         </div>
@@ -558,9 +560,11 @@
     </form>
 </div>
 <a href="#" class="scrollup" style="display: none;"><i class="ion-ios-arrow-up"></i></a>
-
-<!--	<script src="/static/https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
-<!--	<script src="/static/path/to/your/scripts.js"></script>-->
+<!--Added-->
+<!--	<script src="/static/assets/https://code.jquery.com/jquery-3.6.0.min.js"></script>-->
+<script src="/static/assets/js//jquery.magnific-popup.min.js"></script>
+<script src="/static/assets/js//script.js"></script>
+<!--end added-->
 
 
 <!-- Latest jQuery -->
@@ -717,11 +721,17 @@
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
         crossorigin="anonymous"></script>
 <!--my added-->
-    <!-- magnificPopup JS -->
+<!-- magnificPopup JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 <!-- elevateZoom JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/elevatezoom/3.0.8/jquery.elevatezoom.min.js"></script>
 <script src="C:\Users\SHIVANYA SALES\PycharmProjects\yourjinnie1\static\assets\js\scripts.jsscript.js"></script>
+<script>
+    $(document).ready(function() {
+        // Ensure ajax_magnificPopup is called to set up AJAX functionality
+        ajax_magnificPopup();
+    });
+</script>
 
 {% block js %} {% endblock %}
 </body>

@@ -506,44 +506,92 @@ PAGE JS
 	/*===================================*
 	12. POPUP JS
 	*===================================*/
-	$('.content-popup').magnificPopup({
-		type: 'inline',
-		preloader: true,
-		mainClass: 'mfp-zoom-in',
-	});
+//	$('.content-popup').magnificPopup({
+//		type: 'inline',
+//		preloader: true,
+//		mainClass: 'mfp-zoom-in',
+//	});
+//
+//	$('.image_gallery').each(function() { // the containers for all your galleries
+//		$(this).magnificPopup({
+//			delegate: 'a', // the selector for gallery item
+//			type: 'image',
+//			gallery: {
+//			  enabled: true,
+//			},
+//		});
+//	});
+//
+//	function ajax_magnificPopup() {
+//		$('.popup-ajax').magnificPopup({
+//			type: 'ajax',
+//			callbacks: {
+//				ajaxContentAdded: function() {
+//					slick_slider();
+//					carousel_slider();
+//					pluseminus();
+//					product_color_switch();
+//					galleryZoomProduct();
+//				 }
+//			}
+//		});
+//	}
+//
+//	$('.video_popup, .iframe_popup').magnificPopup({
+//		type: 'iframe',
+//		removalDelay: 160,
+//		mainClass: 'mfp-zoom-in',
+//		preloader: false,
+//		fixedContentPos: false
+//	});
+$(document).ready(function() {
+    // Initialize Magnific Popup for inline content
+    $('.content-popup').magnificPopup({
+        type: 'inline',
+        preloader: true,
+        mainClass: 'mfp-zoom-in',
+    });
 
-	$('.image_gallery').each(function() { // the containers for all your galleries
-		$(this).magnificPopup({
-			delegate: 'a', // the selector for gallery item
-			type: 'image',
-			gallery: {
-			  enabled: true,
-			},
-		});
-	});
+    // Initialize Magnific Popup for image galleries
+    $('.image_gallery').each(function() {
+        $(this).magnificPopup({
+            delegate: 'a', // the selector for gallery item
+            type: 'image',
+            gallery: {
+                enabled: true,
+            },
+        });
+    });
 
-	function ajax_magnificPopup() {
-		$('.popup-ajax').magnificPopup({
-			type: 'ajax',
-			callbacks: {
-				ajaxContentAdded: function() {
-					slick_slider();
-					carousel_slider();
-					pluseminus();
-					product_color_switch();
-					galleryZoomProduct();
-				 }
-			}
-		});
-	}
+    // Initialize Magnific Popup for AJAX content
+    function ajax_magnificPopup() {
+        $('.popup-ajax').magnificPopup({
+            type: 'ajax',
+            callbacks: {
+                ajaxContentAdded: function() {
+                    slick_slider();
+                    carousel_slider();
+                    pluseminus();
+                    product_color_switch();
+                    galleryZoomProduct();
+                }
+            }
+        });
+    }
 
-	$('.video_popup, .iframe_popup').magnificPopup({
-		type: 'iframe',
-		removalDelay: 160,
-		mainClass: 'mfp-zoom-in',
-		preloader: false,
-		fixedContentPos: false
-	});
+    // Call the function to initialize Magnific Popup for AJAX
+    ajax_magnificPopup();
+
+    // Initialize Magnific Popup for video and iframe content
+    $('.video_popup, .iframe_popup').magnificPopup({
+        type: 'iframe',
+        removalDelay: 160,
+        mainClass: 'mfp-zoom-in',
+        preloader: false,
+        fixedContentPos: false
+    });
+});
+
 	/*===================================*
 	13. Select dropdowns
 	*===================================*/
