@@ -32,6 +32,7 @@ from store.views.popup_ajax import AjaxPopupView
 from store.views.logout import Logout
 from store.views.remove_wishlist import RemoveFromWishlistView
 from store.views.add_to_wishlist import AddToWishlistView
+from store.views.top_selling_product import TopSellingProductsView
 from store.middleware.auth import auth_middleware
 
 
@@ -69,7 +70,7 @@ urlpatterns = [
     path('compare/', Compare.as_view(), name='compare'),
     path('wishlist/add/<int:pk>/', AddToWishlistView.as_view(), name='add_to_wishlist'),
     path('ajax-popup/', AjaxPopupView.as_view(), name='ajax_popup'),
-
+    path('top-selling-products/<int:prod_id>', TopSellingProductsView.as_view(), name='top_selling_products'),
 
 ]
 if settings.DEBUG:

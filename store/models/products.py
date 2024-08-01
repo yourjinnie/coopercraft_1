@@ -15,9 +15,13 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True, default=1)
     rating = models.DecimalField(max_digits=3, decimal_places=2)
     image=models.ImageField(upload_to='images/')
+    sales = models.IntegerField(default=0)  # Number of times the product has been sold
 
     def __str__(self):
         return self.product_title
+
+    class Meta:
+        ordering = ['-sales']  # Sort products by sales in descending order
 
     @staticmethod
     def get_all_products():

@@ -206,35 +206,46 @@
         <div class="row">
             <div class="col-md-12">
                 <div id="tp-sell-carousel" class="owl-carousel nav_style1 owl-theme">
+                    {% for product in products %}
                     <div class="item">
                         <div class="product">
                             <div class="product_img">
                                 <a href="/product-detail">
-                                    <img src="/static/assets/images/product/BLOCK-PRINTED-HAND-BAG.png"
+                                    <img src="{{product.image.url}}"
                                          alt="product_img1">
                                 </a>
                                 <div class="product_action_box">
-                                    <ul class="list_none pr_action_btn">
-                                        <li class="add-to-cart"><a href="/cart"><i class="icon-basket-loaded"></i>
-														Add To Cart</a></li>
-                                        <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                class="icon-shuffle"></i></a></li>
-                                        <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                class="icon-magnifier-add"></i></a></li>
-                                        <li><a href="#"><i class="icon-heart"></i></a></li>
-                                    </ul>
-                                </div>
+                                        <ul class="list_none pr_action_btn">
+                                            <li class="add-to-cart">
+                                                <a href="#"
+                                                   onclick="document.getElementById('add-to-cart-form-{{ prod.id }}').submit(); return false;">
+                                                    <i class="icon-basket-loaded"></i>
+                                                </a>
+                                                <form id="add-to-cart-form-{{ prod.id }}" method="POST"
+                                                      action="{% url 'cart' %}" style="display:none;">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                                                    <input type="hidden" name="action" value="increase">
+                                                    <!-- Add this hidden input -->
+                                                </form>
+                                            </li>
+                                            <li><a href="{% url 'compare' %}?{% for id in category_ids %}category_ids={{ id }}{% if not forloop.last %}&{% endif %}{% endfor %}{% if category_ids and collection_ids %}&{% endif %}{% for id in collection_ids %}collection_ids={{ id }}{% if not forloop.last %}&{% endif %}{% endfor %}"><i
+                                                    class="icon-shuffle"></i></a></li>
+                                            <li><a href="#" class="popup-ajax"><i
+                                                    class="icon-magnifier-add"></i></a></li>
+                                            <li><a href="{% url 'add_to_wishlist' product.pk %}">
+                                                <i class="icon-heart"></i>
+                                            </a></li>
+                                        </ul>
+                                    </div>
                             </div>
                             <div class="product_info">
-                                <h6 class="product_title"><a href="/product-detail">BLOCK PRINTED HAND
-                                    BAG</a></h6>
+                                <h6 class="product_title"><a href="/products/{{product.id}}">{{product.product_title}}</a></h6>
                                 <div class="product_price">
-                                    <span class="price">₹45.00</span>
-                                    <del>₹55.25</del>
-                                    <div class="on_sale">
-                                        <span>35% Off</span>
+                                        <span class="price">{{product.sale_price|currency}}</span>
+                                        <del>{{product.product_price|currency}}</del>
+                                        <div class="on_sale"><span>{{product.product_price|offer_percentage:product.sale_price}}%</span></div>
                                     </div>
-                                </div>
                                 <div class="rating_wrap">
                                     <div class="rating">
                                         <div class="product_rate" style="width:80%"></div>
@@ -255,201 +266,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="item">
-                        <div class="product">
-                            <div class="product_img">
-                                <a href="/product-detail">
-                                    <img src="/static/assets/images/product/Hancrafted-Jute-Box-Round.jpg"
-                                         alt="product_img1">
-                                </a>
-                                <div class="product_action_box">
-                                    <ul class="list_none pr_action_btn">
-                                         <li class="add-to-cart"><a href="/cart"><i class="icon-basket-loaded"></i>
-														Add To Cart</a></li>
-                                        <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                class="icon-shuffle"></i></a></li>
-                                        <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                class="icon-magnifier-add"></i></a></li>
-                                        <li><a href="#"><i class="icon-heart"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product_info">
-                                <h6 class="product_title"><a href="/product-detail">Hancrafted Jute Box
-                                    (Round)</a></h6>
-                                <div class="product_price">
-                                    <span class="price">₹45.00</span>
-                                    <del>₹55.25</del>
-                                    <div class="on_sale">
-                                        <span>35% Off</span>
-                                    </div>
-                                </div>
-                                <div class="rating_wrap">
-                                    <div class="rating">
-                                        <div class="product_rate" style="width:80%"></div>
-                                    </div>
-                                    <span class="rating_num">(21)</span>
-                                </div>
-                                <div class="pr_desc">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-                                        blandit massa enim. Nullam id varius nunc id varius nunc.</p>
-                                </div>
-                                <div class="pr_switch_wrap">
-                                    <div class="product_color_switch">
-                                        <span class="active" data-color="#87554B"></span>
-                                        <span data-color="#333333"></span>
-                                        <span data-color="#DA323F"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="product">
-                            <div class="product_img">
-                                <a href="/product-detail">
-                                    <img src="/static/assets/images/product/Hancrafted-Jute-Ganesha-Hanging.jpg"
-                                         alt="product_img1">
-                                </a>
-                                <div class="product_action_box">
-                                    <ul class="list_none pr_action_btn">
-                                         <li class="add-to-cart"><a href="/cart"><i class="icon-basket-loaded"></i>
-														Add To Cart</a></li>
-                                        <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                class="icon-shuffle"></i></a></li>
-                                        <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                class="icon-magnifier-add"></i></a></li>
-                                        <li><a href="#"><i class="icon-heart"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product_info">
-                                <h6 class="product_title"><a href="/product-detail">Hancrafted Jute Ganesha
-                                    (Hanging)</a></h6>
-                                <div class="product_price">
-                                    <span class="price">₹45.00</span>
-                                    <del>₹55.25</del>
-                                    <div class="on_sale">
-                                        <span>35% Off</span>
-                                    </div>
-                                </div>
-                                <div class="rating_wrap">
-                                    <div class="rating">
-                                        <div class="product_rate" style="width:80%"></div>
-                                    </div>
-                                    <span class="rating_num">(21)</span>
-                                </div>
-                                <div class="pr_desc">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-                                        blandit massa enim. Nullam id varius nunc id varius nunc.</p>
-                                </div>
-                                <div class="pr_switch_wrap">
-                                    <div class="product_color_switch">
-                                        <span class="active" data-color="#87554B"></span>
-                                        <span data-color="#333333"></span>
-                                        <span data-color="#DA323F"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="product">
-                            <div class="product_img">
-                                <a href="/product-detail">
-                                    <img src="/static/assets/images/product/Terracotta-Palki.jpg"
-                                         alt="product_img1">
-                                </a>
-                                <div class="product_action_box">
-                                    <ul class="list_none pr_action_btn">
-                                         <li class="add-to-cart"><a href="/cart"><i class="icon-basket-loaded"></i>
-														Add To Cart</a></li>
-                                        <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                class="icon-shuffle"></i></a></li>
-                                        <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                class="icon-magnifier-add"></i></a></li>
-                                        <li><a href="#"><i class="icon-heart"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product_info">
-                                <h6 class="product_title"><a href="/product-detail">Terracotta Palki</a></h6>
-                                <div class="product_price">
-                                    <span class="price">₹45.00</span>
-                                    <del>₹55.25</del>
-                                    <div class="on_sale">
-                                        <span>35% Off</span>
-                                    </div>
-                                </div>
-                                <div class="rating_wrap">
-                                    <div class="rating">
-                                        <div class="product_rate" style="width:80%"></div>
-                                    </div>
-                                    <span class="rating_num">(21)</span>
-                                </div>
-                                <div class="pr_desc">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-                                        blandit massa enim. Nullam id varius nunc id varius nunc.</p>
-                                </div>
-                                <div class="pr_switch_wrap">
-                                    <div class="product_color_switch">
-                                        <span class="active" data-color="#87554B"></span>
-                                        <span data-color="#333333"></span>
-                                        <span data-color="#DA323F"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="product">
-                            <div class="product_img">
-                                <a href="/product-detail">
-                                    <img src="/static/assets/images/product/Notungrams-Wooden-Owl.jpg"
-                                         alt="product_img1">
-                                </a>
-                                <div class="product_action_box">
-                                    <ul class="list_none pr_action_btn">
-                                         <li class="add-to-cart"><a href="/cart"><i class="icon-basket-loaded"></i>
-														Add To Cart</a></li>
-                                        <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                class="icon-shuffle"></i></a></li>
-                                        <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                class="icon-magnifier-add"></i></a></li>
-                                        <li><a href="#"><i class="icon-heart"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product_info">
-                                <h6 class="product_title"><a href="/product-detail">MNotungram’s Wooden
-                                    Owl</a></h6>
-                                <div class="product_price">
-                                    <span class="price">₹45.00</span>
-                                    <del>₹55.25</del>
-                                    <div class="on_sale">
-                                        <span>35% Off</span>
-                                    </div>
-                                </div>
-                                <div class="rating_wrap">
-                                    <div class="rating">
-                                        <div class="product_rate" style="width:80%"></div>
-                                    </div>
-                                    <span class="rating_num">(21)</span>
-                                </div>
-                                <div class="pr_desc">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-                                        blandit massa enim. Nullam id varius nunc id varius nunc.</p>
-                                </div>
-                                <div class="pr_switch_wrap">
-                                    <div class="product_color_switch">
-                                        <span class="active" data-color="#87554B"></span>
-                                        <span data-color="#333333"></span>
-                                        <span data-color="#DA323F"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
 
             </div>

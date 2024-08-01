@@ -14,7 +14,7 @@ from store.models.new_arrival import NewArrival
 
 @admin.register(Product)
 class AdminProduct(admin.ModelAdmin):
-    list_display = ['product_title','collection', 'category', 'product_description', 'product_price','sale_price', 'rating','image']
+    list_display = ['product_title','collection', 'category', 'product_description', 'product_price','sale_price','sales', 'rating','image']
 
 
 admin.site.register(Collection)
