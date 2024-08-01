@@ -10,6 +10,7 @@ class Product(models.Model):
     # status = models.BooleanField(default=False,help_text="0=default 1=Hidden")
     product_description=models.TextField(max_length=200)
     product_price=models.DecimalField(max_digits=10,decimal_places=2)
+    sale_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     collection = models.ForeignKey(Collection, on_delete=models.CASCADE, blank=True, null=True, default=1)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True, default=1)
     rating = models.DecimalField(max_digits=3, decimal_places=2)

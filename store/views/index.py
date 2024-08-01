@@ -2,18 +2,23 @@ from django.views import View
 from django.shortcuts import render,redirect
 from store.models.products import Product
 from store.models.collections import Collection
+from store.models.banner import Banner
+from store.models import NewArrival
 
 class Index(View):
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
         cart = request.session.get('cart')
         if not cart:
             request.session['cart'] = {}
         products = Product.get_all_products()
         collections = Collection.objects.all()
-
+        banners=Banner.objects.all()
+        new_arrivals = NewArrival.objects.select_related('product').order_by('-arrival_date')[:10]  # Limit to 10 new arrivals
         context = {
             'products': products,
             'collections': collections,
+            'banners':banners,
+            'new_arrivals':new_arrivals,
 
         }
         return render(request, 'index.html',context)

@@ -102,7 +102,7 @@
                                 <tr class="pr_stock">
                                     <td class="row_title">Item Availability</td>
                                     <td class="row_stock"><span class="in-stock">In Stock</span></td>
-<!--                                    <td class="row_stock"><span class="out-stock">Out Of Stock</span></td>-->
+                                    <!--                                    <td class="row_stock"><span class="out-stock">Out Of Stock</span></td>-->
                                 </tr>
                                 <tr class="pr_weight">
                                     <td class="row_title">Weight</td>
@@ -115,11 +115,17 @@
                                 <tr class="pr_remove">
                                     <td class="row_title"></td>
                                     <td class="row_remove">
-<!--                                        <a href="#"><span>Remove</span> <i class="fa fa-times"></i></a>-->
-                                        <a href="#" class="remove-compare-item" data-product-id="{{ product.id }}"><span>Remove</span> <i class="fa fa-times"></i></a>
-                                        </td>
+                                        <form method="post" action="{% url 'remove_compare_item' %}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="product_id" value="{{ product.id }}">
+                                            <button type="submit" class="remove-compare-item"
+                                                    style="background: none; border: none; color: inherit; cursor: pointer;">
+                                                <span>Remove</span> <i class="fa fa-times"></i>
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
+
                                 {% endfor %}
                                 </tbody>
                             </table>

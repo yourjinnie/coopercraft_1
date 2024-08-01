@@ -14,6 +14,4 @@ class RemoveFromWishlistView(View):
             if item_id in wishlist:
                 wishlist.remove(item_id)
                 request.session['wishlist'] = wishlist
-            # Debugging: Print wishlist to ensure product is removed
-            print("Session Wishlist after removal:", request.session['wishlist'])
         return redirect('wishlist')

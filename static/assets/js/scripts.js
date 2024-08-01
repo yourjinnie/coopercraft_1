@@ -10,7 +10,7 @@ PAGE JS
 
 (function($) {
 	'use strict';
-	
+
 	/*===================================*
 	01. LOADING JS
 	/*===================================*/
@@ -511,7 +511,7 @@ PAGE JS
 		preloader: true,
 		mainClass: 'mfp-zoom-in',
 	});
-	
+
 	$('.image_gallery').each(function() { // the containers for all your galleries
 		$(this).magnificPopup({
 			delegate: 'a', // the selector for gallery item
@@ -521,7 +521,7 @@ PAGE JS
 			},
 		});
 	});
-	
+
 	function ajax_magnificPopup() {
 		$('.popup-ajax').magnificPopup({
 			type: 'ajax',
@@ -529,14 +529,14 @@ PAGE JS
 				ajaxContentAdded: function() {
 					slick_slider();
 					carousel_slider();
-					pluseminus(); 
+					pluseminus();
 					product_color_switch();
 					galleryZoomProduct();
 				 }
 			}
 		});
 	}
-	
+
 	$('.video_popup, .iframe_popup').magnificPopup({
 		type: 'iframe',
 		removalDelay: 160,
@@ -544,7 +544,6 @@ PAGE JS
 		preloader: false,
 		fixedContentPos: false
 	});
-	
 	/*===================================*
 	13. Select dropdowns
 	*===================================*/

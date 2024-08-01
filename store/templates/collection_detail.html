@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load cart %}
+{% load custom_filter %}
 {% block content %}
+
 <div class="breadcrumb_section bg_gray page-title-mini">
     <div class="container"><!-- STRART CONTAINER -->
         <div class="row align-items-center">
@@ -77,9 +79,9 @@
                                                     <!-- Add this hidden input -->
                                                 </form>
                                             </li>
-                                            <li><a href="{% url 'compare_prices' %}?category_ids=1&category_ids=2&collection_ids=3&collection_ids=4"><i
+                                            <li><a href="{% url 'compare' %}?{% for id in category_ids %}category_ids={{ id }}{% if not forloop.last %}&{% endif %}{% endfor %}{% if category_ids and collection_ids %}&{% endif %}{% for id in collection_ids %}collection_ids={{ id }}{% if not forloop.last %}&{% endif %}{% endfor %}"><i
                                                     class="icon-shuffle"></i></a></li>
-                                            <li><a href="{% url 'zoom_product' product.id %}" class="popup-ajax"><i
+                                            <li><a href="#" class="popup-ajax"><i
                                                     class="icon-magnifier-add"></i></a></li>
                                             <li><a href="{% url 'add_to_wishlist' product.pk %}">
                                                 <i class="icon-heart"></i>
@@ -88,11 +90,13 @@
                                     </div>
                                 </div>
                                 <div class="product_info">
-                                    <h6 class="product_title"><a href="product-detail.php">{{product.product_title}}</a>
+
+                                    <h6 class="product_title"><a href="/products/{{product.id}}">{{product.product_title}}</a>
                                     </h6>
-                                    <div class="product_price"><span class="price">₹{{product.price}}</span>
-                                        <del>₹55.25</del>
-                                        <div class="on_sale"><span>{{product.offer}}</span></div>
+                                    <div class="product_price">
+                                        <span class="price">{{product.sale_price|currency}}</span>
+                                        <del>{{product.product_price|currency}}</del>
+                                        <div class="on_sale"><span>{{product.product_price|offer_percentage:product.sale_price}}%</span></div>
                                     </div>
                                     <div class="rating_wrap">
                                         <div class="rating">

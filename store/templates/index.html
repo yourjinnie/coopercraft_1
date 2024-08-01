@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load cart %}
+{% load custom_filter %}
 {% block content %}
 
 {% if messages %}
@@ -13,7 +14,8 @@
 <div class="banner_section slide_medium shop_banner_slider staggered-animation-wrap">
     <div id="carouselExampleControls" class="carousel slide carousel-fade light_arrow" data-bs-ride="carousel">
         <div class="carousel-inner">
-            <div class="carousel-item active background_bg" data-img-src="/static/assets/images/banner1.jpg">
+            {% for banner in banners %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %} background_bg" data-img-src="{{ banner.banner_image.url }}">
                 <div class="banner_slide_content">
                     <div class="container">
                         <div class="row">
@@ -22,40 +24,16 @@
                     </div>
                 </div>
             </div>
-            <div class="carousel-item background_bg" data-img-src="/static/assets/images/banner6.jpg">
-                <div class="banner_slide_content">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-7 col-9"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item background_bg" data-img-src="/static/assets/images/banner3.jpg">
-                <div class="banner_slide_content">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-6"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item background_bg" data-img-src="/static/assets/images/banner4.jpg">
-                <div class="banner_slide_content">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-6"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
+
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev"><i
                 class="ion-chevron-left"></i></a>
         <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next"><i
                 class="ion-chevron-right"></i></a>
     </div>
 </div>
+
 <!-- END SECTION BANNER -->
 
 <!-- END MAIN CONTENT -->
@@ -127,36 +105,49 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div id="new-arrivals"
-                         class="product_slider  owl-carousel owl-theme nav_style3 owl-loaded owl-drag">
- <div class="item">
+                    <div id="new-arrivals" class="product_slider  owl-carousel owl-theme nav_style3 owl-loaded owl-drag">
+                        {% if new_arrivals %}
+                        {% for product in products %}
+                        <div class="item">
                         <div class="product">
                             <div class="product_img">
                                 <a href="product-detail.html">
-                                    <img src="/static/assets/images/product/Bamboo-Basket-1.jpg"
+                                    <img src="{{product.image.url}}"
                                          alt="product_img1">
                                 </a>
                                 <div class="product_action_box">
-                                    <ul class="list_none pr_action_btn">
-                                         <li class="add-to-cart"><a href="/cart"><i class="icon-basket-loaded"></i>
-														Add To Cart</a></li>
-                                        <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                class="icon-shuffle"></i></a></li>
-                                        <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                class="icon-magnifier-add"></i></a></li>
-                                        <li><a href="#"><i class="icon-heart"></i></a></li>
-                                    </ul>
-                                </div>
+                                        <ul class="list_none pr_action_btn">
+                                            <li class="add-to-cart">
+                                                <a href="#"
+                                                   onclick="document.getElementById('add-to-cart-form-{{ product.id }}').submit(); return false;">
+                                                    <i class="icon-basket-loaded"></i>
+                                                </a>
+                                                <form id="add-to-cart-form-{{ product.id }}" method="POST"
+                                                      action="{% url 'cart' %}" style="display:none;">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                                                    <input type="hidden" name="action" value="increase">
+                                                    <!-- Add this hidden input -->
+                                                </form>
+                                            </li>
+                                            <li><a href="#" class="popup-ajax"><i
+                                                    class="icon-shuffle"></i></a></li>
+                                            <li><a href="{% url 'zoom_product' product.id %}" class="popup-ajax"><i
+                                                    class="icon-magnifier-add"></i></a></li>
+                                            <li><a href="{% url 'add_to_wishlist' product.pk %}">
+                                                <i class="icon-heart"></i>
+                                            </a></li>
+                                        </ul>
+                                    </div>
                             </div>
                             <div class="product_info">
-                                <h6 class="product_title"><a href="product-detail.html">Bamboo Basket</a></h6>
-                                <div class="product_price">
-                                    <span class="price">₹45.00</span>
-                                    <del>₹55.25</del>
-                                    <div class="on_sale">
-                                        <span>35% Off</span>
+                                    <h6 class="product_title"><a href="/products/{{product.id}}">{{product.product_title}}</a>
+                                    </h6>
+                                    <div class="product_price">
+                                        <span class="price">{{product.sale_price|currency}}</span>
+                                        <del>{{product.product_price|currency}}</del>
+                                        <div class="on_sale"><span>{{product.product_price|offer_percentage:product.sale_price}}%</span></div>
                                     </div>
-                                </div>
                                 <div class="rating_wrap">
                                     <div class="rating">
                                         <div class="product_rate" style="width:80%"></div>
@@ -177,203 +168,9 @@
                             </div>
                         </div>
                     </div>
-                <div class="item">
-                    <div class="product">
-                        <div class="product_img">
-                            <a href="product-detail.html">
-                                <img src="/static/assets/images/product/Bamboo-Basket-color.jpeg"
-                                     alt="product_img1">
-                            </a>
-                            <div class="product_action_box">
-                                <ul class="list_none pr_action_btn">
-                                    <li class="add-to-cart"><a href="/cart"><i class="icon-basket-loaded"></i>
-														Add To Cart</a></li>
-                                    <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                            class="icon-shuffle"></i></a></li>
-                                    <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                            class="icon-magnifier-add"></i></a></li>
-                                    <li><a href="#"><i class="icon-heart"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product_info">
-                            <h6 class="product_title"><a href="product-detail.html">Bamboo Basket –
-                                Color</a>
-                            </h6>
-                            <div class="product_price">
-                                <span class="price">₹45.00</span>
-                                <del>₹55.25</del>
-                                <div class="on_sale">
-                                    <span>35% Off</span>
-                                </div>
-                            </div>
-                            <div class="rating_wrap">
-                                <div class="rating">
-                                    <div class="product_rate" style="width:80%"></div>
-                                </div>
-                                <span class="rating_num">(21)</span>
-                            </div>
-                            <div class="pr_desc">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-                                    blandit massa enim. Nullam id varius nunc id varius nunc.</p>
-                            </div>
-                            <div class="pr_switch_wrap">
-                                <div class="product_color_switch">
-                                    <span class="active" data-color="#87554B"></span>
-                                    <span data-color="#333333"></span>
-                                    <span data-color="#DA323F"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="product">
-                        <div class="product_img">
-                            <a href="product-detail.html">
-                                <img src="/static/assets/images/product/Bamboo-Basket.jpg"
-                                     alt="product_img1">
-                            </a>
-                            <div class="product_action_box">
-                                <ul class="list_none pr_action_btn">
-                                     <li class="add-to-cart"><a href="/cart"><i class="icon-basket-loaded"></i>
-														Add To Cart</a></li>
-                                    <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                            class="icon-shuffle"></i></a></li>
-                                    <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                            class="icon-magnifier-add"></i></a></li>
-                                    <li><a href="#"><i class="icon-heart"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product_info">
-                            <h6 class="product_title"><a href="product-detail.html">Bamboo Basket</a></h6>
-                            <div class="product_price">
-                                <span class="price">₹45.00</span>
-                                <del>₹55.25</del>
-                                <div class="on_sale">
-                                    <span>35% Off</span>
-                                </div>
-                            </div>
-                            <div class="rating_wrap">
-                                <div class="rating">
-                                    <div class="product_rate" style="width:80%"></div>
-                                </div>
-                                <span class="rating_num">(21)</span>
-                            </div>
-                            <div class="pr_desc">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-                                    blandit massa enim. Nullam id varius nunc id varius nunc.</p>
-                            </div>
-                            <div class="pr_switch_wrap">
-                                <div class="product_color_switch">
-                                    <span class="active" data-color="#87554B"></span>
-                                    <span data-color="#333333"></span>
-                                    <span data-color="#DA323F"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="product">
-                        <div class="product_img">
-                            <a href="product-detail.html">
-                                <img src="/static/assets/images/product/Bamboo-Hanging.jpg"
-                                     alt="product_img1">
-                            </a>
-                            <div class="product_action_box">
-                                <ul class="list_none pr_action_btn">
-                                     <li class="add-to-cart"><a href="/cart"><i class="icon-basket-loaded"></i>
-														Add To Cart</a></li>
-                                    <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                            class="icon-shuffle"></i></a></li>
-                                    <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                            class="icon-magnifier-add"></i></a></li>
-                                    <li><a href="#"><i class="icon-heart"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product_info">
-                            <h6 class="product_title"><a href="/product-detail">Bamboo Hanging Lampshade
-                                – 4 corner</a></h6>
-                            <div class="product_price">
-                                <span class="price">₹45.00</span>
-                                <del>₹55.25</del>
-                                <div class="on_sale">
-                                    <span>35% Off</span>
-                                </div>
-                            </div>
-                            <div class="rating_wrap">
-                                <div class="rating">
-                                    <div class="product_rate" style="width:80%"></div>
-                                </div>
-                                <span class="rating_num">(21)</span>
-                            </div>
-                            <div class="pr_desc">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-                                    blandit massa enim. Nullam id varius nunc id varius nunc.</p>
-                            </div>
-                            <div class="pr_switch_wrap">
-                                <div class="product_color_switch">
-                                    <span class="active" data-color="#87554B"></span>
-                                    <span data-color="#333333"></span>
-                                    <span data-color="#DA323F"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="product">
-                        <div class="product_img">
-                            <a href="/product-detail">
-                                <img src="/static/assets/images/product/Marble-Urli-Shell.webp"
-                                     alt="product_img1">
-                            </a>
-                            <div class="product_action_box">
-                                <ul class="list_none pr_action_btn">
-                                     <li class="add-to-cart"><a href="/cart"><i class="icon-basket-loaded"></i>
-														Add To Cart</a></li>
-                                    <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                            class="icon-shuffle"></i></a></li>
-                                    <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                            class="icon-magnifier-add"></i></a></li>
-                                    <li><a href="#"><i class="icon-heart"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product_info">
-                            <h6 class="product_title"><a href="/product-detail">Marble Urli (Shell)</a>
-                            </h6>
-                            <div class="product_price">
-                                <span class="price">₹45.00</span>
-                                <del>₹55.25</del>
-                                <div class="on_sale">
-                                    <span>35% Off</span>
-                                </div>
-                            </div>
-                            <div class="rating_wrap">
-                                <div class="rating">
-                                    <div class="product_rate" style="width:80%"></div>
-                                </div>
-                                <span class="rating_num">(21)</span>
-                            </div>
-                            <div class="pr_desc">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-                                    blandit massa enim. Nullam id varius nunc id varius nunc.</p>
-                            </div>
-                            <div class="pr_switch_wrap">
-                                <div class="product_color_switch">
-                                    <span class="active" data-color="#87554B"></span>
-                                    <span data-color="#333333"></span>
-                                    <span data-color="#DA323F"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+               {% endfor %}
+                  <p>No new arrivals available.</p>
+                        {% endif %}
             </div>
         </div>
     </div>
