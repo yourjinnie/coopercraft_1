@@ -277,7 +277,9 @@
                 <div class="col-6">
                     <div class="text-end text-md-end">
                         <ul class="header_list">
+                            {% if request.session.user %}
                             <li>Welcome to {{request.session.user}}</li>
+                            {% endif %}
                             <li><a href="/compare"><i class="ti-control-shuffle"></i><span></span></a></li>
                             <li><a href="/wishlist"><i class="ti-heart"></i><span></span></a></li>
                             <li><a href="/account"><i class="ti-user"></i><span></span></a></li>
@@ -369,12 +371,10 @@
                                 <p class="cart_buttons"><a href="/cart"
                                                            class="btn btn-fill-line rounded-0 view-cart">View Cart</a><a
                                         href="/checkout" class="btn btn-fill-out rounded-0 checkout">Checkout</a>
-                                    <!--                                    {% url 'account' %}?next={% url 'checkout' %}-->
                                 </p>
                             </div>
                         </div>
                     </li>
-                    <!--                   aaaa-->
                 </ul>
             </nav>
         </div>

@@ -171,6 +171,7 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Using database-backed sessions
 
+
 # SITE_ID=1
 # LOGIN_REDIRECT_URL='/'
 
@@ -185,6 +186,7 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Using database-backed 
 #     messages.WARNING: 'warning',
 #     messages.ERROR: 'danger',
 # }
+
 
 
 

@@ -1,7 +1,9 @@
-from django.shortcuts import redirect,render
+# views.py
+from django.shortcuts import redirect, render
 from django.views.generic import DetailView
 from store.models.categories import Category
 from store.models.products import Product
+
 class CategoryDetailView(DetailView):
     model = Category
     template_name = 'category.html'
@@ -10,10 +12,16 @@ class CategoryDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         categories = Category.objects.all()
-        category = self. get_object()
-        context['products'] = category.product_set.all() # Add products to the context
+        category = self.get_object()
+        context['products'] = category.product_set.all()  # Add products to the context
         context['category'] = category
         context['categories'] = categories
+
+        # Add browsing history products
+        history = self.request.session.get('browsing_history', [])
+        history_products = Product.objects.filter(id__in=history)
+        context['history_products'] = history_products
+
         return context
 
     def get(self, request, *args, **kwargs):
@@ -44,6 +52,3 @@ class CategoryDetailView(DetailView):
             cart[product] = 1
         request.session['cart'] = cart
         return redirect(request.path)
-
-        # return render(request,'collection_detail.html')
-

@@ -16,11 +16,15 @@ class AddToWishlistView(View):
             request.session['wishlist'] = wishlist
 
         # Debugging: Print wishlist to ensure product is added
-        print("Session Wishlist:", request.session['wishlist'])
+        # print("Session Wishlist:", request.session['wishlist'])
 
-        return redirect('wishlist')
-
-# from django.views import View
+        # return redirect('wishlist')
+        referer = request.META.get('HTTP_REFERER')
+        if referer:
+            return redirect(referer)
+        else:
+            return redirect('fallback-url')
+        # from django.views import View
 # from django.shortcuts import get_object_or_404, redirect
 # from store.models import Wishlist, Product
 #

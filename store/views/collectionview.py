@@ -1,6 +1,7 @@
 from django.shortcuts import redirect,render
 from django.views.generic import DetailView
 from store.models.collections import Collection
+from store.models.products import Product
 
 class CollectionDetailView(DetailView):
     model = Collection
@@ -12,6 +13,12 @@ class CollectionDetailView(DetailView):
         collection = self. get_object()
         context['products'] = collection.product_set.all() # Add products to the context
         context['collection'] = collection
+
+        # Add browsing history products
+        history = self.request.session.get('browsing_history', [])
+        history_products = Product.objects.filter(id__in=history)
+        context['history_products'] = history_products
+
         return context
 
     def get(self, request, *args, **kwargs):

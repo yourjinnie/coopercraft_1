@@ -38,6 +38,7 @@ from store.middleware.auth import auth_middleware
 
 
 
+
 urlpatterns = [
     path('', Index.as_view(),name='homepage'),
     path('collection/<int:pk>', CollectionDetailView.as_view(), name='collection-detail'),
@@ -60,7 +61,7 @@ urlpatterns = [
     path('forgot-password/', ForgotPassword.as_view(),name='forgot-password'),
     path('forum/', Forum.as_view(),name='forum'),
     path('forum-detail/', ForumDetail.as_view(),name='forum-detail'),
-    path('my-account/', MyAccount.as_view(),name='my-account'),
+    path('my-account/', auth_middleware(MyAccount.as_view()),name='my-account'),
     path('my-account-order/', MyAccountOrder.as_view(),name='my-account-order'),
     path('policy/', Policy.as_view(),name='policy'),
     path('products/<str:id>', ProductDetail.as_view(),name='product-detail'),

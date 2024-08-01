@@ -325,194 +325,72 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3">
-                        <div class="product">
-                            <div class="product_img"> <a href="/product-detail"> <img
-                                        src="/static/assets/images/product/BLOCK-PRINTED-HAND-BAG.png" alt="product_img1"> </a>
-                                <div class="product_action_box">
-                                    <ul class="list_none pr_action_btn">
-                                        <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To
-                                                Cart</a></li>
-                                        <li><a href="javascript:void(0);" class="popup-ajax"><i
+                    <div class="row">
+                {% for p in products %}
+                <div class="col-md-3">
+                    <div class="product">
+                        <div class="product_img"><a href="product-detail.php"> <img
+                                src="{{p.image.url}}" alt="product_img1"> </a>
+                            <div class="product_action_box">
+                                <ul class="list_none pr_action_btn">
+                                    <li class="add-to-cart">
+                                                <a href="#"
+                                                   onclick="document.getElementById('add-to-cart-form-{{ p.id }}').submit(); return false;">
+                                                    <i class="icon-basket-loaded"></i>
+                                                </a>
+                                                <form id="add-to-cart-form-{{ p.id }}" method="POST"
+                                                      action="{% url 'cart' %}" style="display:none;">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="product_id" value="{{ p.id }}">
+                                                    <input type="hidden" name="action" value="increase">
+                                                    <!-- Add this hidden input -->
+                                                </form>
+                                            </li>
+                                            <li><a href="{% url 'compare' %}?{% for id in category_ids %}category_ids={{ id }}{% if not forloop.last %}&{% endif %}{% endfor %}{% if category_ids and collection_ids %}&{% endif %}{% for id in collection_ids %}collection_ids={{ id }}{% if not forloop.last %}&{% endif %}{% endfor %}"><i
                                                     class="icon-shuffle"></i></a></li>
-                                        <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                            <li><a href="{% url 'zoom_product' p.id %}" class="popup-ajax"><i
                                                     class="icon-magnifier-add"></i></a></li>
-                                        <li><a href="#"><i class="icon-heart"></i></a></li>
-                                    </ul>
-                                </div>
+                                            <li><a href="{% url 'add_to_wishlist' p.pk %}">
+                                                <i class="icon-heart"></i>
+                                            </a></li>
+                                </ul>
                             </div>
-                            <div class="product_info">
-                                <h6 class="product_title"><a href="/product-detail">BLOCK PRINTED HAND BAG</a></h6>
-                                <div class="product_price"> <span class="price">₹45.00</span> <del>₹55.25</del>
-                                    <div class="on_sale"> <span>35% Off</span> </div>
-                                </div>
-                                <div class="rating_wrap">
-                                    <div class="rating">
-                                        <div class="product_rate" style="width:80%"></div>
+                        </div>
+                        <div class="product_info">
+                            <h6 class="product_title"><a href="/products/{{p.id}}">{{p.product_title}}</a></h6>
+                            <div class="product_price">
+                                        <span class="price">{{p.sale_price|currency}}</span>
+                                        <del>{{p.product_price|currency}}</del>
+                                        <div class="on_sale"><span>{{p.product_price|offer_percentage:p.sale_price}}%</span></div>
                                     </div>
-                                    <div class="thing">
-                                        <div class="thing__content">
-                                            <div class="thing__text"><i class="fa fa-share-square"></i>&nbsp;</div> <a
+                            <div class="rating_wrap">
+                                <div class="rating">
+                                    <div class="product_rate" style="width:80%"></div>
+                                </div>
+                                <div class="thing">
+                                    <div class="thing__content">
+                                        <div class="thing__text"><i class="fa fa-share-square"></i>&nbsp;</div>
+                                        <a
                                                 class="thing__social thing__social--first thing__social--facebook"
                                                 href="#"><i class="ion-social-facebook"></i></a> <a
-                                                class="thing__social thing__social--twitter" href="#"><i
-                                                    class="ion-social-twitter"></i></a> <a
-                                                class="thing__social thing__social--linkedin" href="#"><i
-                                                    class="ion-social-linkedin"></i></a> <a
-                                                class="thing__social thing__social--last thing__social--google"
-                                                href="#"><i class="ion-social-google"></i></a>
-                                        </div>
+                                            class="thing__social thing__social--twitter" href="#"><i
+                                            class="ion-social-twitter"></i></a> <a
+                                            class="thing__social thing__social--linkedin" href="#"><i
+                                            class="ion-social-linkedin"></i></a> <a
+                                            class="thing__social thing__social--last thing__social--google"
+                                            href="#"><i class="ion-social-google"></i></a>
                                     </div>
                                 </div>
-                                <div class="pr_desc">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa
-                                        enim. Nullam id varius nunc id varius nunc.</p>
-                                </div>
+                            </div>
+                            <div class="pr_desc">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa
+                                    enim. Nullam id varius nunc id varius nunc.</p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="product">
-                            <div class="product_img"> <a href="/product-detail"> <img
-                                        src="/static/assets/images/product/Hancrafted-Jute-Box-Round.jpg" alt="product_img1">
-                                </a>
-                                <div class="product_action_box">
-                                    <ul class="list_none pr_action_btn">
-                                        <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To
-                                                Cart</a></li>
-                                        <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                    class="icon-shuffle"></i></a></li>
-                                        <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                    class="icon-magnifier-add"></i></a></li>
-                                        <li><a href="#"><i class="icon-heart"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product_info">
-                                <h6 class="product_title"><a href="/product-detail">Hancrafted Jute Box (Round)</a>
-                                </h6>
-                                <div class="product_price"> <span class="price">₹45.00</span> <del>₹55.25</del>
-                                    <div class="on_sale"> <span>35% Off</span> </div>
-                                </div>
-                                <div class="rating_wrap">
-                                    <div class="rating">
-                                        <div class="product_rate" style="width:80%"></div>
-                                    </div>
-                                    <div class="thing">
-                                        <div class="thing__content">
-                                            <div class="thing__text"><i class="fa fa-share-square"></i>&nbsp;</div> <a
-                                                class="thing__social thing__social--first thing__social--facebook"
-                                                href="#"><i class="ion-social-facebook"></i></a> <a
-                                                class="thing__social thing__social--twitter" href="#"><i
-                                                    class="ion-social-twitter"></i></a> <a
-                                                class="thing__social thing__social--linkedin" href="#"><i
-                                                    class="ion-social-linkedin"></i></a> <a
-                                                class="thing__social thing__social--last thing__social--google"
-                                                href="#"><i class="ion-social-google"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="pr_desc">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa
-                                        enim. Nullam id varius nunc id varius nunc.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="product">
-                            <div class="product_img"> <a href="/product-detail"> <img
-                                        src="/static/assets/images/product/Hancrafted-Jute-Ganesha-Hanging.jpg"
-                                        alt="product_img1"> </a>
-                                <div class="product_action_box">
-                                    <ul class="list_none pr_action_btn">
-                                        <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To
-                                                Cart</a></li>
-                                        <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                    class="icon-shuffle"></i></a></li>
-                                        <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                    class="icon-magnifier-add"></i></a></li>
-                                        <li><a href="#"><i class="icon-heart"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product_info">
-                                <h6 class="product_title"><a href="/product-detail">Hancrafted Jute Ganesha
-                                        (Hanging)</a></h6>
-                                <div class="product_price"> <span class="price">₹45.00</span> <del>₹55.25</del>
-                                    <div class="on_sale"> <span>35% Off</span> </div>
-                                </div>
-                                <div class="rating_wrap">
-                                    <div class="rating">
-                                        <div class="product_rate" style="width:80%"></div>
-                                    </div>
-                                    <div class="thing">
-                                        <div class="thing__content">
-                                            <div class="thing__text"><i class="fa fa-share-square"></i>&nbsp;</div> <a
-                                                class="thing__social thing__social--first thing__social--facebook"
-                                                href="#"><i class="ion-social-facebook"></i></a> <a
-                                                class="thing__social thing__social--twitter" href="#"><i
-                                                    class="ion-social-twitter"></i></a> <a
-                                                class="thing__social thing__social--linkedin" href="#"><i
-                                                    class="ion-social-linkedin"></i></a> <a
-                                                class="thing__social thing__social--last thing__social--google"
-                                                href="#"><i class="ion-social-google"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="pr_desc">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa
-                                        enim. Nullam id varius nunc id varius nunc.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="product">
-                            <div class="product_img"> <a href="/product-detail"> <img
-                                        src="/static/assets/images/product/Terracotta-Palki.jpg" alt="product_img1"> </a>
-                                <div class="product_action_box">
-                                    <ul class="list_none pr_action_btn">
-                                        <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i> Add To
-                                                Cart</a></li>
-                                        <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                    class="icon-shuffle"></i></a></li>
-                                        <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                    class="icon-magnifier-add"></i></a></li>
-                                        <li><a href="#"><i class="icon-heart"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="product_info">
-                                <h6 class="product_title"><a href="/product-detail">Terracotta Palki</a></h6>
-                                <div class="product_price"> <span class="price">₹45.00</span> <del>₹55.25</del>
-                                    <div class="on_sale"> <span>35% Off</span> </div>
-                                </div>
-                                <div class="rating_wrap">
-                                    <div class="rating">
-                                        <div class="product_rate" style="width:80%"></div>
-                                    </div>
-                                    <div class="thing">
-                                        <div class="thing__content">
-                                            <div class="thing__text"><i class="fa fa-share-square"></i>&nbsp;</div> <a
-                                                class="thing__social thing__social--first thing__social--facebook"
-                                                href="#"><i class="ion-social-facebook"></i></a> <a
-                                                class="thing__social thing__social--twitter" href="#"><i
-                                                    class="ion-social-twitter"></i></a> <a
-                                                class="thing__social thing__social--linkedin" href="#"><i
-                                                    class="ion-social-linkedin"></i></a> <a
-                                                class="thing__social thing__social--last thing__social--google"
-                                                href="#"><i class="ion-social-google"></i></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="pr_desc">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa
-                                        enim. Nullam id varius nunc id varius nunc.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                </div>
+                {% endfor %}
+            </div>
                 </div>
             </div>
         </div>
