@@ -40,14 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 'whitenoise.runserver_nostatic',#Added manually
     'store',
-    'django.contrib.sites',
-    # allauth
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    # providers
-    'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.google',
+    # 'django.contrib.sites',
+    # # allauth
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # # providers
+    # 'allauth.socialaccount.providers.facebook',
+    # 'allauth.socialaccount.providers.google',
 
 ]
 
@@ -63,7 +63,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware',  # Add this for allauth
+    # 'allauth.account.middleware.AccountMiddleware',  # Add this for allauth
     # 'whitenoise.middleware.WhiteNoise.middleware', #Added Manually
 ]
 
@@ -171,8 +171,8 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'  # Using database-backed sessions
 
-SITE_ID=1
-LOGIN_REDIRECT_URL='/'
+# SITE_ID=1
+# LOGIN_REDIRECT_URL='/'
 
 
 
