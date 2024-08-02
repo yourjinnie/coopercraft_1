@@ -25,7 +25,6 @@ from store.views.categoryview import CategoryDetailView
 from store.views.collection import Collection
 from store.views.category import Category
 from store.views.wishlist import Wishlist
-from store.views.compare import Compare
 from store.views.zoom import ZoomProductView
 from store.views.remove import Remove
 from store.views.popup_ajax import AjaxPopupView
@@ -33,6 +32,9 @@ from store.views.logout import Logout
 from store.views.remove_wishlist import RemoveFromWishlistView
 from store.views.add_to_wishlist import AddToWishlistView
 from store.views.top_selling_product import TopSellingProductsView
+from store.views.add_to_compare import AddToComparisonView
+from store.views.remove_copmpare_products import ClearComparisonView
+from store.views.compare import CompareProductsView
 from store.middleware.auth import auth_middleware
 
 
@@ -68,10 +70,13 @@ urlpatterns = [
     path('wishlist/', Wishlist.as_view(), name='wishlist'),
     path('zoom-product/<int:product_id>/', ZoomProductView.as_view(), name='zoom_product'),
     path('wishlist/remove/<int:item_id>/', RemoveFromWishlistView.as_view(), name='remove_from_wishlist'),
-    path('compare/', Compare.as_view(), name='compare'),
     path('wishlist/add/<int:pk>/', AddToWishlistView.as_view(), name='add_to_wishlist'),
     path('ajax-popup/', AjaxPopupView.as_view(), name='ajax_popup'),
     path('top-selling-products/<int:prod_id>', TopSellingProductsView.as_view(), name='top_selling_products'),
+    path('add_to_comparison/<int:product_id>/', AddToComparisonView.as_view(), name='add_to_comparison'),
+    path('compare/', CompareProductsView.as_view(), name='compare_products'),
+    path('clear_comparison/', ClearComparisonView.as_view(), name='clear_comparison'),
+
 
 ]
 if settings.DEBUG:

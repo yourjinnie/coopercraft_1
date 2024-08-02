@@ -16,6 +16,7 @@ class Product(models.Model):
     rating = models.DecimalField(max_digits=3, decimal_places=2)
     image=models.ImageField(upload_to='images/')
     sales = models.IntegerField(default=0)  # Number of times the product has been sold
+    type = models.CharField(max_length=255,default=1)  # Add this field to specify the product type
 
     def __str__(self):
         return self.product_title

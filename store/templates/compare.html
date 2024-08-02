@@ -30,7 +30,7 @@
                         <div class="table-responsive">
                             <table class="table table-bordered text-center">
                                 <tbody>
-                                {% for product in pros %}
+                                {% for product in products %}
                                 <tr class="pr_image">
                                     <td class="row_title">Product Image</td>
                                     <td class="row_img"><img
@@ -115,7 +115,7 @@
                                 <tr class="pr_remove">
                                     <td class="row_title"></td>
                                     <td class="row_remove">
-                                        <form method="post" action="{% url 'remove_compare_item' %}">
+                                        <form method="post" action="#">
                                             {% csrf_token %}
                                             <input type="hidden" name="product_id" value="{{ product.id }}">
                                             <button type="submit" class="remove-compare-item"

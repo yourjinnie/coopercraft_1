@@ -1,4 +1,3 @@
-# views.py
 from django.shortcuts import redirect, render
 from django.views.generic import DetailView
 from store.models.categories import Category

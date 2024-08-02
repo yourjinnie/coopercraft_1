@@ -346,7 +346,7 @@
                                                     <!-- Add this hidden input -->
                                                 </form>
                                             </li>
-                                            <li><a href="{% url 'compare' %}?{% for id in category_ids %}category_ids={{ id }}{% if not forloop.last %}&{% endif %}{% endfor %}{% if category_ids and collection_ids %}&{% endif %}{% for id in collection_ids %}collection_ids={{ id }}{% if not forloop.last %}&{% endif %}{% endfor %}"><i
+                                            <li><a href="{% url 'add_to_comparison' product.id %}"><i
                                                     class="icon-shuffle"></i></a></li>
                                             <li><a href="{% url 'zoom_product' p.id %}" class="popup-ajax"><i
                                                     class="icon-magnifier-add"></i></a></li>
