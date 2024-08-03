@@ -11,3 +11,7 @@ def product_context_processors(request):
     ids = list(cart.keys())
     products = Product.get_products_by_id(ids)
     return {'products':products}
+
+# def cart_processor(request):
+#     cart = request.session.get('cart', {})
+#     return {'cart': cart}
