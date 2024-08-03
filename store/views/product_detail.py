@@ -1,5 +1,5 @@
 from django.views import View
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from store.models import Product
 
 class ProductDetail(View):
