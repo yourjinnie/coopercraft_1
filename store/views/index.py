@@ -23,6 +23,12 @@ class Index(View):
         }
         return render(request, 'index.html',context)
 
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset=queryset)
+        obj.view_count += 1
+        obj.save()
+        return obj
+
     def post(self, request):
         product = request.POST.get('product')
         remove = request.POST.get('remove')

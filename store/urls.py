@@ -78,6 +78,7 @@ urlpatterns = [
     path('clear_comparison/', ClearComparisonView.as_view(), name='clear_comparison'),
 
 
+
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

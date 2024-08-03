@@ -17,6 +17,7 @@ class Product(models.Model):
     image=models.ImageField(upload_to='images/')
     sales = models.IntegerField(default=0)  # Number of times the product has been sold
     type = models.CharField(max_length=255,default=1)  # Add this field to specify the product type
+    view_count = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.product_title

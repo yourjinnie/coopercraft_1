@@ -419,28 +419,31 @@
                         <h3>Popular Products</h3>
                     </div>
                     <div id="related-prod-carousel" class="owl-carousel nav_style1 owl-theme">
+                        {% for item in queryset %}
                         <div class="item">
                             <div class="product">
                                 <div class="product_img"><a href="/product-detail"> <img
-                                        src="/static/assets/images/product/Incense-Stick-holder-Black.webp"
+                                        src="{{item.image.url}}"
                                         alt="product_img1"> </a>
                                     <div class="product_action_box">
                                         <ul class="list_none pr_action_btn">
                                             <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i>
                                                 Add To Cart</a></li>
-                                            <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                            <li><a href="{% url 'add_to_comparison' item.id %}"><i
                                                     class="icon-shuffle"></i></a></li>
-                                            <li><a href="javascript:void(0);" class="popup-ajax"><i
+                                            <li><a href="#" class="popup-ajax"><i
                                                     class="icon-magnifier-add"></i></a></li>
-                                            <li><a href="#"><i class="icon-heart"></i></a></li>
+                                            <li><a href="{% url 'add_to_wishlist' item.pk %}">
+                                                <i class="icon-heart"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="product_info">
-                                    <h6 class="product_title"><a href="/product-detail">Stone Product</a></h6>
-                                    <div class="product_price"><span class="price">₹45.00</span>
-                                        <del>₹55.25</del>
-                                        <div class="on_sale"><span>35% Off</span></div>
+                                    <h6 class="product_title"><a href="/products/{{item.id}}">{{item.product_title}}</a></h6>
+                                    <div class="product_price">
+                                        <span class="price">{{item.sale_price|currency}}</span>
+                                        <del>{{item.product_price|currency}}</del>
+                                        <div class="on_sale"><span>{{item.product_price|offer_percentage:item.sale_price}}%</span></div>
                                     </div>
                                     <div class="rating_wrap">
                                         <div class="rating">
@@ -469,206 +472,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="item">
-                            <div class="product">
-                                <div class="product_img"><a href="/product-detail"> <img
-                                        src="/static/assets/images/product/Marble-Candle-Holder-Statuario.jpg"
-                                        alt="product_img1"> </a>
-                                    <div class="product_action_box">
-                                        <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i>
-                                                Add To Cart</a></li>
-                                            <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                    class="icon-shuffle"></i></a></li>
-                                            <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                    class="icon-magnifier-add"></i></a></li>
-                                            <li><a href="#"><i class="icon-heart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product_info">
-                                    <h6 class="product_title"><a href="/product-detail">Stone Product</a></h6>
-                                    <div class="product_price"><span class="price">₹45.00</span>
-                                        <del>₹55.25</del>
-                                        <div class="on_sale"><span>35% Off</span></div>
-                                    </div>
-                                    <div class="rating_wrap">
-                                        <div class="rating">
-                                            <div class="product_rate" style="width:80%"></div>
-                                        </div>
-                                        <div class="thing">
-                                            <div class="thing__content">
-                                                <div class="thing__text"><i class="fa fa-share-square"></i>&nbsp;
-                                                </div>
-                                                <a
-                                                        class="thing__social thing__social--first thing__social--facebook"
-                                                        href="#"><i class="ion-social-facebook"></i></a> <a
-                                                    class="thing__social thing__social--twitter" href="#"><i
-                                                    class="ion-social-twitter"></i></a> <a
-                                                    class="thing__social thing__social--linkedin" href="#"><i
-                                                    class="ion-social-linkedin"></i></a> <a
-                                                    class="thing__social thing__social--last thing__social--google"
-                                                    href="#"><i class="ion-social-google"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="pr_desc">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-                                            blandit massa enim. Nullam id varius nunc id varius nunc.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product">
-                                <div class="product_img"><a href="/product-detail"> <img
-                                        src="/static/assets/images/product/Marble-Tissue-Box-Statuario.png"
-                                        alt="product_img1"> </a>
-                                    <div class="product_action_box">
-                                        <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i>
-                                                Add To Cart</a></li>
-                                            <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                    class="icon-shuffle"></i></a></li>
-                                            <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                    class="icon-magnifier-add"></i></a></li>
-                                            <li><a href="#"><i class="icon-heart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product_info">
-                                    <h6 class="product_title"><a href="/product-detail">Stone Product</a></h6>
-                                    <div class="product_price"><span class="price">₹45.00</span>
-                                        <del>₹55.25</del>
-                                        <div class="on_sale"><span>35% Off</span></div>
-                                    </div>
-                                    <div class="rating_wrap">
-                                        <div class="rating">
-                                            <div class="product_rate" style="width:80%"></div>
-                                        </div>
-                                        <div class="thing">
-                                            <div class="thing__content">
-                                                <div class="thing__text"><i class="fa fa-share-square"></i>&nbsp;
-                                                </div>
-                                                <a
-                                                        class="thing__social thing__social--first thing__social--facebook"
-                                                        href="#"><i class="ion-social-facebook"></i></a> <a
-                                                    class="thing__social thing__social--twitter" href="#"><i
-                                                    class="ion-social-twitter"></i></a> <a
-                                                    class="thing__social thing__social--linkedin" href="#"><i
-                                                    class="ion-social-linkedin"></i></a> <a
-                                                    class="thing__social thing__social--last thing__social--google"
-                                                    href="#"><i class="ion-social-google"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="pr_desc">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-                                            blandit massa enim. Nullam id varius nunc id varius nunc.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product">
-                                <div class="product_img"><a href="/product-detail"> <img
-                                        src="/static/assets/images/product/Incense-Stick-holder-Black.webp"
-                                        alt="product_img1"> </a>
-                                    <div class="product_action_box">
-                                        <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i>
-                                                Add To Cart</a></li>
-                                            <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                    class="icon-shuffle"></i></a></li>
-                                            <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                    class="icon-magnifier-add"></i></a></li>
-                                            <li><a href="#"><i class="icon-heart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product_info">
-                                    <h6 class="product_title"><a href="/product-detail">Stone Product</a></h6>
-                                    <div class="product_price"><span class="price">₹45.00</span>
-                                        <del>₹55.25</del>
-                                        <div class="on_sale"><span>35% Off</span></div>
-                                    </div>
-                                    <div class="rating_wrap">
-                                        <div class="rating">
-                                            <div class="product_rate" style="width:80%"></div>
-                                        </div>
-                                        <div class="thing">
-                                            <div class="thing__content">
-                                                <div class="thing__text"><i class="fa fa-share-square"></i>&nbsp;
-                                                </div>
-                                                <a
-                                                        class="thing__social thing__social--first thing__social--facebook"
-                                                        href="#"><i class="ion-social-facebook"></i></a> <a
-                                                    class="thing__social thing__social--twitter" href="#"><i
-                                                    class="ion-social-twitter"></i></a> <a
-                                                    class="thing__social thing__social--linkedin" href="#"><i
-                                                    class="ion-social-linkedin"></i></a> <a
-                                                    class="thing__social thing__social--last thing__social--google"
-                                                    href="#"><i class="ion-social-google"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="pr_desc">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-                                            blandit massa enim. Nullam id varius nunc id varius nunc.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="product">
-                                <div class="product_img"><a href="/product-detail"> <img
-                                        src="/static/assets/images/product/Marble-Urli-Shell.webp" alt="product_img1">
-                                </a>
-                                    <div class="product_action_box">
-                                        <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i>
-                                                Add To Cart</a></li>
-                                            <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                    class="icon-shuffle"></i></a></li>
-                                            <li><a href="javascript:void(0);" class="popup-ajax"><i
-                                                    class="icon-magnifier-add"></i></a></li>
-                                            <li><a href="#"><i class="icon-heart"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product_info">
-                                    <h6 class="product_title"><a href="/product-detail">Stone Product</a></h6>
-                                    <div class="product_price"><span class="price">₹45.00</span>
-                                        <del>₹55.25</del>
-                                        <div class="on_sale"><span>35% Off</span></div>
-                                    </div>
-                                    <div class="rating_wrap">
-                                        <div class="rating">
-                                            <div class="product_rate" style="width:80%"></div>
-                                        </div>
-                                        <div class="thing">
-                                            <div class="thing__content">
-                                                <div class="thing__text"><i class="fa fa-share-square"></i>&nbsp;
-                                                </div>
-                                                <a
-                                                        class="thing__social thing__social--first thing__social--facebook"
-                                                        href="#"><i class="ion-social-facebook"></i></a> <a
-                                                    class="thing__social thing__social--twitter" href="#"><i
-                                                    class="ion-social-twitter"></i></a> <a
-                                                    class="thing__social thing__social--linkedin" href="#"><i
-                                                    class="ion-social-linkedin"></i></a> <a
-                                                    class="thing__social thing__social--last thing__social--google"
-                                                    href="#"><i class="ion-social-google"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="pr_desc">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-                                            blandit massa enim. Nullam id varius nunc id varius nunc.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
