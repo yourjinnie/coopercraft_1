@@ -82,7 +82,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'store.context_processors.category_context_processors',#Added Manually
                 'store.context_processors.product_context_processors',#Added Manually
-                # 'store.context_processors.cart_processor',  # Add this line
+                'store.context_processors.cart_products',  # Add this line
             ],
         },
     },

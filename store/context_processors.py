@@ -12,6 +12,10 @@ def product_context_processors(request):
     products = Product.get_products_by_id(ids)
     return {'products':products}
 
-# def cart_processor(request):
-#     cart = request.session.get('cart', {})
-#     return {'cart': cart}
+from store.models.products import Product
+
+def cart_products(request):
+    cart = request.session.get('cart', {})
+    cart_product_ids = cart.keys()
+    cart_products = Product.objects.filter(id__in=cart_product_ids)
+    return {'cart_products': cart_products}

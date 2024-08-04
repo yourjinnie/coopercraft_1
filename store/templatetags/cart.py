@@ -27,3 +27,6 @@ def total_cart_price(products,cart):
     for p in products:
         sum+=total_price(p,cart)
     return sum
+@register.filter(name='get_item')
+def get_item(dictionary, key):
+    return dictionary.get(key)

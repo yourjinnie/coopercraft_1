@@ -10,3 +10,9 @@ class CompareProductsView(View):
         return render(request, 'compare.html', {'products': products})
 
 
+
+
+
+
+
+

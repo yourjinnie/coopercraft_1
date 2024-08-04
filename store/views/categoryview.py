@@ -12,7 +12,7 @@ class CategoryDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         categories = Category.objects.all()
         category = self.get_object()
-        context['products'] = category.product_set.all()  # Filter products by the current category
+        context['products'] = category.product_set.all()  # Add products to the context
         context['category'] = category
         context['categories'] = categories
 
@@ -21,18 +21,24 @@ class CategoryDetailView(DetailView):
         history_products = Product.objects.filter(id__in=history)
         context['history_products'] = history_products
 
-        # Add cart information to the context
-        context['cart'] = self.request.session.get('cart', {})
+        # Fetch cart products
+        cart = self.request.session.get('cart', {})
+        cart_product_ids = cart.keys()
+        cart_products = Product.objects.filter(id__in=cart_product_ids)
+        context['cart_products'] = cart_products
 
         return context
 
     def get(self, request, *args, **kwargs):
-        # Ensure cart is initialized in session
-        if 'cart' not in request.session:
+        cart = request.session.get('cart')
+        if not cart:
             request.session['cart'] = {}
         return super().get(request, *args, **kwargs)
-
-
+    #
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['products'] = Product.objects.all()  # Adjust this query as needed
+    #     return context
 
 
 

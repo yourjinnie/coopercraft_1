@@ -63,13 +63,13 @@
                                     <td class="row_title">Add To Cart</td>
                                     <td class="row_btn">
                                         <a href="#" class="btn btn-fill-out"
-                                           onclick="document.getElementById('add-to-cart-form-{{ item.product.id }}').submit(); return false;">
+                                           onclick="document.getElementById('add-to-cart-form-{{ product.id }}').submit(); return false;">
                                             <i class="icon-basket-loaded"></i> Add to Cart
                                         </a>
-                                        <form id="add-to-cart-form-{{ item.product.id }}" method="POST"
+                                        <form id="add-to-cart-form-{{ product.id }}" method="POST"
                                               action="{% url 'cart' %}" style="display:none;">
                                             {% csrf_token %}
-                                            <input type="hidden" name="product_id" value="{{ item.product.id }}">
+                                            <input type="hidden" name="product_id" value="{{ product.id }}">
                                             <input type="hidden" name="action" value="increase">
                                         </form>
                                     </td>
@@ -113,9 +113,9 @@
                                     <td class="row_dimensions">N/A</td>
                                 </tr>
                                 <tr class="pr_remove">
-                                    <td class="row_title"></td>
+                                    <td class="row_title">{{ product.name }}</td>
                                     <td class="row_remove">
-                                        <form method="post" action="#">
+                                        <form method="post" action="{% url 'clear_comparison' %}">
                                             {% csrf_token %}
                                             <input type="hidden" name="product_id" value="{{ product.id }}">
                                             <button type="submit" class="remove-compare-item"
@@ -125,7 +125,6 @@
                                         </form>
                                     </td>
                                 </tr>
-
                                 {% endfor %}
                                 </tbody>
                             </table>

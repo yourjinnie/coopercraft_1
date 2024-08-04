@@ -427,8 +427,19 @@
                                         alt="product_img1"> </a>
                                     <div class="product_action_box">
                                         <ul class="list_none pr_action_btn">
-                                            <li class="add-to-cart"><a href="#"><i class="icon-basket-loaded"></i>
-                                                Add To Cart</a></li>
+                                            <li class="add-to-cart">
+                                                <a href="#"
+                                                   onclick="document.getElementById('add-to-cart-form-{{ item.id }}').submit(); return false;">
+                                                    <i class="icon-basket-loaded"></i>
+                                                </a>
+                                                <form id="add-to-cart-form-{{ item.id }}" method="POST"
+                                                      action="{% url 'cart' %}" style="display:none;">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="product_id" value="{{ item.id }}">
+                                                    <input type="hidden" name="action" value="increase">
+                                                    <!-- Add this hidden input -->
+                                                </form>
+                                            </li>
                                             <li><a href="{% url 'add_to_comparison' item.id %}"><i
                                                     class="icon-shuffle"></i></a></li>
                                             <li><a href="#" class="popup-ajax"><i

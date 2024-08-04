@@ -349,31 +349,54 @@
                             <span class="cart_count">{{request.session.cart.keys|length}}</span></a>
                         <div class="cart_box dropdown-menu dropdown-menu-right">
                             <ul class="cart_list">
-                                {% for product in products %}
-                                {% with product_id=product.id|stringformat:"d" %}
-                                {% if product_id in request.session.cart %}
+                                {% for product in cart_products %}
                                 <li>
                                     <a href="{% url 'remove' item_id=product.id %}" class="item_remove"><i
                                             class="ion-close"></i></a>
                                     <a href="#">
                                         <img src="{{ product.image.url }}" alt="cart_thumb1">{{ product.product_title }}
                                     </a>
-                                    <span class="cart_quantity">{{ request.session.cart|get_item:product_id }}
-                                        x <span class="cart_amount">{{ product.product_price|currency }}</span></span>
+                                    <span class="cart_quantity">{{ request.session.cart|get_item:product.id|stringformat:"d" }} x
+                                      <span class="cart_amount">{{ product.product_price|currency }}</span></span>
                                 </li>
-                                {% endif %}
-                                {% endwith %}
                                 {% endfor %}
                             </ul>
                             <div class="cart_footer">
                                 <p class="cart_total"><strong>Subtotal:</strong> <span class="cart_price">
-                                </span>{{products|total_cart_price:request.session.cart|currency}}</p>
-                                <p class="cart_buttons"><a href="/cart"
-                                                           class="btn btn-fill-line rounded-0 view-cart">View Cart</a><a
-                                        href="/checkout" class="btn btn-fill-out rounded-0 checkout">Checkout</a>
+                            </span>{{ cart_products|total_cart_price:request.session.cart|currency }}</p>
+                                <p class="cart_buttons"><a href="/cart" class="btn btn-fill-line rounded-0 view-cart">View
+                                    Cart</a>
+                                    <a href="/checkout" class="btn btn-fill-out rounded-0 checkout">Checkout</a>
                                 </p>
                             </div>
                         </div>
+                        <!--                        <div class="cart_box dropdown-menu dropdown-menu-right">-->
+                        <!--                            <ul class="cart_list">-->
+                        <!--                                {% for product in products %}-->
+                        <!--                                {% with product_id=product.id|stringformat:"d" %}-->
+                        <!--                                {% if product_id in request.session.cart %}-->
+                        <!--                                <li>-->
+                        <!--                                    <a href="{% url 'remove' item_id=product.id %}" class="item_remove"><i-->
+                        <!--                                            class="ion-close"></i></a>-->
+                        <!--                                    <a href="#">-->
+                        <!--                                        <img src="{{ product.image.url }}" alt="cart_thumb1">{{ product.product_title }}-->
+                        <!--                                    </a>-->
+                        <!--                                    <span class="cart_quantity">{{ request.session.cart|get_item:product_id }}-->
+                        <!--                                        x <span class="cart_amount">{{ product.product_price|currency }}</span></span>-->
+                        <!--                                </li>-->
+                        <!--                                {% endif %}-->
+                        <!--                                {% endwith %}-->
+                        <!--                                {% endfor %}-->
+                        <!--                            </ul>-->
+                        <!--                            <div class="cart_footer">-->
+                        <!--                                <p class="cart_total"><strong>Subtotal:</strong> <span class="cart_price">-->
+                        <!--                                </span>{{products|total_cart_price:request.session.cart|currency}}</p>-->
+                        <!--                                <p class="cart_buttons"><a href="/cart"-->
+                        <!--                                                           class="btn btn-fill-line rounded-0 view-cart">View Cart</a><a-->
+                        <!--                                        href="/checkout" class="btn btn-fill-out rounded-0 checkout">Checkout</a>-->
+                        <!--                                </p>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
                     </li>
                 </ul>
             </nav>
