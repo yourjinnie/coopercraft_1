@@ -42,3 +42,9 @@ class AccountView(View):
                 return render(request, 'accounts.html', {'error': 'Invalid login credentials'})
 
         return render(request, 'accounts.html')
+
+    # def account_redirect(request):
+    #     if request.session.get('user'):
+    #         return redirect('/my-account')
+    #     else:
+    #         return redirect('/account')

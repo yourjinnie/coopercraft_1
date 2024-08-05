@@ -19,4 +19,12 @@ def offer_percentage(product_price,sale_price):
     offer_percentage=(discount/product_price)*100
     return round(offer_percentage,2)
 
+# @register.simple_tag(takes_context=True)
+# def account_url(context):
+#     request = context['request']
+#     if request.session.get('user'):
+#         return '/my-account'
+#     else:
+#         return '/account'
+
 

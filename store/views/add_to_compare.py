@@ -20,4 +20,9 @@ class AddToComparisonView(View):
                     request.session['comparison_error'] = 'You can only compare products of the same type.'
                     return redirect('product_detail', product_id=product_id)  # Adjust the redirect target as needed
 
-        return redirect('compare_products')
+        # return redirect('compare_products')
+        referer = request.META.get('HTTP_REFERER')
+        if referer:
+            return redirect(referer)
+        else:
+            return redirect('fallback-url')  # Use a fallback URL in case HTTP_REFERER is not available
