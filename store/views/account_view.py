@@ -1,6 +1,7 @@
 from django.views import View
 from django.shortcuts import render, redirect, HttpResponseRedirect
-from store.models.registrer import Register
+from store.models.register import Register
+from store.models.address import Address
 
 class AccountView(View):
     def get(self, request):
@@ -41,7 +42,35 @@ class AccountView(View):
             else:
                 return render(request, 'accounts.html', {'error': 'Invalid login credentials'})
 
+        elif 'update_address' in request.POST:
+            user_id = request.session.get('id')
+            address_type = request.POST.get('address_type')
+            address_line_1 = request.POST.get('address_line_1')
+            address_line_2 = request.POST.get('address_line_2', '')
+            city = request.POST.get('city')
+            state = request.POST.get('state')
+            postal_code = request.POST.get('postal_code')
+            country = request.POST.get('country')
+
+            user = Register.objects.get(id=user_id)
+            Address.objects.update_or_create(
+                user=user,
+                address_type=address_type,
+                defaults={
+                    'address_line_1': address_line_1,
+                    'address_line_2': address_line_2,
+                    'city': city,
+                    'state': state,
+                    'postal_code': postal_code,
+                    'country': country
+                }
+            )
+
+            return redirect('my-account')
+
         return render(request, 'accounts.html')
+
+        # return render(request, 'accounts.html')
 
     # def account_redirect(request):
     #     if request.session.get('user'):

@@ -4,7 +4,7 @@
 {% block content %}
 
 <div class="breadcrumb_section bg_gray page-title-mini">
-    <div class="container"><!-- STRART CONTAINER -->
+    <div class="container">
         <div class="row align-items-center">
             <div class="col-md-6">
                 <div class="page-title">
@@ -12,8 +12,9 @@
                 </div>
             </div>
         </div>
-    </div><!-- END CONTAINER-->
+    </div>
 </div>
+
 <div class="main_content position-relative" id="bambocraft">
     <div class="section">
         <div class="container">
@@ -58,7 +59,7 @@
                                     <h3>Dashboard</h3>
                                 </div>
                                 <div class="card-body">
-                                    <p>From your account dashboard. you can easily check &amp; view your <a
+                                    <p>From your account dashboard, you can easily check &amp; view your <a
                                             href="javascript:;" onclick="$('#orders-tab').trigger('click')">recent
                                         orders</a>, manage your <a href="javascript:;"
                                                                    onclick="$('#address-tab').trigger('click')">shipping
@@ -86,10 +87,19 @@
                                             <h3>Billing Address</h3>
                                         </div>
                                         <div class="card-body">
-                                            <address>House #15<br>Road #1<br>Block #C <br>Angali <br> Vedora
-                                                <br>1212
-                                            </address>
-                                            <p>New York</p>
+                                            {% if billing_address %}
+                                                <address>
+                                                    {{ billing_address.address_line_1 }}<br>
+                                                    {{ billing_address.address_line_2 }}<br>
+                                                    {{ billing_address.city }}<br>
+                                                    {{ billing_address.state }}<br>
+                                                    {{ billing_address.postal_code }}<br>
+                                                    {{ billing_address.phone }}
+                                                </address>
+                                                <p>{{ billing_address.email }}</p>
+                                            {% else %}
+                                                <p>No billing address provided.</p>
+                                            {% endif %}
                                             <button type="button" class="btn btn-fill-out" data-bs-toggle="modal"
                                                     data-bs-target="#BillingAddress">
                                                 Edit
@@ -103,10 +113,19 @@
                                             <h3>Shipping Address</h3>
                                         </div>
                                         <div class="card-body">
-                                            <address>House #15<br>Road #1<br>Block #C <br>Angali <br> Vedora
-                                                <br>1212
-                                            </address>
-                                            <p>New York</p>
+                                            {% if shipping_address %}
+                                                <address>
+                                                    {{ shipping_address.address_line_1 }}<br>
+                                                    {{ shipping_address.address_line_2 }}<br>
+                                                    {{ shipping_address.city }}<br>
+                                                    {{ shipping_address.state }}<br>
+                                                    {{ shipping_address.postal_code }}<br>
+                                                    {{ shipping_address.phone }}
+                                                </address>
+                                                <p>{{ shipping_address.email }}</p>
+                                            {% else %}
+                                                <p>No shipping address provided.</p>
+                                            {% endif %}
                                             <button type="button" class="btn btn-fill-out" data-bs-toggle="modal"
                                                     data-bs-target="#ShippingAddress">
                                                 Edit
@@ -129,11 +148,11 @@
                                         <div class="row">
                                             <div class="form-group col-md-6 mb-3">
                                                 <label>First Name <span class="required">*</span></label>
-                                                <input required="" class="form-control" name="name" type="text">
+                                                <input required="" class="form-control" name="fname" type="text">
                                             </div>
                                             <div class="form-group col-md-6 mb-3">
                                                 <label>Last Name <span class="required">*</span></label>
-                                                <input required="" class="form-control" name="phone">
+                                                <input required="" class="form-control" name="lname" type="text">
                                             </div>
                                             <div class="form-group col-md-12 mb-3">
                                                 <label>Display Name <span class="required">*</span></label>
@@ -173,8 +192,211 @@
             </div>
         </div>
     </div>
-
 </div>
 
-
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<div class="breadcrumb_section bg_gray page-title-mini">-->
+<!--    <div class="container">&lt;!&ndash; STRART CONTAINER &ndash;&gt;-->
+<!--        <div class="row align-items-center">-->
+<!--            <div class="col-md-6">-->
+<!--                <div class="page-title">-->
+<!--                    <h1 class="text-white">My Account</h1>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>&lt;!&ndash; END CONTAINER&ndash;&gt;-->
+<!--</div>-->
+<!--<div class="main_content position-relative" id="bambocraft">-->
+<!--    <div class="section">-->
+<!--        <div class="container">-->
+<!--            <div class="row">-->
+<!--                <div class="col-lg-3 col-md-4">-->
+<!--                    <div class="dashboard_menu">-->
+<!--                        <ul class="nav nav-tabs flex-column" role="tablist">-->
+<!--                            <li class="nav-item" role="presentation">-->
+<!--                                <a class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" href="#dashboard"-->
+<!--                                   role="tab" aria-controls="dashboard" aria-selected="true"><i-->
+<!--                                        class="ti-layout-grid2"></i>Dashboard</a>-->
+<!--                            </li>-->
+<!--                            <li class="nav-item" role="presentation">-->
+<!--                                <a class="nav-link" id="orders-tab" data-bs-toggle="tab" href="#orders" role="tab"-->
+<!--                                   aria-controls="orders" aria-selected="false" tabindex="-1"><i-->
+<!--                                        class="ti-shopping-cart-full"></i>Orders</a>-->
+<!--                            </li>-->
+<!--                            <li class="nav-item" role="presentation">-->
+<!--                                <a class="nav-link" id="address-tab" data-bs-toggle="tab" href="#address" role="tab"-->
+<!--                                   aria-controls="address" aria-selected="false" tabindex="-1"><i-->
+<!--                                        class="ti-location-pin"></i>My Address</a>-->
+<!--                            </li>-->
+<!--                            <li class="nav-item" role="presentation">-->
+<!--                                <a class="nav-link" id="account-detail-tab" data-bs-toggle="tab"-->
+<!--                                   href="#account-detail" role="tab" aria-controls="account-detail"-->
+<!--                                   aria-selected="false" tabindex="-1"><i class="ti-id-badge"></i>Account-->
+<!--                                    details</a>-->
+<!--                            </li>-->
+<!--                            <li class="nav-item" role="presentation">-->
+<!--                                <a class="nav-link" href="/logout" aria-selected="false" tabindex="-1"-->
+<!--                                   role="tab"><i class="ti-lock"></i>Logout</a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-lg-9 col-md-8">-->
+<!--                    <div class="tab-content dashboard_content">-->
+<!--                        <div class="tab-pane fade active show" id="dashboard" role="tabpanel"-->
+<!--                             aria-labelledby="dashboard-tab">-->
+<!--                            <div class="card">-->
+<!--                                <div class="card-header">-->
+<!--                                    <h3>Dashboard</h3>-->
+<!--                                </div>-->
+<!--                                <div class="card-body">-->
+<!--                                    <p>From your account dashboard. you can easily check &amp; view your <a-->
+<!--                                            href="javascript:;" onclick="$('#orders-tab').trigger('click')">recent-->
+<!--                                        orders</a>, manage your <a href="javascript:;"-->
+<!--                                                                   onclick="$('#address-tab').trigger('click')">shipping-->
+<!--                                        and billing-->
+<!--                                        addresses</a> and <a href="javascript:;"-->
+<!--                                                             onclick="$('#account-detail-tab').trigger('click')">edit-->
+<!--                                        your password-->
+<!--                                        and account details.</a></p>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">-->
+<!--                            <div class="card">-->
+<!--                                <div class="card-header">-->
+<!--                                    <h3>Orders</h3>-->
+<!--                                </div>-->
+<!--                                {% include 'order.html' %}-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="tab-pane fade" id="address" role="tabpanel" aria-labelledby="address-tab">-->
+<!--                            <div class="row">-->
+<!--                                <div class="col-lg-6">-->
+<!--                                    <div class="card mb-3 mb-lg-0">-->
+<!--                                        <div class="card-header">-->
+<!--                                            <h3>Billing Address</h3>-->
+<!--                                        </div>-->
+<!--                                        <div class="card-body">-->
+<!--                                            <address>House #15<br>Road #1<br>Block #C <br>Angali <br> Vedora-->
+<!--                                                <br>1212-->
+<!--                                            </address>-->
+<!--                                            <p>New York</p>-->
+<!--                                            <button type="button" class="btn btn-fill-out" data-bs-toggle="modal"-->
+<!--                                                    data-bs-target="#BillingAddress">-->
+<!--                                                Edit-->
+<!--                                            </button>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-lg-6">-->
+<!--                                    <div class="card">-->
+<!--                                        <div class="card-header">-->
+<!--                                            <h3>Shipping Address</h3>-->
+<!--                                        </div>-->
+<!--                                        <div class="card-body">-->
+<!--                                            <address>House #15<br>Road #1<br>Block #C <br>Angali <br> Vedora-->
+<!--                                                <br>1212-->
+<!--                                            </address>-->
+<!--                                            <p>New York</p>-->
+<!--                                            <button type="button" class="btn btn-fill-out" data-bs-toggle="modal"-->
+<!--                                                    data-bs-target="#ShippingAddress">-->
+<!--                                                Edit-->
+<!--                                            </button>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="tab-pane fade" id="account-detail" role="tabpanel"-->
+<!--                             aria-labelledby="account-detail-tab">-->
+<!--                            <div class="card">-->
+<!--                                <div class="card-header">-->
+<!--                                    <h3>Account Details</h3>-->
+<!--                                </div>-->
+<!--                                <div class="card-body">-->
+<!--                                    <p>Already have an account? <a href="#">Log in instead!</a></p>-->
+<!--                                    <form method="post" name="enq">-->
+<!--                                        {% csrf_token %}-->
+<!--                                        <div class="row">-->
+<!--                                            <div class="form-group col-md-6 mb-3">-->
+<!--                                                <label>First Name <span class="required">*</span></label>-->
+<!--                                                <input required="" class="form-control" name="name" type="text">-->
+<!--                                            </div>-->
+<!--                                            <div class="form-group col-md-6 mb-3">-->
+<!--                                                <label>Last Name <span class="required">*</span></label>-->
+<!--                                                <input required="" class="form-control" name="phone">-->
+<!--                                            </div>-->
+<!--                                            <div class="form-group col-md-12 mb-3">-->
+<!--                                                <label>Display Name <span class="required">*</span></label>-->
+<!--                                                <input required="" class="form-control" name="dname" type="text">-->
+<!--                                            </div>-->
+<!--                                            <div class="form-group col-md-12 mb-3">-->
+<!--                                                <label>Email Address <span class="required">*</span></label>-->
+<!--                                                <input required="" class="form-control" name="email" type="email">-->
+<!--                                            </div>-->
+<!--                                            <div class="form-group col-md-12 mb-3">-->
+<!--                                                <label>Current Password <span class="required">*</span></label>-->
+<!--                                                <input required="" class="form-control" name="password"-->
+<!--                                                       type="password">-->
+<!--                                            </div>-->
+<!--                                            <div class="form-group col-md-12 mb-3">-->
+<!--                                                <label>New Password <span class="required">*</span></label>-->
+<!--                                                <input required="" class="form-control" name="npassword"-->
+<!--                                                       type="password">-->
+<!--                                            </div>-->
+<!--                                            <div class="form-group col-md-12 mb-3">-->
+<!--                                                <label>Confirm Password <span class="required">*</span></label>-->
+<!--                                                <input required="" class="form-control" name="cpassword"-->
+<!--                                                       type="password">-->
+<!--                                            </div>-->
+<!--                                            <div class="col-md-12">-->
+<!--                                                <button type="submit" class="btn btn-fill-out" name="submit"-->
+<!--                                                        value="Submit">Save-->
+<!--                                                </button>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </form>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--</div>-->
+

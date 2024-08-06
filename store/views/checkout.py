@@ -1,49 +1,120 @@
 from django.views import View
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from store.models.products import Product
 from store.models.orders import Order
-from store.models.registrer import Register
+from store.models.register import Register
+from store.models.address import Address
 from django.contrib import messages
-# from django.contrib.auth.decorators import login_required
 
-# @login_required(login_url='/account/')
 class CheckoutView(View):
     def get(self, request, *args, **kwargs):
-        # Fetch products from the cart session or database
-        # products = self.get_cart_products(request), {'products': products}
-        return render(request, 'checkout.html')
+        customer_id = request.session.get('id')
+        user = Register.objects.get(id=customer_id)
+        billing_address = Address.objects.filter(user=user, address_type='billing').first()
+        shipping_address = Address.objects.filter(user=user, address_type='shipping').first()
+
+        context = {
+            'user': user,
+            'billing_address': billing_address,
+            'shipping_address': shipping_address,
+        }
+        return render(request, 'checkout.html', context)
+
     def post(self, request):
-        fname = request.POST.get('fname')
-        lname = request.POST.get('lname')
-        email = request.POST.get('email')
-        billing_address = request.POST.get('billing_address')
-        city = request.POST.get('city')
-        phone_no = request.POST.get('phone_no')
-        zipcode = request.POST.get('zipcode')
-        country = request.POST.get('country')
-        customer = request.session.get('id')
+        customer_id = request.session.get('id')
+        user = Register.objects.get(id=customer_id)
+
+        billing_first_name = request.POST.get('fname')
+        billing_last_name = request.POST.get('lname')
+        billing_company_name = request.POST.get('cname')
+        billing_address1 = request.POST.get('billing_address')
+        billing_address2 = request.POST.get('billing_address2', '')
+        billing_city = request.POST.get('city')
+        billing_state = request.POST.get('state')
+        billing_zipcode = request.POST.get('zipcode')
+        billing_phone = request.POST.get('phone')
+        billing_email = request.POST.get('email')
+        shipping_different = request.POST.get('differentaddress')
+
+        if shipping_different:
+            shipping_first_name = request.POST.get('shipping_fname')
+            shipping_last_name = request.POST.get('shipping_lname')
+            shipping_company_name = request.POST.get('shipping_cname')
+            shipping_address1 = request.POST.get('shipping_address')
+            shipping_address2 = request.POST.get('shipping_address2', '')
+            shipping_city = request.POST.get('shipping_city')
+            shipping_state = request.POST.get('shipping_state')
+            shipping_zipcode = request.POST.get('shipping_zipcode')
+            shipping_phone = request.POST.get('shipping_phone')
+        else:
+            shipping_first_name = billing_first_name
+            shipping_last_name = billing_last_name
+            shipping_company_name = billing_company_name
+            shipping_address1 = billing_address1
+            shipping_address2 = billing_address2
+            shipping_city = billing_city
+            shipping_state = billing_state
+            shipping_zipcode = billing_zipcode
+            shipping_phone = billing_phone
+
+        # Save or update billing address
+        Address.objects.update_or_create(
+            user=user,
+            address_type='billing',
+            defaults={
+                'first_name': billing_first_name,
+                'last_name': billing_last_name,
+                'company_name': billing_company_name,
+                'address_line_1': billing_address1,
+                'address_line_2': billing_address2,
+                'city': billing_city,
+                'state': billing_state,
+                'postal_code': billing_zipcode,
+                'country': 'Country Placeholder',  # Set the default or get from user input
+                'phone': billing_phone,
+                'email': billing_email
+            }
+        )
+
+        # Save or update shipping address
+        Address.objects.update_or_create(
+            user=user,
+            address_type='shipping',
+            defaults={
+                'first_name': shipping_first_name,
+                'last_name': shipping_last_name,
+                'company_name': shipping_company_name,
+                'address_line_1': shipping_address1,
+                'address_line_2': shipping_address2,
+                'city': shipping_city,
+                'state': shipping_state,
+                'postal_code': shipping_zipcode,
+                'country': 'Country Placeholder',  # Set the default or get from user input
+                'phone': shipping_phone,
+            }
+        )
 
         cart = request.session.get('cart')
         products = Product.get_products_by_id(list(cart.keys()))
 
         for product in products:
             order = Order(
-                customer=Register(id=customer),
+                customer=user,
                 product=product,
-                fname=fname,
-                lname=lname,
-                email=email,
-                city=city,
-                zipcode=zipcode,
-                country=country,
+                fname=billing_first_name,
+                lname=billing_last_name,
+                email=billing_email,
+                city=billing_city,
+                zipcode=billing_zipcode,
+                country='Country Placeholder',  # Set the default or get from user input
                 price=product.product_price,
-                address=billing_address,
-                phone_no=phone_no,
+                address_line_1=billing_address1,
+                address_line_2=billing_address2,
+                phone_no=billing_phone,
                 quantity=cart.get(str(product.id))
-
             )
             saved_order = order.place_order()
-        request.session['cart']={}
+
+        request.session['cart'] = {}
         messages.success(request, 'Order successfully placed')
-        # return render(request, 'index.html')
         return redirect('homepage')

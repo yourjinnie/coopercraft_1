@@ -54,7 +54,7 @@
                                             <input type="hidden" name="action" value="decrease">
                                             <button type="submit">-</button>
                                         </form>
-                                        {{ product|cart_quantity:request.session.cart }}
+                                        {{ request.session.cart|cart_quantity:product.id }}
                                         <form method="post" action="{% url 'cart' %}" style="display:inline;">
                                             {% csrf_token %}
                                             <input type="hidden" name="product_id" value="{{ product.id }}">

@@ -9,24 +9,33 @@ def is_in_cart(product,cart):
         if int(id)==product.id:
             return True
     return False
+# @register.filter(name='cart_quantity')
+# def cart_quantity(product,cart):
+#     keys=cart.keys()
+#     for id in keys:
+#         if str(id)==product.id:
+#             return cart.get(id)
+#     return 0
 @register.filter(name='cart_quantity')
-def cart_quantity(product,cart):
-    keys=cart.keys()
-    for id in keys:
-        if int(id)==product.id:
-            return cart.get(id)
-    return 0
+def cart_quantity(cart, product_id):
+    return cart.get(str(product_id), 0)
 
+# @register.filter(name='total_price')
+# def total_price(product,cart):
+#     return product.product_price * cart_quantity(product,cart)
 @register.filter(name='total_price')
-def total_price(product,cart):
-    return product.product_price * cart_quantity(product,cart)
+def total_price(product, cart):
+    quantity = cart.get(str(product.id), 0)
+    return product.product_price * quantity
 
 @register.filter(name='total_cart_price')
-def total_cart_price(products,cart):
-    sum=0
+def total_cart_price(products, cart):
+    total = 0
     for p in products:
-        sum+=total_price(p,cart)
-    return sum
+        total += total_price(p, cart)
+    return total
+
+
 @register.filter(name='get_item')
 def get_item(dictionary, key):
     return dictionary.get(key)

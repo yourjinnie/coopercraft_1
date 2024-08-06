@@ -360,8 +360,10 @@
                                     <a href="#">
                                         <img src="{{ product.image.url }}" alt="cart_thumb1">{{ product.product_title }}
                                     </a>
-                                    <span class="cart_quantity">{{ request.session.cart|get_item:product.id|stringformat:"d" }} x
-                                      <span class="cart_amount">{{ product.product_price|currency }}</span></span>
+                                    <span class="cart_quantity">
+                                    {{ request.session.cart|cart_quantity:product.id }} x
+                                    <span class="cart_amount">{{ product.product_price|currency }}</span>
+                                    </span>
                                 </li>
                                 {% endfor %}
                             </ul>
