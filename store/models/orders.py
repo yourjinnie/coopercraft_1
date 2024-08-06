@@ -20,8 +20,22 @@ class Order(models.Model):
     zipcode = models.CharField(max_length=20, default='default_postal_code')
     country = models.CharField(max_length=100, default='default_country')
     phone_no = models.CharField(max_length=15, default='000-000-0000')
+    payment_option=models.CharField(max_length=150,null=False, default='default_option')
+    payment_id=models.CharField(max_length=150,null=True)
     date = models.DateField(default=datetime.datetime.today())
+    # created_at=models.DateTimeField(auto_now_add=True)
+    # updated_at=models.DateTimeField(auto_now=True)
+    # orderstatuses=(
+    #     ('Pending','Pending'),
+    #     ('Out For Shipping','Out For Shipping'),
+    #     ('Completed','Completed')
+    # )
+    # status = models.CharField(max_length=100,choices=orderstatuses, default='Pending')
     status = models.BooleanField(default=False)
+    message=models.TextField(null=True)
+    tracking_no=models.CharField(max_length=150,null=True)
+
+
 
 
     def place_order(self):

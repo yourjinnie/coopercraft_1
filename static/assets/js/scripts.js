@@ -544,6 +544,9 @@ PAGE JS
 //		preloader: false,
 //		fixedContentPos: false
 //	});
+
+
+
 $(document).ready(function() {
     // Initialize Magnific Popup for inline content
     $('.content-popup').magnificPopup({

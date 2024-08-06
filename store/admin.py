@@ -3,6 +3,7 @@ from store.models.products import Product
 from store.models.collections import Collection
 from store.models.categories import Category
 from store.models.orders import Order
+from store.models.order_item import OrderItem
 from store.models.register import Register
 from store.models.cart import Cart
 from store.models.cart_item import CartItem
@@ -25,6 +26,7 @@ admin.site.register(CartItem)
 admin.site.register(Wishlist)
 admin.site.register(Compare)
 admin.site.register(Order)
+admin.site.register(OrderItem)
 admin.site.register(Register)
 admin.site.register(Banner)
 admin.site.register(NewArrival)

@@ -5,6 +5,7 @@ from store.models.orders import Order
 from store.models.register import Register
 from store.models.address import Address
 from django.contrib import messages
+import random
 
 class CheckoutView(View):
     def get(self, request, *args, **kwargs):
@@ -34,6 +35,11 @@ class CheckoutView(View):
         billing_zipcode = request.POST.get('zipcode')
         billing_phone = request.POST.get('phone')
         billing_email = request.POST.get('email')
+        billing_payment_option=request.POST.get('payment_option')
+        tracno = 'coopcraft' + str(random.randint(1111111, 9999999))
+        while Order.objects.filter(tracking_no=tracno) is None:
+            tracno = 'coopcraft' + str(random.randint(1111111, 9999999))
+        billing_tracking_no = tracno
         shipping_different = request.POST.get('differentaddress')
 
         if shipping_different:
@@ -111,10 +117,13 @@ class CheckoutView(View):
                 address_line_1=billing_address1,
                 address_line_2=billing_address2,
                 phone_no=billing_phone,
+                payment_option=billing_payment_option,
+                tracking_no=billing_tracking_no,
                 quantity=cart.get(str(product.id))
             )
             saved_order = order.place_order()
 
+
         request.session['cart'] = {}
-        messages.success(request, 'Order successfully placed')
+        messages.success(request, 'Your Order has been Placed Successfully..')
         return redirect('homepage')
