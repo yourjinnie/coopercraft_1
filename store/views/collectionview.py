@@ -11,7 +11,16 @@ class CollectionDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         collection = self. get_object()
-        context['products'] = collection.product_set.all() # Add products to the context
+        # Get the price range from the request
+        min_price = self.request.GET.get('min_price')
+        max_price = self.request.GET.get('max_price')
+
+        # Filter products by the collection and price range
+        products = collection.product_set.all()
+        if min_price and max_price:
+            products = products.filter(sale_price__gte=min_price, sale_price__lte=max_price)
+
+        context['products'] = products
         context['collection'] = collection
 
         # Add browsing history products

@@ -12,10 +12,28 @@ def product_context_processors(request):
     products = Product.get_products_by_id(ids)
     return {'products':products}
 
-from store.models.products import Product
 
 def cart_products(request):
     cart = request.session.get('cart', {})
     cart_product_ids = cart.keys()
     cart_products = Product.objects.filter(id__in=cart_product_ids)
     return {'cart_products': cart_products}
+
+
+def product_list_context(request):
+    min_price = request.GET.get('min_price', None)
+    max_price = request.GET.get('max_price', None)
+
+    if min_price and max_price:
+        try:
+            min_price = float(min_price)
+            max_price = float(max_price)
+        except ValueError:
+            min_price = 0
+            max_price = 500
+    else:
+        min_price = 0
+        max_price = 500
+
+    products = Product.objects.filter(product_price__gte=min_price, product_price__lte=max_price)
+    return {'products': products}

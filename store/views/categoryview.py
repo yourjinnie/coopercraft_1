@@ -12,7 +12,16 @@ class CategoryDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         categories = Category.objects.all()
         category = self.get_object()
-        context['products'] = category.product_set.all()  # Add products to the context
+        # Get the price range from the request
+        min_price = self.request.GET.get('min_price')
+        max_price = self.request.GET.get('max_price')
+
+        # Filter products by the collection and price range
+        products = category.product_set.all()
+        if min_price and max_price:
+            products = products.filter(sale_price__gte=min_price, sale_price__lte=max_price)
+
+        context['products'] = products
         context['category'] = category
         context['categories'] = categories
 
