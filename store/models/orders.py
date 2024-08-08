@@ -51,3 +51,8 @@ class Order(models.Model):
             .objects \
             .filter(customer=user_id) \
             .order_by('-date')
+
+    # @staticmethod
+    # def get_order_by_customer(user_id):
+    #     # Adjust filter criteria based on your order statuses or types
+    #     return Order.objects.filter(customer=user_id).order_by('-date')

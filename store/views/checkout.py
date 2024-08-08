@@ -13,8 +13,11 @@ class CheckoutView(View):
         user = Register.objects.get(id=customer_id)
         billing_address = Address.objects.filter(user=user, address_type='billing').first()
         shipping_address = Address.objects.filter(user=user, address_type='shipping').first()
-
+        # Retrieve cart items from session
+        cart = request.session.get('cart', {})
+        products = Product.objects.filter(id__in=cart.keys())
         context = {
+            'products':products,
             'user': user,
             'billing_address': billing_address,
             'shipping_address': shipping_address,

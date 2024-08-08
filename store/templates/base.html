@@ -280,7 +280,7 @@
                             {% if request.session.user %}
                             <li>Welcome to {{request.session.user}}</li>
                             {% endif %}
-                            <li><a href="/compare"><i class="ti-control-shuffle"></i><span></span></a></li>
+                            <li><a href="/compare_products"><i class="ti-control-shuffle"></i><span></span></a></li>
                             <li><a href="/wishlist"><i class="ti-heart"></i><span></span></a></li>
                             <li>
                                 <a href="{% if request.session.user %}/my-account{% else %}/account{% endif %}">

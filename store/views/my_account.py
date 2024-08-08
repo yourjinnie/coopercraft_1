@@ -24,7 +24,7 @@ class MyAccount(View):
         context = {
             'billing_address': billing_address,
             'shipping_address': shipping_address,
-            'orders': orders
+            'orders': orders,
         }
 
         return render(request, 'my-accounts.html', context)

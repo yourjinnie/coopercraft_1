@@ -2,7 +2,7 @@
 {% block content %}
 
 <div class="breadcrumb_section bg_gray page-title-mini">
-    <div class="container"><!-- STRART CONTAINER -->
+    <div class="container">
         <div class="row align-items-center">
             <div class="col-md-6">
                 <div class="page-title">
@@ -17,8 +17,9 @@
                 </ol>
             </div>
         </div>
-    </div><!-- END CONTAINER-->
+    </div>
 </div>
+
 <div class="main_content position-relative" id="bambocraft">
 
     <!-- START SECTION SHOP -->
@@ -29,39 +30,51 @@
                     <div class="compare_box">
                         <div class="table-responsive">
                             <table class="table table-bordered text-center">
-                                <tbody>
-                                {% for product in products %}
-                                <tr class="pr_image">
-                                    <td class="row_title">Product Image</td>
-                                    <td class="row_img"><img
-                                            src="{{product.image.url}}"
-                                            alt="compare-img">
-                                    </td>
+                                <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    {% for product in same_category_products %}
+                                    <th>
+                                        <img src="{{ product.image.url }}" alt="{{ product.product_title }}"
+                                             style="height:80px;">
+                                        <br>
+                                        <a href="{% url 'product-detail' product.id %}">{{ product.product_title }}</a>
+                                    </th>
+                                    {% endfor %}
                                 </tr>
-                                <tr class="pr_title">
-                                    <td class="row_title">Product Name</td>
-                                    <td class="product_name"><a
-                                            href="product-detail.html">{{product.product_title}}</a>
-                                    </td>
+                                </thead>
+                                <tbody>
+                                <tr class="pr_image">
+                                    <td>Product Image</td>
+                                    {% for product in same_category_products %}
+                                    <td><img src="{{ product.image.url }}" alt="{{ product.product_title }}"
+                                             style="height:80px;"></td>
+                                    {% endfor %}
                                 </tr>
                                 <tr class="pr_price">
-                                    <td class="row_title">Price</td>
-                                    <td class="product_price"><span class="price">₹{{product.product_price}}</span></td>
+                                    <td>Price</td>
+                                    {% for product in same_category_products %}
+                                    <td>₹{{ product.product_price }}</td>
+                                    {% endfor %}
                                 </tr>
                                 <tr class="pr_rating">
-                                    <td class="row_title">Rating</td>
+                                    <td>Rating</td>
+                                    {% for product in same_category_products %}
                                     <td>
                                         <div class="rating_wrap">
                                             <div class="rating">
-                                                <div class="product_rate" style="width:80%"></div>
+                                                <div class="product_rate"
+                                                     style="width:{{ product.rating|floatformat:0 }}%"></div>
                                             </div>
-                                            <span class="rating_num">{{product.rating}}</span>
+                                            <span class="rating_num">{{ product.rating }}</span>
                                         </div>
                                     </td>
+                                    {% endfor %}
                                 </tr>
                                 <tr class="pr_add_to_cart">
-                                    <td class="row_title">Add To Cart</td>
-                                    <td class="row_btn">
+                                    <td>Add To Cart</td>
+                                    {% for product in same_category_products %}
+                                    <td>
                                         <a href="#" class="btn btn-fill-out"
                                            onclick="document.getElementById('add-to-cart-form-{{ product.id }}').submit(); return false;">
                                             <i class="icon-basket-loaded"></i> Add to Cart
@@ -73,59 +86,70 @@
                                             <input type="hidden" name="action" value="increase">
                                         </form>
                                     </td>
+                                    {% endfor %}
                                 </tr>
                                 <tr class="description">
-                                    <td class="row_title">Description</td>
-                                    <td class="row_text">
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting
-                                            industry. Lorem Ipsum has been the industry's standard dummy text
-                                            ever since the 1500s, when an unknown printer took a galley of type
-                                            and </p>
-                                    </td>
+                                    <td>Description</td>
+                                    {% for product in same_category_products %}
+                                    <td>{{ product.product_description|slice:":200" }}...</td>
+                                    {% endfor %}
                                 </tr>
                                 <tr class="pr_color">
-                                    <td class="row_title">Color</td>
-                                    <td class="row_color">
-                                        <div class="product_color_switch"> <span data-color="#87554B"
-                                                                                 style="background-color: rgb(135, 85, 75);"></span>
-                                            <span
-                                                    data-color="#333333"
-                                                    style="background-color: rgb(51, 51, 51);"></span> <span
-                                                    data-color="#DA323F"
-                                                    style="background-color: rgb(218, 50, 63);"></span></div>
+                                    <td>Color</td>
+                                    {% for product in same_category_products %}
+                                    <td>
+                                        <div class="product_color_switch">
+                                            {% for color in product.colors.all %}
+                                            <span data-color="{{ color.hex_code }}"
+                                                  style="background-color: {{ color.hex_code }};"></span>
+                                            {% endfor %}
+                                        </div>
                                     </td>
+                                    {% endfor %}
                                 </tr>
                                 <tr class="pr_size">
-                                    <td class="row_title">Sizes Available</td>
-                                    <td class="row_size"><span>S, M, L, XL</span></td>
+                                    <td>Sizes Available</td>
+                                    {% for product in same_category_products %}
+                                    <td>
+                                        {% for size in product.sizes.all %}
+                                        <span>{{ size.size }}</span>
+                                        {% endfor %}
+                                    </td>
+                                    {% endfor %}
                                 </tr>
                                 <tr class="pr_stock">
-                                    <td class="row_title">Item Availability</td>
-                                    <td class="row_stock"><span class="in-stock">In Stock</span></td>
-                                    <!--                                    <td class="row_stock"><span class="out-stock">Out Of Stock</span></td>-->
+                                    <td>Item Availability</td>
+                                    {% for product in same_category_products %}
+                                    <td><span class="in-stock">In Stock</span></td>
+                                    {% endfor %}
                                 </tr>
                                 <tr class="pr_weight">
-                                    <td class="row_title">Weight</td>
-                                    <td class="row_weight"></td>
+                                    <td>Weight</td>
+                                    {% for product in same_category_products %}
+                                    <td>N/A</td>
+                                    {% endfor %}
                                 </tr>
                                 <tr class="pr_dimensions">
-                                    <td class="row_title">Dimensions</td>
-                                    <td class="row_dimensions">N/A</td>
+                                    <td>Dimensions</td>
+                                    {% for product in same_category_products %}
+                                    <td>N/A</td>
+                                    {% endfor %}
                                 </tr>
                                 <tr class="pr_remove">
-                                    <td class="row_title">{{ product.name }}</td>
-                                    <td class="row_remove">
-                                        <form method="post" action="{% url 'clear_comparison' %}">
+                                    <td>Actions</td>
+                                    {% for product in same_category_products %}
+                                    <td>
+                                        <form method="post" action="#">
                                             {% csrf_token %}
-                                            <input type="hidden" name="product_id" value="{{ product.id }}">
+                                            <input type="hidden" name="product_id" value="{{ product.pk }}">
                                             <button type="submit" class="remove-compare-item"
                                                     style="background: none; border: none; color: inherit; cursor: pointer;">
                                                 <span>Remove</span> <i class="fa fa-times"></i>
                                             </button>
                                         </form>
                                     </td>
+                                    {% endfor %}
                                 </tr>
-                                {% endfor %}
                                 </tbody>
                             </table>
                         </div>
@@ -136,7 +160,7 @@
     </div>
     <!-- END SECTION SHOP -->
 
-
 </div>
 
 {% endblock %}
+

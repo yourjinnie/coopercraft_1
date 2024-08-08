@@ -1,6 +1,8 @@
 from django.db import models
 from store.models.collections import Collection
 from store.models.categories import Category
+from store.models.size import Size
+from store.models.colour import Color
 
 
 class Product(models.Model):
@@ -17,6 +19,8 @@ class Product(models.Model):
     image=models.ImageField(upload_to='images/')
     sales = models.IntegerField(default=0)  # Number of times the product has been sold
     type = models.CharField(max_length=255,default=1)  # Add this field to specify the product type
+    colors = models.ManyToManyField(Color, related_name='products', blank=True)
+    sizes = models.ManyToManyField(Size, related_name='products', blank=True)
     view_count = models.PositiveIntegerField(default=0)
 
     def __str__(self):

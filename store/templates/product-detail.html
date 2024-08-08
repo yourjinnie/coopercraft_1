@@ -73,12 +73,13 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="pr_detail">
                         <div class="product_description">
-                            <h4 class="product_title"><a href="#">{{prods.product_title}}</a></h4>
+                            <h4 class="product_title"><a href="#">{{ prods.product_title }}</a></h4>
                             <div class="product_price">
-                                <span class="price">{{prods.sale_price|currency}}</span>
-                                <del>{{prods.product_price|currency}}</del>
+                                <span id="current-price" class="price">{{ prods.sale_price|currency }}</span>
+                                <del>{{ prods.product_price|currency }}</del>
                                 <div class="on_sale">
-                                    <span>{{prods.product_price|offer_percentage:prods.sale_price}}%</span></div>
+                                    <span>{{ prods.product_price|offer_percentage:prods.sale_price }}%</span>
+                                </div>
                             </div>
                             <div class="rating_wrap">
                                 <div class="rating">
@@ -94,29 +95,26 @@
                             </div>
                             <div class="product_sort_info">
                                 <ul>
-                                    <li><i class="linearicons-shield-check"></i> 1 Year AL Jazeera Brand Warranty
-                                    </li>
+                                    <li><i class="linearicons-shield-check"></i> 1 Year AL Jazeera Brand Warranty</li>
                                     <li><i class="linearicons-sync"></i> 30 Day Return Policy</li>
                                     <li><i class="linearicons-bag-dollar"></i> Cash on Delivery available</li>
                                 </ul>
                             </div>
                             <div class="pr_switch_wrap">
-                                <span class="switch_lable">Color</span>
+                                <span class="switch_label">Color</span>
                                 <div class="product_color_switch">
-                                        <span class="active" data-color="#87554B"
-                                              style="background-color: rgb(135, 85, 75);"></span>
-                                    <span data-color="#333333" style="background-color: rgb(51, 51, 51);"></span>
-                                    <span data-color="#DA323F" style="background-color: rgb(218, 50, 63);"></span>
+                                    {% for color in colors %}
+                                    <span class="color-option" data-color-id="{{ color.id }}" style="background-color: {{ color.hex_code }}"></span>
+                                    {% endfor %}
                                 </div>
                             </div>
                             <div class="pr_switch_wrap">
-                                <span class="switch_lable">Size</span>
+                                <span class="switch_label">Size</span>
+
                                 <div class="product_size_switch">
-                                    <span>xs</span>
-                                    <span>s</span>
-                                    <span>m</span>
-                                    <span>l</span>
-                                    <span>xl</span>
+                                    {% for size in sizes %}
+                                    <span class="size-option" data-size-id="{{ size.id }}">{{ size.size }}</span>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -130,23 +128,17 @@
                                 </div>
                             </div>
                             <div class="cart_btn">
-                                <!-- Link that triggers form submission -->
                                 <a class="btn btn-fill-out btn-addtocart" type="button"
                                    onclick="document.getElementById('add-to-cart-form-{{ prods.id }}').submit(); return false;">
                                     <i class="icon-basket-loaded"></i> Add to cart
                                 </a>
-
-                                <!-- Hidden form that gets submitted -->
                                 <form id="add-to-cart-form-{{ prods.id }}" method="POST" action="{% url 'cart' %}"
                                       style="display:none;">
                                     {% csrf_token %}
                                     <input type="hidden" name="product_id" value="{{ prods.id }}">
                                     <input type="hidden" name="action" value="increase">
                                 </form>
-                                <!--                                                                <button class="btn btn-fill-out btn-addtocart" type="button"><i-->
-                                <!--                                                                            class="icon-basket-loaded"></i> Add to cart</button>-->
-                                <a href="{% url 'add_to_comparison' prods.id %}"><i
-                                                    class="icon-shuffle"></i></a>
+                                <a href="{% url 'compare_products' prods.pk %}"><i class="icon-shuffle"></i></a>
                                 <a href="{% url 'add_to_wishlist' prods.pk %}">
                                     <i class="icon-heart"></i></a>
                             </div>
@@ -157,21 +149,18 @@
                             <li>Category: <a href="#">Stone Carving</a></li>
                             <li>Tags: <a href="#" rel="tag">printed</a></li>
                         </ul>
-
                         <div class="product_share">
-                            <!--<span>Share:</span>						<ul class="social_icons">							<li><a href="#"><i class="ion-social-facebook"></i></a></li>							<li><a href="#"><i class="ion-social-twitter"></i></a></li>							<li><a href="#"><i class="ion-social-twitter"></i></a></li>							<li><a href="#"><i class="ion-social-youtube-outline"></i></a></li>							<li><a href="#"><i class="ion-social-instagram-outline"></i></a></li>						</ul>-->
                             <div class="thing">
                                 <div class="thing__content">
                                     <div class="thing__text"><i class="fa fa-share-square"></i>&nbsp;</div>
-                                    <a
-                                            class="thing__social thing__social--first thing__social--facebook"
-                                            href="#"><i class="ion-social-facebook"></i></a> <a
-                                        class="thing__social thing__social--twitter" href="#"><i
-                                        class="ion-social-twitter"></i></a> <a
-                                        class="thing__social thing__social--linkedin" href="#"><i
-                                        class="ion-social-linkedin"></i></a> <a
-                                        class="thing__social thing__social--last thing__social--google" href="#"><i
-                                        class="ion-social-google"></i></a>
+                                    <a class="thing__social thing__social--first thing__social--facebook" href="#"><i
+                                            class="ion-social-facebook"></i></a>
+                                    <a class="thing__social thing__social--twitter" href="#"><i
+                                            class="ion-social-twitter"></i></a>
+                                    <a class="thing__social thing__social--linkedin" href="#"><i
+                                            class="ion-social-linkedin"></i></a>
+                                    <a class="thing__social thing__social--last thing__social--google" href="#"><i
+                                            class="ion-social-google"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -343,71 +332,72 @@
             </div>
             <div class="row">
                 <div class="row">
-                {% for p in products %}
-                <div class="col-md-3">
-                    <div class="product">
-                        <div class="product_img"><a href="product-detail.php"> <img
-                                src="{{p.image.url}}" alt="product_img1"> </a>
-                            <div class="product_action_box">
-                                <ul class="list_none pr_action_btn">
-                                    <li class="add-to-cart">
-                                                <a href="#"
-                                                   onclick="document.getElementById('add-to-cart-form-{{ p.id }}').submit(); return false;">
-                                                    <i class="icon-basket-loaded"></i>
-                                                </a>
-                                                <form id="add-to-cart-form-{{ p.id }}" method="POST"
-                                                      action="{% url 'cart' %}" style="display:none;">
-                                                    {% csrf_token %}
-                                                    <input type="hidden" name="product_id" value="{{ p.id }}">
-                                                    <input type="hidden" name="action" value="increase">
-                                                    <!-- Add this hidden input -->
-                                                </form>
-                                            </li>
-                                            <li><a href="{% url 'add_to_comparison' p.id %}"><i
+                    {% for p in queryset %}
+                    <div class="col-md-3">
+                        <div class="product">
+                            <div class="product_img"><a href="product-detail.php"> <img
+                                    src="{{p.image.url}}" alt="product_img1"> </a>
+                                <div class="product_action_box">
+                                    <ul class="list_none pr_action_btn">
+                                        <li class="add-to-cart">
+                                            <a href="#"
+                                               onclick="document.getElementById('add-to-cart-form-{{ p.id }}').submit(); return false;">
+                                                <i class="icon-basket-loaded"></i>
+                                            </a>
+                                            <form id="add-to-cart-form-{{ p.id }}" method="POST"
+                                                  action="{% url 'cart' %}" style="display:none;">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="product_id" value="{{ p.id }}">
+                                                <input type="hidden" name="action" value="increase">
+                                                <!-- Add this hidden input -->
+                                            </form>
+                                        </li>
+                                       <li><a href="{% url 'compare_products' p.pk %}"><i
                                                     class="icon-shuffle"></i></a></li>
-                                            <li><a href="#" class="popup-ajax"><i
-                                                    class="icon-magnifier-add"></i></a></li>
-                                            <li><a href="{% url 'add_to_wishlist' p.pk %}">
-                                                <i class="icon-heart"></i>
-                                            </a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="product_info">
-                            <h6 class="product_title"><a href="/products/{{p.id}}">{{p.product_title}}</a></h6>
-                            <div class="product_price">
-                                        <span class="price">{{p.sale_price|currency}}</span>
-                                        <del>{{p.product_price|currency}}</del>
-                                        <div class="on_sale"><span>{{p.product_price|offer_percentage:p.sale_price}}%</span></div>
-                                    </div>
-                            <div class="rating_wrap">
-                                <div class="rating">
-                                    <div class="product_rate" style="width:80%"></div>
-                                </div>
-                                <div class="thing">
-                                    <div class="thing__content">
-                                        <div class="thing__text"><i class="fa fa-share-square"></i>&nbsp;</div>
-                                        <a
-                                                class="thing__social thing__social--first thing__social--facebook"
-                                                href="#"><i class="ion-social-facebook"></i></a> <a
-                                            class="thing__social thing__social--twitter" href="#"><i
-                                            class="ion-social-twitter"></i></a> <a
-                                            class="thing__social thing__social--linkedin" href="#"><i
-                                            class="ion-social-linkedin"></i></a> <a
-                                            class="thing__social thing__social--last thing__social--google"
-                                            href="#"><i class="ion-social-google"></i></a>
-                                    </div>
+                                        <li><a href="#" class="popup-ajax"><i
+                                                class="icon-magnifier-add"></i></a></li>
+                                        <li><a href="{% url 'add_to_wishlist' p.pk %}">
+                                            <i class="icon-heart"></i>
+                                        </a></li>
+                                    </ul>
                                 </div>
                             </div>
-                            <div class="pr_desc">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa
-                                    enim. Nullam id varius nunc id varius nunc.</p>
+                            <div class="product_info">
+                                <h6 class="product_title"><a href="/products/{{p.id}}">{{p.product_title}}</a></h6>
+                                <div class="product_price">
+                                    <span class="price">{{p.sale_price|currency}}</span>
+                                    <del>{{p.product_price|currency}}</del>
+                                    <div class="on_sale"><span>{{p.product_price|offer_percentage:p.sale_price}}%</span>
+                                    </div>
+                                </div>
+                                <div class="rating_wrap">
+                                    <div class="rating">
+                                        <div class="product_rate" style="width:80%"></div>
+                                    </div>
+                                    <div class="thing">
+                                        <div class="thing__content">
+                                            <div class="thing__text"><i class="fa fa-share-square"></i>&nbsp;</div>
+                                            <a
+                                                    class="thing__social thing__social--first thing__social--facebook"
+                                                    href="#"><i class="ion-social-facebook"></i></a> <a
+                                                class="thing__social thing__social--twitter" href="#"><i
+                                                class="ion-social-twitter"></i></a> <a
+                                                class="thing__social thing__social--linkedin" href="#"><i
+                                                class="ion-social-linkedin"></i></a> <a
+                                                class="thing__social thing__social--last thing__social--google"
+                                                href="#"><i class="ion-social-google"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pr_desc">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus blandit massa
+                                        enim. Nullam id varius nunc id varius nunc.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
-            </div>
             </div>
         </div>
     </div>
@@ -440,7 +430,7 @@
                                                     <!-- Add this hidden input -->
                                                 </form>
                                             </li>
-                                            <li><a href="{% url 'add_to_comparison' item.id %}"><i
+                                            <li><a href="{% url 'compare_products' item.pk %}"><i
                                                     class="icon-shuffle"></i></a></li>
                                             <li><a href="#" class="popup-ajax"><i
                                                     class="icon-magnifier-add"></i></a></li>
@@ -450,11 +440,13 @@
                                     </div>
                                 </div>
                                 <div class="product_info">
-                                    <h6 class="product_title"><a href="/products/{{item.id}}">{{item.product_title}}</a></h6>
+                                    <h6 class="product_title"><a href="/products/{{item.id}}">{{item.product_title}}</a>
+                                    </h6>
                                     <div class="product_price">
                                         <span class="price">{{item.sale_price|currency}}</span>
                                         <del>{{item.product_price|currency}}</del>
-                                        <div class="on_sale"><span>{{item.product_price|offer_percentage:item.sale_price}}%</span></div>
+                                        <div class="on_sale"><span>{{item.product_price|offer_percentage:item.sale_price}}%</span>
+                                        </div>
                                     </div>
                                     <div class="rating_wrap">
                                         <div class="rating">
@@ -492,6 +484,41 @@
 
 
 </div>
+<!--For Size and Color-->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let selectedColorId = null;
+        let selectedSizeId = null;
+
+
+        document.querySelectorAll('.color-option').forEach(colorOption => {
+            colorOption.addEventListener('click', function () {
+                selectedColorId = this.getAttribute('data-color-id');
+                updateProductDetails();
+            });
+        });
+
+
+        document.querySelectorAll('.size-option').forEach(sizeOption => {
+            sizeOption.addEventListener('click', function () {
+                selectedSizeId = this.getAttribute('data-size-id');
+                updateProductDetails();
+            });
+        });
+
+
+        function updateProductDetails() {
+            if (selectedColorId && selectedSizeId) {
+                fetch(`/get_variant_price/?product_id={{ prods.id }}&color_id=${selectedColorId}&size_id=${selectedSizeId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('current-price').textContent = data.sale_price;
+                        document.getElementById('product_img').src = data.image_url;
+                    });
+            }
+        }
+    });
+</script>
 
 
 {% endblock %}

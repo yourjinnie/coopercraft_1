@@ -12,6 +12,9 @@ from store.models.compare import Compare
 from store.models.banner import Banner
 from store.models.new_arrival import NewArrival
 from store.models.address import Address
+from store.models.size import Size
+from store.models.colour import Color
+from store.models.product_attr import ProductAttribute
 
 
 @admin.register(Product)
@@ -31,6 +34,9 @@ admin.site.register(Register)
 admin.site.register(Banner)
 admin.site.register(NewArrival)
 admin.site.register(Address)
+admin.site.register(Size)
+admin.site.register(Color)
+admin.site.register(ProductAttribute)
 
 
 
