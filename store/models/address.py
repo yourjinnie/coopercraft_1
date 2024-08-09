@@ -4,6 +4,7 @@ from store.models.register import Register
 class Address(models.Model):
     user = models.ForeignKey(Register, on_delete=models.CASCADE)
     address_type = models.CharField(max_length=50)  # 'billing' or 'shipping'
+    # address_type = models.CharField(max_length=1, choices=(('B', 'Billing'), ('S', 'Shipping')))
     first_name = models.CharField(max_length=100,default='default_first_name')
     last_name = models.CharField(max_length=100, default='default_last_name')
     company_name = models.CharField(max_length=100, default='default_company_name')
@@ -15,6 +16,8 @@ class Address(models.Model):
     country = models.CharField(max_length=100)
     phone = models.CharField(max_length=20, blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
+
+
 
     def __str__(self):
         return f"{self.address_type} - {self.user.name}"

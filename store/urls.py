@@ -35,7 +35,8 @@ from store.views.top_selling_product import TopSellingProductsView
 from store.views.remove_copmpare_products import ClearComparisonView
 from store.views.compare import CompareProductsView
 from store.views.price_vary import GetPrice
-# from store.views.review_view import AddReviewView
+from store.views.edit_bill_add import EditBillingAddressView
+from store.views.edit_ship_add import EditShippingAddressView
 from store.middleware.auth import auth_middleware
 
 
@@ -77,7 +78,8 @@ urlpatterns = [
     path('compare/<int:pk>', CompareProductsView.as_view(), name='compare_products'),
     path('clear_comparison/', ClearComparisonView.as_view(), name='clear_comparison'),
     path('get_variant_price/', GetPrice.as_view(), name='get_variant_price'),
-    # path('add-review/<int:pk>/', AddReviewView.as_view(), name='add_review'),
+    path('edit-billing-address/', EditBillingAddressView.as_view(), name='edit_billing_address'),
+    path('edit-shipping-address/', EditShippingAddressView.as_view(), name='edit_shipping_address'),
 
 
 ]
