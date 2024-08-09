@@ -132,7 +132,7 @@
                                             </li>
                                             <li><a href="{% url 'compare_products' product.pk %}"><i
                                                     class="icon-shuffle"></i></a></li>
-                                            <li><a href="#" class="popup-ajax"><i
+                                            <li><a href="{{ product.image.url }}" class="popup-ajax"><i
                                                     class="icon-magnifier-add"></i></a></li>
                                             <li><a href="{% url 'add_to_wishlist' product.pk %}">
                                                 <i class="icon-heart"></i>
@@ -231,7 +231,7 @@
                                             </li>
                                             <li><a href="{% url 'compare_products' product.pk %}"><i
                                                     class="icon-shuffle"></i></a></li>
-                                            <li><a href="#" class="popup-ajax"><i
+                                            <li><a href="{{ product.image.url }}" class="popup-ajax"><i
                                                     class="icon-magnifier-add"></i></a></li>
                                             <li><a href="{% url 'add_to_wishlist' product.pk %}">
                                                 <i class="icon-heart"></i>

@@ -30,54 +30,61 @@
                     <div class="compare_box">
                         <div class="table-responsive">
                             <table class="table table-bordered text-center">
-                                <thead>
-                                <tr>
-                                    <th>Feature</th>
-                                    {% for product in same_category_products %}
-                                    <th>
+                                <tbody>
+                                <!-- Product Image Row -->
+                                <tr class="pr_image">
+                                    <td class="row_title">Product Image</td>
+                                    {% for product in combined_products %}
+                                    <td class="row_img">
                                         <img src="{{ product.image.url }}" alt="{{ product.product_title }}"
                                              style="height:80px;">
-                                        <br>
+                                    </td>
+                                    {% endfor %}
+                                </tr>
+
+                                <!-- Product Name Row -->
+                                <tr class="pr_title">
+                                    <td class="row_title">Product Name</td>
+                                    {% for product in combined_products %}
+                                    <td class="product_name">
                                         <a href="{% url 'product-detail' product.id %}">{{ product.product_title }}</a>
-                                    </th>
+                                    </td>
                                     {% endfor %}
                                 </tr>
-                                </thead>
-                                <tbody>
-                                <tr class="pr_image">
-                                    <td>Product Image</td>
-                                    {% for product in same_category_products %}
-                                    <td><img src="{{ product.image.url }}" alt="{{ product.product_title }}"
-                                             style="height:80px;"></td>
-                                    {% endfor %}
-                                </tr>
+
+                                <!-- Price Row -->
                                 <tr class="pr_price">
-                                    <td>Price</td>
-                                    {% for product in same_category_products %}
-                                    <td>₹{{ product.product_price }}</td>
+                                    <td class="row_title">Price</td>
+                                    {% for product in combined_products %}
+                                    <td class="product_price"><span class="price">₹{{ product.product_price }}</span>
+                                    </td>
                                     {% endfor %}
                                 </tr>
+
+                                <!-- Rating Row -->
                                 <tr class="pr_rating">
-                                    <td>Rating</td>
-                                    {% for product in same_category_products %}
+                                    <td class="row_title">Rating</td>
+                                    {% for product in combined_products %}
                                     <td>
                                         <div class="rating_wrap">
                                             <div class="rating">
                                                 <div class="product_rate"
                                                      style="width:{{ product.rating|floatformat:0 }}%"></div>
                                             </div>
-                                            <span class="rating_num">{{ product.rating }}</span>
+                                            <span class="rating_num">({{ product.rating }})</span>
                                         </div>
                                     </td>
                                     {% endfor %}
                                 </tr>
+
+                                <!-- Add to Cart Row -->
                                 <tr class="pr_add_to_cart">
-                                    <td>Add To Cart</td>
-                                    {% for product in same_category_products %}
-                                    <td>
+                                    <td class="row_title">Add To Cart</td>
+                                    {% for product in combined_products %}
+                                    <td class="row_btn">
                                         <a href="#" class="btn btn-fill-out"
                                            onclick="document.getElementById('add-to-cart-form-{{ product.id }}').submit(); return false;">
-                                            <i class="icon-basket-loaded"></i> Add to Cart
+                                            <i class="icon-basket-loaded"></i> Add To Cart
                                         </a>
                                         <form id="add-to-cart-form-{{ product.id }}" method="POST"
                                               action="{% url 'cart' %}" style="display:none;">
@@ -88,16 +95,22 @@
                                     </td>
                                     {% endfor %}
                                 </tr>
+
+                                <!-- Description Row -->
                                 <tr class="description">
-                                    <td>Description</td>
-                                    {% for product in same_category_products %}
-                                    <td>{{ product.product_description|slice:":200" }}...</td>
+                                    <td class="row_title">Description</td>
+                                    {% for product in combined_products %}
+                                    <td class="row_text">
+                                        <p>{{ product.product_description|slice:":200" }}...</p>
+                                    </td>
                                     {% endfor %}
                                 </tr>
+
+                                <!-- Color Row -->
                                 <tr class="pr_color">
-                                    <td>Color</td>
-                                    {% for product in same_category_products %}
-                                    <td>
+                                    <td class="row_title">Color</td>
+                                    {% for product in combined_products %}
+                                    <td class="row_color">
                                         <div class="product_color_switch">
                                             {% for color in product.colors.all %}
                                             <span data-color="{{ color.hex_code }}"
@@ -107,41 +120,55 @@
                                     </td>
                                     {% endfor %}
                                 </tr>
+
+                                <!-- Sizes Available Row -->
                                 <tr class="pr_size">
-                                    <td>Sizes Available</td>
-                                    {% for product in same_category_products %}
-                                    <td>
+                                    <td class="row_title">Sizes Available</td>
+                                    {% for product in combined_products %}
+                                    <td class="row_size">
                                         {% for size in product.sizes.all %}
                                         <span>{{ size.size }}</span>
                                         {% endfor %}
                                     </td>
                                     {% endfor %}
                                 </tr>
+
+                                <!-- Item Availability Row -->
                                 <tr class="pr_stock">
-                                    <td>Item Availability</td>
-                                    {% for product in same_category_products %}
-                                    <td><span class="in-stock">In Stock</span></td>
+                                    <td class="row_title">Item Availability</td>
+                                    {% for product in combined_products %}
+                                    <td class="row_stock">
+                                                <span class="{% if product.stock > 0 %}in-stock{% else %}out-stock{% endif %}">
+                                                    {% if product.stock > 0 %}In Stock{% else %}Out Of Stock{% endif %}
+                                                </span>
+                                    </td>
                                     {% endfor %}
                                 </tr>
+
+                                <!-- Weight Row -->
                                 <tr class="pr_weight">
-                                    <td>Weight</td>
-                                    {% for product in same_category_products %}
-                                    <td>N/A</td>
+                                    <td class="row_title">Weight</td>
+                                    {% for product in combined_products %}
+                                    <td class="row_weight">{{ product.weight|default:"N/A" }}</td>
                                     {% endfor %}
                                 </tr>
+
+                                <!-- Dimensions Row -->
                                 <tr class="pr_dimensions">
-                                    <td>Dimensions</td>
-                                    {% for product in same_category_products %}
-                                    <td>N/A</td>
+                                    <td class="row_title">Dimensions</td>
+                                    {% for product in combined_products %}
+                                    <td class="row_dimensions">{{ product.dimensions|default:"N/A" }}</td>
                                     {% endfor %}
                                 </tr>
+
+                                <!-- Remove Product Row -->
                                 <tr class="pr_remove">
-                                    <td>Actions</td>
-                                    {% for product in same_category_products %}
-                                    <td>
-                                        <form method="post" action="#">
+                                    <td class="row_title"></td>
+                                    {% for product in combined_products %}
+                                    <td class="row_remove">
+                                        <form method="post" action="{% url 'clear_comparison' %}">
                                             {% csrf_token %}
-                                            <input type="hidden" name="product_id" value="{{ product.pk }}">
+                                            <input type="hidden" name="product_id" value="{{ product.id }}">
                                             <button type="submit" class="remove-compare-item"
                                                     style="background: none; border: none; color: inherit; cursor: pointer;">
                                                 <span>Remove</span> <i class="fa fa-times"></i>
@@ -163,4 +190,3 @@
 </div>
 
 {% endblock %}
-

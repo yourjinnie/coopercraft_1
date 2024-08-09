@@ -28,6 +28,10 @@ class CollectionDetailView(DetailView):
         history_products = Product.objects.filter(id__in=history)
         context['history_products'] = history_products
 
+        # For Inspired By
+        queryset = Product.objects.order_by('-view_count')[:4]  # Top 4 popular products
+        context['queryset'] = queryset
+
         # Fetch cart products
         cart = self.request.session.get('cart', {})
         cart_product_ids = cart.keys()

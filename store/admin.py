@@ -15,6 +15,7 @@ from store.models.address import Address
 from store.models.size import Size
 from store.models.colour import Color
 from store.models.product_attr import ProductAttribute
+from store.models.review import Review
 
 
 @admin.register(Product)
@@ -37,6 +38,7 @@ admin.site.register(Address)
 admin.site.register(Size)
 admin.site.register(Color)
 admin.site.register(ProductAttribute)
+admin.site.register(Review)
 
 
 

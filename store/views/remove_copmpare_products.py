@@ -1,5 +1,6 @@
-from django.shortcuts import redirect
+from django.shortcuts import redirect,render
 from django.views import View
+from store.models.products import Product
 
 class ClearComparisonView(View):
     def post(self, request, *args, **kwargs):
@@ -11,8 +12,8 @@ class ClearComparisonView(View):
                 compare_products.remove(product_id)
                 request.session['compare_products'] = compare_products
 
-        return redirect('homepage')  # Ensure this name matches the URL pattern name
-
+        # return redirect('compare_products')  # Ensure this name matches the URL pattern name
+        return render(request,'compare.html')
 
 
 

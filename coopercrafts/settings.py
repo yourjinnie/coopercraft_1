@@ -84,6 +84,7 @@ TEMPLATES = [
                 'store.context_processors.product_context_processors',#Added Manually
                 'store.context_processors.cart_products',  # Add this line
                 'store.context_processors.product_list_context', #For filter Product
+                'store.context_processors.compare_products_count', #For compare list save
             ],
         },
     },

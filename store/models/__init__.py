@@ -13,6 +13,7 @@ from store.models.new_arrival import NewArrival
 from store.models.address import Address
 from store.models.size import Size
 from store.models.colour import Color
+from store.models.review import Review
 from store.models.product_attr import ProductAttribute
 
 

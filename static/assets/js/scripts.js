@@ -547,6 +547,7 @@ PAGE JS
 
 
 
+
 $(document).ready(function() {
     // Initialize Magnific Popup for inline content
     $('.content-popup').magnificPopup({
@@ -583,7 +584,10 @@ $(document).ready(function() {
     }
 
     // Call the function to initialize Magnific Popup for AJAX
-    ajax_magnificPopup();
+//    ajax_magnificPopup();
+    function galleryZoomProduct() {
+    $('.your-zoom-target').zoom();  // Assuming you're using a plugin like jQuery Zoom
+}
 
     // Initialize Magnific Popup for video and iframe content
     $('.video_popup, .iframe_popup').magnificPopup({

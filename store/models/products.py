@@ -29,6 +29,7 @@ class Product(models.Model):
     class Meta:
         ordering = ['-sales']  # Sort products by sales in descending order
 
+
     @staticmethod
     def get_all_products():
         return Product.objects.all()

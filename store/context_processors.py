@@ -1,6 +1,7 @@
 from store.models.categories import Category
 from store.models.products import Product
 
+
 def category_context_processors(request):
     categories=Category.objects.all()
     return {'categories':categories}
@@ -37,3 +38,11 @@ def product_list_context(request):
 
     products = Product.objects.filter(product_price__gte=min_price, product_price__lte=max_price)
     return {'products': products}
+
+
+def compare_products_count(request):
+    product_ids = request.session.get('compare_products', [])
+    compare_count = len(product_ids)
+    return {
+        'compare_count': compare_count
+    }

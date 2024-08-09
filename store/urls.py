@@ -32,10 +32,10 @@ from store.views.logout import Logout
 from store.views.remove_wishlist import RemoveFromWishlistView
 from store.views.add_to_wishlist import AddToWishlistView
 from store.views.top_selling_product import TopSellingProductsView
-from store.views.add_to_compare import AddToComparisonView
 from store.views.remove_copmpare_products import ClearComparisonView
 from store.views.compare import CompareProductsView
 from store.views.price_vary import GetPrice
+# from store.views.review_view import AddReviewView
 from store.middleware.auth import auth_middleware
 
 
@@ -74,11 +74,10 @@ urlpatterns = [
     path('wishlist/add/<int:pk>/', AddToWishlistView.as_view(), name='add_to_wishlist'),
     path('ajax-popup/', AjaxPopupView.as_view(), name='ajax_popup'),
     path('top-selling-products/<int:prod_id>', TopSellingProductsView.as_view(), name='top_selling_products'),
-    path('add_to_comparison/<int:product_id>/', AddToComparisonView.as_view(), name='add_to_comparison'),
     path('compare/<int:pk>', CompareProductsView.as_view(), name='compare_products'),
     path('clear_comparison/', ClearComparisonView.as_view(), name='clear_comparison'),
     path('get_variant_price/', GetPrice.as_view(), name='get_variant_price'),
-
+    # path('add-review/<int:pk>/', AddReviewView.as_view(), name='add_review'),
 
 
 ]
